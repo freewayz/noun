@@ -1,0 +1,211 @@
+group = "com.noun"
+version = "1.0.0-SNAPSHOT"
+description = "NOUN"
+
+def moduleName = "${rootProject.name}"
+def projectName = "noun"
+def archivePath = "${project.buildDir}${File.separator}libs${File.separator}${moduleName}-${version}.war"
+def glassfishHome = "${glassfishHome}${File.separator}bin"
+def deployedAppDir = "${deploymentDir}${File.separator}${moduleName}"
+def deployedClassesDir = "${deployedAppDir}${File.separator}WEB-INF${File.separator}classes"
+def buildClassesDir = "${project.buildDir}${File.separator}classes${File.separator}main"
+def warDir = "${rootDir}${File.separator}war"
+def warClassesDir = "${warDir}${File.separator}WEB-INF${File.separator}classes"
+def cssDir = "${rootDir}${File.separator}src${File.separator}main${File.separator}webapp${File.separator}css"
+def deployedCssDir = "${deployedAppDir}${File.separator}css"
+
+def isWindows() {
+//    return Os.isFamily(Os.FAMILY_WINDOWS)
+    return System.properties["os.name"].toLowerCase().contains("windows")
+}
+
+def asadmin() {
+    if (isWindows()) {
+        return ["cmd", "/c", "asadmin"]
+    } else {
+        return "./asadmin"
+    }
+}
+
+def touch() {
+    if (isWindows()) {
+        return ["copy", "/b"]
+    } else {
+        return "touch"
+    }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: "maven"
+apply plugin: "war"
+apply plugin: "java"
+apply plugin: "findbugs"
+apply plugin: "idea"
+
+jar {
+    manifest.attributes['Implementation-Title'] = "test"
+}
+
+//set the findbugs configuration
+findbugs {
+    sourceSets = [sourceSets.main]
+    ignoreFailures = true
+    reportsDir = file("$project.buildDir/findbugsReports")
+    effort = "min"
+    reportLevel = "high"
+    visitors = ["FindSqlInjection", "SwitchFallthrough"]
+    omitVisitors = ["FindNonShortCircuit"]
+//    includeFilter = file("$rootProject.projectDir/config/findbugs/includeFilter.xml")
+//    excludeFilter = file("$rootProject.projectDir/config/findbugs/excludeFilter.xml")
+}
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.gradle.org/gradle/libs-releases-local" }
+}
+
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.2"
+}
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main { compileClasspath += configurations.provided }
+}
+
+dependencies {
+
+//    itestCompile sourceSets.main.output
+//    itestCompile configurations.testCompile
+//    itestCompile sourceSets.test.output
+//    itestRuntime configurations.testRuntime
+
+
+    compile group: "org.eclipse.persistence", name: "eclipselink", version: "2.4.2"
+    compile group: "org.eclipse.persistence", name: "javax.persistence", version: "2.1.0"
+    compile group: "javax.ejb", name: "javax.ejb-api", version: "3.2"
+    compile group: "com.google.code.gson", name: "gson", version: "2.3.1"
+    provided group: "javax", name: "javaee-api", version: "7.0"
+    compile group: "javax.validation", name: "validation-api", version: "1.0.0.GA"
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.6'
+    compile 'org.glassfish.jersey.media:jersey-media-multipart:2.6'
+    compile 'org.glassfish.jersey.media:jersey-media-json-processing:2.6'
+    compile 'org.glassfish.jersey.core:jersey-client:2.6'
+    compile ('org.glassfish.jersey.containers:jersey-container-servlet:2.6'){
+        exclude group : "com.sun.jersey", module : "jersey-core"
+    }
+    compile 'com.fasterxml.jackson.core:jackson-core:2.5.0'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.0'
+
+
+
+    testCompile 'org.glassfish.jersey.core:jersey-client:2.6'
+    testCompile 'org.glassfish.jersey.test-framework:jersey-test-framework-core:2.17'
+    testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.17'
+    testCompile group: "mysql", name: "mysql-connector-java", version: "5.1.34"
+    testCompile group:'com.jayway.restassured', name:'rest-assured', version:'2.4.1'
+    testCompile group: "junit", name: "junit", version: "4.11"
+    testCompile group: "org.glassfish.extras", name: "glassfish-embedded-all", version: "3.1"
+    testCompile group: "org.jboss.arquillian", name: "arquillian-bom", version: "1.1.5.Final"
+    testCompile group: "org.jboss.arquillian.extension", name: "arquillian-drone-bom", version: "2.0.0.Alpha3"
+    testCompile group: "org.jboss.arquillian.junit", name: "arquillian-junit-container", version: "1.1.5.Final"
+    testCompile 'org.jboss.arquillian.container:arquillian-glassfish-embedded-3.1:1.0.0.CR3'
+    testCompile group: "org.jboss.arquillian.graphene", name: "graphene-webdriver", version: "2.1.0.Alpha2"
+    testCompile group: "org.jboss.shrinkwrap.resolver", name: "shrinkwrap-resolver-gradle-depchain", version: "2.2.0-beta-1"
+
+
+//    testRuntime files(glassfishHome + File.separator + "glassfish" + File.separator + "lib" + File.separator +
+//            "embedded" + File.separator + "glassfish-embedded-static-shell.jar")
+
+}
+
+test {
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+}
+
+task deploy(dependsOn: "war", type: Exec) {
+    workingDir glassfishHome
+    commandLine asadmin()
+    args "deploy", "--force=true", "--name=${moduleName}", "${archivePath}"
+//    args "deploy", "--force=true", "--debug", "--name=${moduleName}", "${archivePath}"
+}
+
+task undeploy(type: Exec) {
+    workingDir glassfishHome
+    commandLine asadmin()
+    args "undeploy", "${moduleName}"
+}
+
+task redeployApp(dependsOn: "copyForReload", type: Exec) {
+    workingDir glassfishHome
+    commandLine asadmin()
+    args "redeploy", "--keepstate=true", "--name=${moduleName}", "${archivePath}"
+}
+
+task redeploy() {
+    dependsOn "redeployApp"
+}
+
+task reloadClient(dependsOn: "copyForReload", type: Exec) {
+    workingDir deployedAppDir
+    commandLine touch()
+    if (isWindows()) {
+        // Ref: http://superuser.com/a/764721
+        args "${deployedAppDir}${File.separator}.reload", "+,,"
+    } else {
+        args "${deployedAppDir}${File.separator}.reload"
+    }
+}
+
+task copyForReload(dependsOn: "war", type: Copy) {
+    from zipTree(file("${archivePath}"))
+    into file("${deployedAppDir}")
+}
+
+task reload() {
+    dependsOn "reloadClient"
+}
+
+
+sourceSets{
+    main { compileClasspath += configurations.provided }
+    itest {
+        java.srcDir file('src/itest/java')
+        resources.srcDir file('src/itest/resources')
+    }
+}
+
+
+task itest(type: Test){
+    description = "Runs the integration tests for safhrms"
+    testClassesDir = sourceSets.itest.output.classesDir
+    classpath = sourceSets.itest.runtimeClasspath
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+}
+
+//configure findbug plugin to generate report in html instead of xml
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "ONLINE_NOUN_UI",
+  "version": "0.0.1",
+  "description": "Flexisaf HRMS UI using React, Reflux and JQuery for communication with RestFull API",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "6to5ify": "~4.1.1",
+    "bootstrap": "~3.3.5",
+    "browserify": "~11.0.1",
+    "fetch": "~0.3.6",
+    "font-awesome": "~4.4.0",
+    "gulp": "~3.9.0",
+    "jquery": "~2.1.4",
+    "metismenu": "~2.1.0",
+    "react": "~0.13.3",
+    "react-router": "~0.13.3",
+    "reactify": "~1.1.1",
+    "reflux": "^0.2.12",
+    "vinyl-source-stream": "~1.1.0",
+    "watchify": "~3.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abdul Azeez Idris",
+  "license": "BSD-2-Clause"
+}
