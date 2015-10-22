@@ -51,7 +51,7 @@ var data = [{
     }
 ];
 
-var headerData = ["Name", "Dept", "Faculty", "Course", "Date", "URL"];
+var headerData = ["Name", "Dept", "Faculty", "Course", "Date", "URL", "EDIT", "DELETE"];
 
 var ResourceComponent = React.createClass({
 
@@ -62,17 +62,19 @@ var ResourceComponent = React.createClass({
     },
 
     componentDidMount(){
-        ApplicationAction.getAllResources("Maths", "Science");
+        ApplicationAction.getAllResources();
         this.listenTo(ApplicationStore.resourcesData, this.setResources);
         console.log("Value is " + this.state.resourcesData);
     },
 
+    componentWillMount : function () {
+        //ApplicationAction.getAllResources("Maths", "Science");
+    },
     getInitialState: function () {
         return {
             resources: {data}
         }
     },
-
 
     render: function () {
         return(

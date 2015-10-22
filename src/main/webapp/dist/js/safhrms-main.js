@@ -31,7 +31,9 @@ function drainQueue() {
         currentQueue = queue;
         queue = [];
         while (++queueIndex < len) {
-            currentQueue[queueIndex].run();
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
         }
         queueIndex = -1;
         len = queue.length;
@@ -83,7 +85,6 @@ process.binding = function (name) {
     throw new Error('process.binding is not supported');
 };
 
-// TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
@@ -67804,31 +67805,92 @@ module.exports = function(arr, fn, initial){
 var Reflux = require('reflux');
 var Request = require('superagent');
 
-var api ={
-    BASE_ROOT : 'http://localhost:8080/noun/api/noun',
-    CREATE_RESOURCE : this.BASE_ROOT +'create-resource',
-    GET_RESOURCE_BASED_ON_DEPT_FACULTY : "/resources/"
+
+var sendAjaxRequest = function (options) {
+    return new Promise(function (resolve, reject) {
+        var request = new XMLHttpRequest();
+        request.open(options.method, options.url);
+
+        //console.log(`Sending ${options.method} Request to ${options.url}`);
+        console.log("Insede FxApi");
+        options.data ? request.send(JSON.stringify(options.data)) : request.send();
+
+        request.onload = function () {
+            var result = {
+                status: request.status,
+                data: JSON.parse(request.responseText)
+            };
+            if (result.status >= 200 && result.status <= 299) {
+                console.log('Response: ', result.data);
+                resolve(result);
+            } else {
+                console.log('Response: ', result.data);
+                reject(result);
+            }
+        };
+
+        request.onerror = function () {
+            console.log('Response: ', result.data);
+            reject({status: 500, data: 'Connection error'});
+        }
+    });
+};
+var api = {
+    BASE_ROOT: 'http://localhost:8080/noun/api/noun',
+    CREATE_RESOURCE: 'create-resource',
+    GET_RESOURCE_BASED_ON_DEPT_FACULTY: "/resources/",
+    RESOURCE: "/resources/",
+    USER: "users/",
+    GET_ALL_RESOURCE: 'all',
+    REGISTRATION: 'create'
+};
+
+var apiHeaders = {
+    'Accept': '*/*',
+    'Content-Type': 'application/json'
 };
 
 var ApplicationAction = Reflux.createActions({
 
-    'makeRegistration': {children : ['completed', 'failed']},
-    'createResources':{},
-    'getAllResources':{}
+    'makeRegistration': {children: ['completed', 'failed']},
+    'createResources': {children: ['completed', 'failed']},
+    'getAllResources': {children: ['completed', 'failed']},
+    'getResourceByDeptFaculty': {children: ['completed', 'failed']}
 });
 
 
 ApplicationAction.makeRegistration.listen(function (resourceJson) {
-    Request.post(api.CREATE_RESOURCE, resourceJson, function (res, err) {})
-        .then(this.completed).catch(this.failed)
+    Request.post(api.CREATE_RESOURCE, resourceJson, function (res, err) {
+    }).end().then(this.completed).catch(this.failed)
 });
 
-//ApplicationAction.getAllResources.listen(function(dept, faculty) {
-//    Request.get(api.BASE_ROOT + api.GET_RESOURCE_BASED_ON_DEPT_FACULTY +{dept}+"/"+{faculty},
-//        function (error, response) {
-//        return response.body
-//    })
-//});
+
+ApplicationAction.getResourceByDeptFaculty.listen(function (dept, faculty) {
+    var url = api.BASE_ROOT + api.GET_RESOURCE_BASED_ON_DEPT_FACULTY + "/" + {dept} + "/" + {faculty};
+    Request.get(url).set().end()
+        .then(this.completed, this.failed);
+});
+
+ApplicationAction.getAllResources.listen(function () {
+    console.log("resource action is been called");
+    var optionsInfo = {
+        url: api.BASE_ROOT + api.RESOURCE + api.GET_ALL_RESOURCE,
+        method: 'GET'
+    };
+    sendAjaxRequest(optionsInfo).then(this.completed).catch(this.failed)
+
+});
+
+ApplicationAction.createResources.listen(function (registrationJson) {
+    console.log("Creating new user");
+    var registrationInfo = {
+        method: 'POST',
+        data: registrationJson,
+        url: api.BASE_ROOT + api.CREATE_RESOURCE
+    };
+    Request.post(api.BASE_ROOT + api.CREATE_RESOURCE, registrationJson, function (err, err) {
+    }).set(apiHeaders).end().then(this.completed, this.failed)
+});
 
 
 module.exports = ApplicationAction;
@@ -67882,16 +67944,19 @@ var DropDown = React.createClass({displayName: "DropDown",
         optionsList: React.PropTypes.array
     },
 
+    getSelectedOption : function () {
+        return React.findDOMNode(this.refs.selectOption).value;
+    },
     render: function () {
 
         var options = this.props.optionsList.map(function (item, key) {
-            return (React.createElement("option", null, item));
+            return (React.createElement("option", {key: item, value: item}, item));
         });
 
         return (
 
                 React.createElement("div", {className: "input-field col s3"}, 
-                    React.createElement("select", null, 
+                    React.createElement("select", {ref: "selectOption"}, 
                         options
                     ), 
                     React.createElement("label", null, this.props.children)
@@ -68009,7 +68074,6 @@ var ReactRouter = require('react-router');
 
 var Header = React.createClass({displayName: "Header",
     componentDidMount: function () {
-        console.log("Header Mounted");
     },
 
 
@@ -68152,10 +68216,14 @@ module.exports = ImageGrid;
 
 var React = require('react');
 var InputField = React.createClass({displayName: "InputField",
-    getDefaultProps : function(){
+    getDefaultProps: function () {
         return {
-            classValue : "validate"
+            classValue: "validate"
         };
+    },
+
+    getText: function () {
+        return React.findDOMNode(this.refs.value).value;
     },
 
     render: function () {
@@ -68163,7 +68231,7 @@ var InputField = React.createClass({displayName: "InputField",
         return (
             React.createElement("div", {className: "input-field col s6"}, 
                 React.createElement("i", {className: "material-icons prefix"}, this.props.icon), 
-                React.createElement("input", {name: this.props.name, id: this.props.id, type: this.props.type, 
+                React.createElement("input", {ref: "value", id: this.props.id, type: this.props.type, 
                        className: this.props.classValue, min: this.props.min, max: this.props.max}), 
                 React.createElement("label", {htmlFor: this.props.id}, this.props.label)
 
@@ -68335,9 +68403,43 @@ var TestPhoto = require('./TestPhoto');
 var Button = require('./ButtonComponent');
 var religion = ["Christian", "Islam", "Other"];
 var ReactRouter = require('react-router');
-
+var Reflux = require('reflux');
+var ApplicationStore = require('../store/ApplicationStore');
+var ApplicationAction = require('../action/ApplicationAction');
 
 var RegistrationComponent = React.createClass({displayName: "RegistrationComponent",
+
+    getInitialState : function () {
+        return{
+            isRegistered : false
+        }
+    },
+    mixins : [Reflux.ListenerMixin],
+
+    onRegisteredHandler : function (event) {
+        var registrationObj = {
+            userId : this.refs.userId.getText(),
+            email :this.refs.email.getText(),
+            password : this.refs.password.getText(),
+            role : this.refs.role.getText(),
+            firstName :this.refs.firstname.getText(),
+            lastName : this.refs.lastname.getText(),
+            otherName :this.refs.othername.getText(),
+            course : this.refs.course.getText(),
+            dept : this.refs.dept.getSelectedOption(),
+            faculty :this.refs.faculty.getSelectedOption()
+
+        };
+        ApplicationAction.makeRegistration(registrationObj);
+    },
+
+
+    listendForRegistrationChanges : function (newState) {
+        this.setState({isRegistered : newState});
+    },
+    componentDidMount(){
+        this.listenTo(ApplicationStore)
+    },
 
     render: function () {
 
@@ -68391,7 +68493,7 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
 
 module.exports = RegistrationComponent;
 
-},{"./ButtonComponent":604,"./DropDownComponent":605,"./FileUpload":606,"./InputFieldComponent":611,"./SwitchButton":618,"./TestPhoto":620,"./TextArea":621,"react":579,"react-router":416}],616:[function(require,module,exports){
+},{"../action/ApplicationAction":602,"../store/ApplicationStore":630,"./ButtonComponent":604,"./DropDownComponent":605,"./FileUpload":606,"./InputFieldComponent":611,"./SwitchButton":618,"./TestPhoto":620,"./TextArea":621,"react":579,"react-router":416,"reflux":596}],616:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -68445,7 +68547,7 @@ var data = [{
     }
 ];
 
-var headerData = ["Name", "Dept", "Faculty", "Course", "Date", "URL"];
+var headerData = ["Name", "Dept", "Faculty", "Course", "Date", "URL", "EDIT", "DELETE"];
 
 var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
@@ -68456,17 +68558,19 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
     },
 
     componentDidMount(){
-        ApplicationAction.getAllResources("Maths", "Science");
+        ApplicationAction.getAllResources();
         this.listenTo(ApplicationStore.resourcesData, this.setResources);
         console.log("Value is " + this.state.resourcesData);
     },
 
+    componentWillMount : function () {
+        //ApplicationAction.getAllResources("Maths", "Science");
+    },
     getInitialState: function () {
         return {
             resources: {data}
         }
     },
-
 
     render: function () {
         return(
@@ -68872,21 +68976,25 @@ var React = require('react');
 var TableColumnData = React.createClass({displayName: "TableColumnData",
 
     propTypes: {
-        columnData: React.PropTypes.array.isRequired
+        columnData: React.PropTypes.array.isRequired,
+        onEditRes : React.PropTypes.func,
+        onDeleteRes : React.PropTypes.func
     },
+
 
     render: function () {
         var table_row = this.props.columnData.map(function (item, key) {
             return (
-                React.createElement("td", null, 
-                    item
-                )
+                React.createElement("td", null, item)
             )
-        })
+        });
+
 
         return (
             React.createElement("tr", null, 
-                table_row
+                table_row, 
+                React.createElement("td", null, React.createElement("i", {className: "material-icons", onClick: this.props.onEditRes}, "edit")), 
+                React.createElement("td", null, React.createElement("i", {className: "material-icons", onClick: this.props.onDeleteRes}, "delete"))
             )
         )
     }
@@ -69032,11 +69140,10 @@ var request = require('superagent');
 var apiURL = {
     BASE_ROOT: 'http://localhost:8080/noun/api/noun/',
     CREATE_RESOURCE: 'resources/create',
-    GET_RESOURCE_BASED_ON_DEPT_FACULTY : "resources/query/"
+    UPDATE_RESOURCE: 'resources/update',
+    GET_RESOURCE_BASED_ON_DEPT_FACULTY: "resources/query/"
 };
 var ApplicationStore = Reflux.createStore({
-
-
     listenables: [ApplicationAction],
 
     init: function () {
@@ -69046,41 +69153,32 @@ var ApplicationStore = Reflux.createStore({
 
     getInitialState: function () {
         return {
-            resourcesData: []
+            resourcesData: [],
+            isRegistered : false
         }
     },
 
 
-    onMakeRegistration: function (res, err) {
+    onMakeRegistrationCompleted: function (response) {
         console.log("stored called");
-        res.body.then(function (response) {
-            console.log(JSON.stringify(response))
-        })
+        var httpResponse = response.body;
+        console.log(JSON.stringify(httpResponse));
+        if(httpResponse){
+            this.state.isRegistered = false;
+        }
     },
 
 
-    onCreateResource: function (jsonObj) {
-        console.log("Creating new Resources with json data of" + jsonObj);
-        request.post(apiURL.BASE_ROOT + apiURL.CREATE_RESOURCE, jsonObj, function (error, response) {
-            if (response.ok) {
-                console.log(response.body);
-            } else {
-                console.log(error)
-            }
-        }.bind(this))
+    onCreateResourceCompleted: function (response) {
+        console.log("Creating new Resources with json data of" + response.body);
+        if(response.ok){
+
+        }
     },
 
-    onGetAllResources: function (dept, faculty) {
-        request.get(apiURL.BASE_ROOT + apiURL.GET_RESOURCE_BASED_ON_DEPT_FACULTY+ {dept} + "/" + {faculty},
-            function (error, response) {
-                if (response.ok) {
-                    console.log(response);
-                    this.trigger({resourcesData: response.body})
-                    this.trigger(this.state.resourcesData)
-                } else {
-                    console.log(error)
-                }
-            }.bind(this))
+    onGetAllResourcesCompleted: function (result) {
+        console.log("inside store " + result.data);
+        this.state.resourceData = result.data;
     }
 });
 

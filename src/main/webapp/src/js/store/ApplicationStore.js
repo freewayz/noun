@@ -11,11 +11,9 @@ var apiURL = {
     BASE_ROOT: 'http://localhost:8080/noun/api/noun/',
     CREATE_RESOURCE: 'resources/create',
     UPDATE_RESOURCE: 'resources/update',
-    GET_RESOURCE_BASED_ON_DEPT_FACULTY : "resources/query/"
+    GET_RESOURCE_BASED_ON_DEPT_FACULTY: "resources/query/"
 };
 var ApplicationStore = Reflux.createStore({
-
-
     listenables: [ApplicationAction],
 
     init: function () {
@@ -25,41 +23,32 @@ var ApplicationStore = Reflux.createStore({
 
     getInitialState: function () {
         return {
-            resourcesData: []
+            resourcesData: [],
+            isRegistered : false
         }
     },
 
 
-    onMakeRegistration: function (res, err) {
+    onMakeRegistrationCompleted: function (response) {
         console.log("stored called");
-        res.body.then(function (response) {
-            console.log(JSON.stringify(response))
-        })
+        var httpResponse = response.body;
+        console.log(JSON.stringify(httpResponse));
+        if(httpResponse){
+            this.state.isRegistered = false;
+        }
     },
 
 
-    onCreateResource: function (jsonObj) {
-        console.log("Creating new Resources with json data of" + jsonObj);
-        request.post(apiURL.BASE_ROOT + apiURL.CREATE_RESOURCE, jsonObj, function (error, response) {
-            if (response.ok) {
-                console.log(response.body);
-            } else {
-                console.log(error)
-            }
-        }.bind(this))
+    onCreateResourceCompleted: function (response) {
+        console.log("Creating new Resources with json data of" + response.body);
+        if(response.ok){
+
+        }
     },
 
-    onGetAllResources: function (dept, faculty) {
-        request.get(apiURL.BASE_ROOT + apiURL.GET_RESOURCE_BASED_ON_DEPT_FACULTY+ {dept} + "/" + {faculty},
-            function (error, response) {
-                if (response.ok) {
-                    console.log(response);
-                    this.trigger({resourcesData: response.body})
-                    this.trigger(this.state.resourcesData)
-                } else {
-                    console.log(error)
-                }
-            }.bind(this))
+    onGetAllResourcesCompleted: function (result) {
+        console.log("inside store " + result.data);
+        this.state.resourceData = result.data;
     }
 });
 

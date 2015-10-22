@@ -6,18 +6,19 @@
 package com.noun.service;
 
 import com.noun.crud.CrudServiceProviderLocal;
-import com.noun.dto.UserDto;
-import com.noun.entities.User;
 import com.noun.dto.EntityMapper;
 import com.noun.dto.ResourceDto;
+import com.noun.dto.UserDto;
 import com.noun.entities.Resource;
+import com.noun.entities.User;
 import com.noun.mngr.ResourceMngrLocal;
 import com.noun.mngr.UserMngrLocal;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
 
 /**
  *
@@ -37,6 +38,8 @@ public class NounService {
     
 
     public UserDto saveUser(UserDto newUserDto) {
+
+        //TODO get the
         return EntityMapper.mapToUserDto(crudServiceProviderLocal
                 .create(EntityMapper.mapToUser(newUserDto)));
     }

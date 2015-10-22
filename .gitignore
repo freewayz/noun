@@ -17,3 +17,5 @@ build/
 out/
 .gradle/
 src/main/webapp/node_modules
+.nb-gradle
+gradle.properties

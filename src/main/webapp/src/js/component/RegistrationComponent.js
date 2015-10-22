@@ -15,9 +15,43 @@ var TestPhoto = require('./TestPhoto');
 var Button = require('./ButtonComponent');
 var religion = ["Christian", "Islam", "Other"];
 var ReactRouter = require('react-router');
-
+var Reflux = require('reflux');
+var ApplicationStore = require('../store/ApplicationStore');
+var ApplicationAction = require('../action/ApplicationAction');
 
 var RegistrationComponent = React.createClass({
+
+    getInitialState : function () {
+        return{
+            isRegistered : false
+        }
+    },
+    mixins : [Reflux.ListenerMixin],
+
+    onRegisteredHandler : function (event) {
+        var registrationObj = {
+            userId : this.refs.userId.getText(),
+            email :this.refs.email.getText(),
+            password : this.refs.password.getText(),
+            role : this.refs.role.getText(),
+            firstName :this.refs.firstname.getText(),
+            lastName : this.refs.lastname.getText(),
+            otherName :this.refs.othername.getText(),
+            course : this.refs.course.getText(),
+            dept : this.refs.dept.getSelectedOption(),
+            faculty :this.refs.faculty.getSelectedOption()
+
+        };
+        ApplicationAction.makeRegistration(registrationObj);
+    },
+
+
+    listendForRegistrationChanges : function (newState) {
+        this.setState({isRegistered : newState});
+    },
+    componentDidMount(){
+        this.listenTo(ApplicationStore)
+    },
 
     render: function () {
 

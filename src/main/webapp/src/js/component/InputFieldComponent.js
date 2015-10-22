@@ -4,10 +4,14 @@
 
 var React = require('react');
 var InputField = React.createClass({
-    getDefaultProps : function(){
+    getDefaultProps: function () {
         return {
-            classValue : "validate"
+            classValue: "validate"
         };
+    },
+
+    getText: function () {
+        return React.findDOMNode(this.refs.value).value;
     },
 
     render: function () {
@@ -15,8 +19,8 @@ var InputField = React.createClass({
         return (
             <div className="input-field col s6">
                 <i className="material-icons prefix">{this.props.icon}</i>
-                <input name = {this.props.name} id={this.props.id} type={this.props.type}
-                       className = {this.props.classValue} min = {this.props.min} max = {this.props.max}/>
+                <input ref="value" id={this.props.id} type={this.props.type}
+                       className={this.props.classValue} min={this.props.min} max={this.props.max}/>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
 
             </div>

@@ -9,7 +9,6 @@ var ReactRouter = require('react-router');
 
 var Header = React.createClass({
     componentDidMount: function () {
-        console.log("Header Mounted");
     },
 
 

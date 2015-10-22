@@ -13,7 +13,7 @@ public interface ResourcePath {
     
     String PATH = "noun";
     
-    String USER_PATH = "users";
+    String USER_PATH = "users/";
     
     String USER_ID = "/userId/";
 
@@ -22,7 +22,8 @@ public interface ResourcePath {
     
     String RESOURCE_ID = "/resourceId/";
     
-    String CREATE_USER = "createUser";
+    String CREATE = "create";
+    String REGISTRATION_PATH = USER_PATH + CREATE;
     
     String UPDATE = "update";
     

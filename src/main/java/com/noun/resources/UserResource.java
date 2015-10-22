@@ -8,10 +8,11 @@ package com.noun.resources;
 import com.noun.dto.ResourceDto;
 import com.noun.dto.UserDto;
 import com.noun.service.NounService;
-import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  *
@@ -29,20 +30,20 @@ public class UserResource implements UserResourceLocal {
         return service.saveResource(resourceDto);
     }
 
-//    @Override
-//    public UserDto updateUser(String employeeId, UserDto userDto) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    @Override
+    public UserDto updateUser(String employeeId, UserDto userDto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-//    @Override
-//    public Response getAllUsers() {
-//        List<UserDto> userDtos = service.getAllUsers();
-//        if (userDtos.size() < 0) {
-//            return Response.status(Response.Status.NO_CONTENT).build();
-//        } else {
-//            return Response.status(Response.Status.OK).entity(userDtos).build();
-//        }
-//    }
+    @Override
+    public Response getAllUsers() {
+        List<UserDto> userDtos = service.getAllUsers();
+        if (userDtos.size() < 0) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } else {
+            return Response.status(Response.Status.OK).entity(userDtos).build();
+        }
+    }
 
     @Override
     public Response getAllResources() {
@@ -67,6 +68,21 @@ public class UserResource implements UserResourceLocal {
             return service.getByDeptAndFaculty(deptId, faculty);
         }
 
+    public  Response registration(UserDto userDto){
+        Response response;
+        if(!userDto.getEmail().isEmpty() ){
+            UserDto newUser = service.saveUser(userDto);
+            if (newUser != null) {
+                response = Response.status(Response.Status.OK).entity(newUser).build();
+            }else {
+                response = Response.status(Response.Status.NOT_MODIFIED).build();
+            }
+        }else {
+            response = Response.status(Response.Status.NOT_MODIFIED).build();
+        }
+        return  response;
+
+    }
 
 
 }
