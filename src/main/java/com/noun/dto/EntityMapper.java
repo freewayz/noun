@@ -6,13 +6,19 @@
 package com.noun.dto;
 
 import com.noun.entities.Resource;
+import com.noun.entities.Role;
 import com.noun.entities.User;
+import com.noun.mngr.RoleLocal;
+import javax.ejb.EJB;
 
 /**
  *
  * @author azibit
  */
 public class EntityMapper {
+    
+    @EJB
+    private static RoleLocal roleCrud;
     
     public static User mapToUser(UserDto userDto){
         if(userDto == null){
@@ -27,9 +33,9 @@ public class EntityMapper {
         user.setFaculty(userDto.getFaculty());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setRole(userDto.getRole());
         user.setOtherName(userDto.getOtherName());
         user.setPassword(userDto.getPassword());
+        user.setRoleId(mapToRole(userDto.getRole()));
         return user;
     }
     
@@ -45,7 +51,7 @@ public class EntityMapper {
         userDto.setFaculty(user.getFaculty());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
-        userDto.setRole(user.getRole());
+        userDto.setRole(mapToRoleDto(user.getRoleId()));
         userDto.setOtherName(user.getOtherName());
         userDto.setPassword(user.getPassword());
         return userDto;
@@ -82,4 +88,28 @@ public class EntityMapper {
        
         return resourceDto;
     }
+    
+    public static Role mapToRole(RoleDto roleDto){
+        if(roleDto == null)
+            return null;
+        
+        Role role = new Role();
+        role.setDescription(roleDto.getDescription());
+        role.setRoleId(roleDto.getRoleId());
+        
+        return role;
+    }
+    
+    public static RoleDto mapToRoleDto(Role role){
+        if(role == null)
+            return null;
+        
+        RoleDto roleDto = new RoleDto();
+        roleDto.setDescription(role.getDescription());
+        roleDto.setRoleId(role.getRoleId());
+        
+        return roleDto;
+    }
+    
+    
 }

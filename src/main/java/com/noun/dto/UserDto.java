@@ -20,7 +20,7 @@ public class UserDto {
     private String userId;
     private String email;
     private String password;
-    private String role;
+    private RoleDto role;
     private String firstName;
     private String lastName;
     private String otherName;
@@ -32,7 +32,9 @@ public class UserDto {
     
     }
 
-    public UserDto(String userId, String email, String password, String role, String firstName, String lastName, String otherName, String course, String dept, String faculty) {
+    public UserDto(String userId, String email, String password, RoleDto role, 
+            String firstName, String lastName, String otherName, String course, 
+            String dept, String faculty) {
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -69,11 +71,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public String getRole() {
+    public RoleDto getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(RoleDto role) {
         this.role = role;
     }
 

@@ -9,12 +9,13 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,14 +23,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author azibit
  */
 @Entity
-@Table(name = "User", catalog = "noun", schema = "")
+@Table(name = "User")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
     @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName"),
     @NamedQuery(name = "User.findByOtherName", query = "SELECT u FROM User u WHERE u.otherName = :otherName"),
@@ -40,55 +40,35 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 16)
     @Column(name = "user_id")
     private String userId;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "password")
     private String password;
-    @NotNull
-    @Size(min = 1, max = 64)
-    @Column(name = "role")
-    private String role;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
     @Column(name = "first_name")
     private String firstName;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
     @Column(name = "last_name")
     private String lastName;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
     @Column(name = "other_name")
     private String otherName;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "course")
     private String course;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "dept")
     private String dept;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "faculty")
     private String faculty;
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Role roleId;
 
     public User() {
     }
@@ -97,11 +77,10 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(String userId, String email, String password, String role, String firstName, String lastName, String otherName, String course, String dept, String faculty) {
+    public User(String userId, String email, String password, String firstName, String lastName, String otherName, String course, String dept, String faculty) {
         this.userId = userId;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.otherName = otherName;
@@ -132,14 +111,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getFirstName() {
@@ -190,6 +161,14 @@ public class User implements Serializable {
         this.faculty = faculty;
     }
 
+    public Role getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -212,7 +191,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "org.yournamehere.client.User[ userId=" + userId + " ]";
+        return "hellogit.User[ userId=" + userId + " ]";
     }
     
 }
