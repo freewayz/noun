@@ -16,16 +16,14 @@ import java.util.Objects;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ResourceDto {
-//    @JsonIgnore
     private Integer id;
     private String name;
-//    @JsonIgnore
-    private String url;
-    private String course;
-//    @JsonIgnore
-    private Date dateUploaded;
     private String department;
     private String faculty;
+    private String course;
+    private Date dateUploaded;
+    private String url;
+
 
     public ResourceDto() {
     }

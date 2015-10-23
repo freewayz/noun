@@ -22,7 +22,7 @@ var Header = React.createClass({
                         </a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li><ReactRouter.Link activeClassName="selected" to="home">Home</ReactRouter.Link></li>
-                            <li><ReactRouter.Link activeClassName="selected" to="resourceUpload">Upload Resource</ReactRouter.Link></li>
+                            <li><ReactRouter.Link activeClassName="selected" to="upload">Upload</ReactRouter.Link></li>
                             <li><ReactRouter.Link activeClassName="selected" to="resource">All Resources</ReactRouter.Link></li>
                             <li><ReactRouter.Link activeClassName="selected" to="resource">Faculty Resource</ReactRouter.Link></li>
                             <li><ReactRouter.Link activeClassName="selected" to="resource">Department Resource</ReactRouter.Link></li>

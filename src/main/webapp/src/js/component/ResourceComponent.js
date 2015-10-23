@@ -5,6 +5,8 @@
 
 var React = require('react');
 var TableComponent = require('../reuseable-ui/TableComponent');
+var NewTableHeader = require('../reuseable-ui/NewTableHeader');
+var NewTableRow = require('../reuseable-ui/NewTableRow');
 var Reflux = require('reflux');
 
 var ApplicationStore = require('../store/ApplicationStore');
@@ -51,40 +53,45 @@ var data = [{
     }
 ];
 
-var headerData = ["Name", "Dept", "Faculty", "Course", "Date", "URL", "EDIT", "DELETE"];
+var headerData = ["SN", "Name", "Dept", "Faculty", "Course", "Date", "URL", "EDIT", "DELETE"];
 
 var ResourceComponent = React.createClass({
 
     mixins: [Reflux.ListenerMixin],
 
-    setResources: function (resources) {
-        this.setState({resources: resources})
+    setResources: function (resourcesData) {
+        this.setState({resources: resourcesData})
     },
 
     componentDidMount(){
-        ApplicationAction.getAllResources();
         this.listenTo(ApplicationStore.resourcesData, this.setResources);
+        ApplicationAction.getAllResources();
         console.log("Value is " + this.state.resourcesData);
     },
 
     componentWillMount: function () {
         //ApplicationAction.getAllResources("Maths", "Science");
+        //ApplicationAction.getAllResources();
     },
     getInitialState: function () {
         return {
-            resources: ApplicationStore.state.resourceData
+            resources: ApplicationStore.state.resourcesData
         }
     },
 
     render: function () {
         console.log("Resource " + this.state.resources);
-
         if (this.state.resources) {
-            return (<div>
-                <TableComponent table_data={this.state.resources} header_data={headerData}/>
-            </div>)
+            return (
+                <div className="container">
+                    <table>
+                        <NewTableHeader column_header_data={headerData}/>
+                        <NewTableRow column_data={this.state.resources}/>
+                    </table>
+                </div>
+            )
         } else {
-           return (<div>Loading.....</div>)
+            return (<div>Loading.....</div>)
         }
 
 

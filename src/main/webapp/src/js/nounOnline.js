@@ -36,7 +36,7 @@ var Router = (
             <ReactRouter.Route path="/login" name="login" handler={LoginComponent}/>
             <ReactRouter.Route path="/" name="home" handler={HomePage}/>
             <ReactRouter.Route path="/resource" name="resource" handler={ResourceComponent}/>
-            <ReactRouter.Route path="/users" name="users" handler={ResourceUpload}/>
+            <ReactRouter.Route path="/upload" name="upload" handler={ResourceUpload}/>
             <ReactRouter.Route path="/register" name="register" handler={RegistrationComponent}/>
         </ReactRouter.Route>
     </ReactRouter.Route>

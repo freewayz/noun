@@ -25794,7 +25794,8 @@ var  Reflux = require('reflux');
 
 var Actions =  Reflux.createActions({
   login: {children: ['completed', 'failed']},
-  logout: {}
+  logout: {},
+  editDataArray: {}
 });
 
 Actions.login.listen(function (email, password) {
@@ -25805,7 +25806,7 @@ Actions.login.listen(function (email, password) {
 });
 module.export = Actions;
 
-},{"../store/AuthStore.sampleData.json":243,"reflux":214}],222:[function(require,module,exports){
+},{"../store/AuthStore.sampleData.json":245,"reflux":214}],222:[function(require,module,exports){
 /**
  * Created by azibit on 10/7/15.
  */
@@ -25983,6 +25984,7 @@ var Header = React.createClass({displayName: "Header",
                         ), 
                         React.createElement("ul", {id: "nav-mobile", className: "right hide-on-med-and-down"}, 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "home"}, "Home")), 
+                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "upload"}, "Upload")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "All Resources")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Faculty Resource")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Department Resource")), 
@@ -26254,7 +26256,7 @@ var Login = React.createClass({displayName: "Login",
 
 module.exports = Login;
 
-},{"../action/AuthActions":221,"../store/AuthStore":242,"./InputFieldComponent":228,"react":195,"react-router":32,"reflux":214}],230:[function(require,module,exports){
+},{"../action/AuthActions":221,"../store/AuthStore":244,"./InputFieldComponent":228,"react":195,"react-router":32,"reflux":214}],230:[function(require,module,exports){
 /**
  * Created by peter on 8/10/15.
  */
@@ -26416,7 +26418,7 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
 
 module.exports = RegistrationComponent;
 
-},{"../action/ApplicationAction":220,"../store/ApplicationStore":241,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"react-router":32,"reflux":214}],232:[function(require,module,exports){
+},{"../action/ApplicationAction":220,"../store/ApplicationStore":243,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"react-router":32,"reflux":214}],232:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26424,6 +26426,8 @@ module.exports = RegistrationComponent;
 
 var React = require('react');
 var TableComponent = require('../reuseable-ui/TableComponent');
+var NewTableHeader = require('../reuseable-ui/NewTableHeader');
+var NewTableRow = require('../reuseable-ui/NewTableRow');
 var Reflux = require('reflux');
 
 var ApplicationStore = require('../store/ApplicationStore');
@@ -26470,40 +26474,45 @@ var data = [{
     }
 ];
 
-var headerData = ["Name", "Dept", "Faculty", "Course", "Date", "URL", "EDIT", "DELETE"];
+var headerData = ["SN", "Name", "Dept", "Faculty", "Course", "Date", "URL", "EDIT", "DELETE"];
 
 var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
     mixins: [Reflux.ListenerMixin],
 
-    setResources: function (resources) {
-        this.setState({resources: resources})
+    setResources: function (resourcesData) {
+        this.setState({resources: resourcesData})
     },
 
     componentDidMount(){
-        ApplicationAction.getAllResources();
         this.listenTo(ApplicationStore.resourcesData, this.setResources);
+        ApplicationAction.getAllResources();
         console.log("Value is " + this.state.resourcesData);
     },
 
     componentWillMount: function () {
         //ApplicationAction.getAllResources("Maths", "Science");
+        //ApplicationAction.getAllResources();
     },
     getInitialState: function () {
         return {
-            resources: ApplicationStore.state.resourceData
+            resources: ApplicationStore.state.resourcesData
         }
     },
 
     render: function () {
         console.log("Resource " + this.state.resources);
-
         if (this.state.resources) {
-            return (React.createElement("div", null, 
-                React.createElement(TableComponent, {table_data: this.state.resources, header_data: headerData})
-            ))
+            return (
+                React.createElement("div", {className: "container"}, 
+                    React.createElement("table", null, 
+                        React.createElement(NewTableHeader, {column_header_data: headerData}), 
+                        React.createElement(NewTableRow, {column_data: this.state.resources})
+                    )
+                )
+            )
         } else {
-           return (React.createElement("div", null, "Loading....."))
+            return (React.createElement("div", null, "Loading....."))
         }
 
 
@@ -26512,7 +26521,7 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
 module.exports = ResourceComponent;
 
-},{"../action/ApplicationAction":220,"../reuseable-ui/TableComponent":239,"../store/ApplicationStore":241,"react":195,"reflux":214}],233:[function(require,module,exports){
+},{"../action/ApplicationAction":220,"../reuseable-ui/NewTableHeader":238,"../reuseable-ui/NewTableRow":239,"../reuseable-ui/TableComponent":241,"../store/ApplicationStore":243,"react":195,"reflux":214}],233:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26570,6 +26579,7 @@ var ResourceUpload = React.createClass({displayName: "ResourceUpload",
 
                         React.createElement("br", null), 
 
+                        React.createElement("form", {action: "api/noun/upload", method: "post", enctype: "multipart/form-data"}, 
                         React.createElement("div", {className: "row"}, 
                             React.createElement("div", {className: "col s6 "}, 
                                 React.createElement("div", {className: "input-field col s12"}, 
@@ -26612,12 +26622,10 @@ var ResourceUpload = React.createClass({displayName: "ResourceUpload",
 
                         React.createElement("div", {className: "row"}, 
                             React.createElement("div", null, 
-                                React.createElement("button", {className: "btn waves-effect waves-light", onClick: this._onCreateNewResource}, 
-                                    "Save ", React.createElement("i", {className: "mdi-content-send-right"})
-                                )
+                                React.createElement("input", {className: "btn waves-effect waves-light", type: "Submit", value: "Save"})
                             )
                         )
-
+)
                     )
                 )
             )
@@ -26627,7 +26635,7 @@ var ResourceUpload = React.createClass({displayName: "ResourceUpload",
 
 module.exports = ResourceUpload;
 
-},{"../action/ApplicationAction":220,"../store/ApplicationStore":241,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"reflux":214}],234:[function(require,module,exports){
+},{"../action/ApplicationAction":220,"../store/ApplicationStore":243,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"reflux":214}],234:[function(require,module,exports){
 /**
  * Created by azibit on 9/17/15.
  */
@@ -26754,7 +26762,7 @@ var Router = (
             React.createElement(ReactRouter.Route, {path: "/login", name: "login", handler: LoginComponent}), 
             React.createElement(ReactRouter.Route, {path: "/", name: "home", handler: HomePage}), 
             React.createElement(ReactRouter.Route, {path: "/resource", name: "resource", handler: ResourceComponent}), 
-            React.createElement(ReactRouter.Route, {path: "/users", name: "users", handler: ResourceUpload}), 
+            React.createElement(ReactRouter.Route, {path: "/upload", name: "upload", handler: ResourceUpload}), 
             React.createElement(ReactRouter.Route, {path: "/register", name: "register", handler: RegistrationComponent})
         )
     )
@@ -26767,7 +26775,118 @@ ReactRouter.run(
         React.render(React.createElement(Handler, null), document.getElementById('noun-entry-point'));
     });
 
-},{"./component/FooterComponent":225,"./component/HeaderComponent":226,"./component/HomePageComponent":227,"./component/Login.jsx":229,"./component/PageContainer":230,"./component/RegistrationComponent":231,"./component/ResourceComponent":232,"./component/ResourceUpload":233,"./utils/RouteHelpers":244,"./utils/auth":245,"react":195,"react-router":32}],238:[function(require,module,exports){
+},{"./component/FooterComponent":225,"./component/HeaderComponent":226,"./component/HomePageComponent":227,"./component/Login.jsx":229,"./component/PageContainer":230,"./component/RegistrationComponent":231,"./component/ResourceComponent":232,"./component/ResourceUpload":233,"./utils/RouteHelpers":246,"./utils/auth":247,"react":195,"react-router":32}],238:[function(require,module,exports){
+/**
+ * Created by azibit on 10/23/15.
+ */
+
+var React = require('react');
+
+var NewTableHeader = React.createClass({displayName: "NewTableHeader",
+    propsType: {
+        column_header_data: React.PropTypes.array.isRequired
+    },
+
+    render: function () {
+
+        var column_header_detail = this.props.column_header_data.map(function (item, key) {
+            return (React.createElement("th", null, item))
+        });
+        return (
+            React.createElement("thead", null, 
+            React.createElement("tr", null, 
+                column_header_detail
+            )
+            )
+
+        )
+    }
+});
+
+module.exports = NewTableHeader;
+
+},{"react":195}],239:[function(require,module,exports){
+/**
+ * Created by azibit on 10/23/15.
+ */
+
+/**
+ * Created by peter on 8/25/15.
+ * @code TableColumnDataComponent hold the
+ * data for each rows in the table
+ * requires an propstype of array to be passed
+ */
+
+var React = require('react');
+var ApplicationStore = require('../store/ApplicationStore');
+var ApplicationAction = require('../action/ApplicationAction');
+
+
+var NewTableRow = React.createClass({displayName: "NewTableRow",
+    propsType: {
+        column_data: React.PropTypes.array.isRequired
+    },
+
+
+    deleteClick: function (data, event) {
+        console.log("Edit Here" + data);
+        var newStateData = this.state.newData;
+        console.log("Oldee" + newStateData);
+        newStateData.splice(data, 1);
+        this.setState({newData: newStateData});
+
+    },
+
+    getInitialState: function () {
+        return {
+            newData: this.props.column_data,
+            value: 0
+        };
+    },
+
+
+    editClick: function (data, event) {
+        ApplicationAction.editDataArray(this.state.newData[data]);
+    },
+
+
+    render: function () {
+
+        var data;
+        var count = -1;
+        var table_row_data = this.state.newData.map(function (json_obj) {
+            count += 1;
+            data = Object.keys(json_obj).map(function (key) {
+                return React.createElement("td", {key: key}, json_obj[key]);
+
+            });
+            return (
+                React.createElement("tr", {className: "odd"}, 
+                    data, 
+
+                    React.createElement("td", null, 
+                        React.createElement("i", {className: "material-icons", onClick: this.deleteClick.bind(this, count)}, "delete")
+                    )
+
+
+                )
+            )
+        }.bind(this));
+
+        console.log("Table Row Count is  " + table_row_data);
+
+        return (React.createElement("tbody", null, 
+        table_row_data
+        )
+        )
+
+
+    }
+});
+
+module.exports = NewTableRow;
+
+},{"../action/ApplicationAction":220,"../store/ApplicationStore":243,"react":195}],240:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26804,7 +26923,7 @@ var TableColumnData = React.createClass({displayName: "TableColumnData",
 
 module.exports = TableColumnData;
 
-},{"react":195}],239:[function(require,module,exports){
+},{"react":195}],241:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26845,7 +26964,7 @@ var TableComponent = React.createClass({displayName: "TableComponent",
 
 module.exports = TableComponent;
 
-},{"./TableColumnData":238,"./TableHeaderComponent":240,"react":195}],240:[function(require,module,exports){
+},{"./TableColumnData":240,"./TableHeaderComponent":242,"react":195}],242:[function(require,module,exports){
 /**
  *
  * Created by azibit on 10/8/15.
@@ -26882,7 +27001,7 @@ var TableHeaderComponent = React.createClass({displayName: "TableHeaderComponent
 
 module.exports = TableHeaderComponent;
 
-},{"react":195}],241:[function(require,module,exports){
+},{"react":195}],243:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26909,8 +27028,14 @@ var ApplicationStore = Reflux.createStore({
     getInitialState: function () {
         return {
             resourcesData: [],
-            isRegistered: false
+            isRegistered: false,
+            dataArray: []
         }
+    },
+
+    onEditDataArray: function (workExp) {
+        console.log("Calling from store");
+        this.setState({dataArray: workExp});
     },
 
 
@@ -26936,9 +27061,11 @@ var ApplicationStore = Reflux.createStore({
     },
 
     onGetAllResourcesCompleted: function (result) {
-        console.log("inside store " + result.data);
-        this.setState({resourceData : result.data});
-        //this.state.resourceData = result.data;
+        console.log("Result Data " + result.data);
+        //this.state.resourcesData = result.data.splice();
+        this.setState({resourcesData :result.data});
+        console.log("Store " + this.state.resourcesData);
+
     },
 
     onGetAllResourceFailed : function (result) {
@@ -26948,7 +27075,7 @@ var ApplicationStore = Reflux.createStore({
 
 module.exports = ApplicationStore;
 
-},{"../action/ApplicationAction":220,"reflux":214,"reflux-state-mixin":196,"superagent":217}],242:[function(require,module,exports){
+},{"../action/ApplicationAction":220,"reflux":214,"reflux-state-mixin":196,"superagent":217}],244:[function(require,module,exports){
 var  Reflux = require('reflux');
 var  Actions = require('../action/AuthActions');
 
@@ -26990,7 +27117,7 @@ var AuthStore = Reflux.createStore({
     this.trigger(this.getState());
   },
 
-  onLogin (email, password) {
+  login (email, password) {
     this.loading = true;
     this.changed();
 
@@ -27034,7 +27161,7 @@ var AuthStore = Reflux.createStore({
 
 module.exports = AuthStore;
 
-},{"../action/AuthActions":221,"./AuthStore.sampleData.json":243,"reflux":214}],243:[function(require,module,exports){
+},{"../action/AuthActions":221,"./AuthStore.sampleData.json":245,"reflux":214}],245:[function(require,module,exports){
 module.exports=module.exports = {
   "iwritecode@preact.com:wearehiring!": {
     "jwt": "DOESNTMATTER.eyJleHAiOi0xLCJpZCI6IjEiLCJuYW1lIjoiR29vbGV5IiwiZW1haWwiOiJnb29sZXlAcHJlYWN0LmNvbSJ9.DOESNTMATTER"
@@ -27043,7 +27170,7 @@ module.exports=module.exports = {
     "jwt": "DOESNTMATTER.eyJleHAiOi0xLCJpZCI6IjIiLCJuYW1lIjoiSGFybGFuIExld2lzIiwiZW1haWwiOiJoYXJsYW5AcHJlYWN0LmNvbSJ9.DOESNTMATTER"
   }
 }
-},{}],244:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 var React = require('react');
 var Router = require('react-router');
 
@@ -27068,7 +27195,7 @@ var LoginRequired = React.createClass({displayName: "LoginRequired",
 
 module.exports = LoginRequired;
 
-},{"../store/AuthStore":242,"react":195,"react-router":32}],245:[function(require,module,exports){
+},{"../store/AuthStore":244,"react":195,"react-router":32}],247:[function(require,module,exports){
 /**
  * Created by peter on 10/22/15.
  */

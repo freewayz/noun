@@ -57,9 +57,11 @@ var ApplicationStore = Reflux.createStore({
     },
 
     onGetAllResourcesCompleted: function (result) {
-        console.log("inside store " + result.data);
-        this.setState({resourceData : result.data});
-        //this.state.resourceData = result.data;
+        console.log("Result Data " + result.data);
+        //this.state.resourcesData = result.data.splice();
+        this.setState({resourcesData :result.data});
+        console.log("Store " + this.state.resourcesData);
+
     },
 
     onGetAllResourceFailed : function (result) {
