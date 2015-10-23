@@ -29,6 +29,8 @@ public class ResourceMngr implements  ResourceMngrLocal{
     
     @Override
     public Resource create(Resource resource) {
+        int nextId = crudServiceProvider.getNextId("id", "Resource");
+        resource.setId(nextId);
         return crudServiceProvider.create(resource);
     }
 
