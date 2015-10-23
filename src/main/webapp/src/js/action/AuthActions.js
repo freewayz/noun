@@ -1,8 +1,15 @@
 var  Reflux = require('reflux');
 
-module.export =  Reflux.createActions({
+var Actions =  Reflux.createActions({
   login: {children: ['completed', 'failed']},
   logout: {}
 });
 
+Actions.login.listen(function (email, password) {
+  setTimeout(function() {
+    var auths = require('../store/AuthStore.sampleData.json');
+    auths[`${email}:${password}`];
+  }, 3000).then(this.completed).catch(this.failed);
+});
+module.export = Actions;
 

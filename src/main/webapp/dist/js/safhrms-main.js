@@ -25613,8 +25613,12 @@ var ApplicationAction = Reflux.createActions({
 
 
 ApplicationAction.makeRegistration.listen(function (resourceJson) {
-    Request.post(api.CREATE_RESOURCE, resourceJson, function (res, err) {
-    }).end().then(this.completed).catch(this.failed)
+    var registrationInfo = {
+        method: 'POST',
+        data: resourceJson,
+        url: api.BASE_ROOT + api.USER + api.REGISTRATION
+    };
+   sendAjaxRequest(registrationInfo).then(this.completed).catch(this.failed)
 });
 
 
@@ -25650,12 +25654,20 @@ module.exports = ApplicationAction;
 },{"reflux":212,"superagent":215}],219:[function(require,module,exports){
 var  Reflux = require('reflux');
 
-module.export =  Reflux.createActions({
+var Actions =  Reflux.createActions({
   login: {children: ['completed', 'failed']},
   logout: {}
 });
 
-},{"reflux":212}],220:[function(require,module,exports){
+Actions.login.listen(function (email, password) {
+  setTimeout(function() {
+    var auths = require('../store/AuthStore.sampleData.json');
+    auths[`${email}:${password}`];
+  }, 3000).then(this.completed).catch(this.failed);
+});
+module.export = Actions;
+
+},{"../store/AuthStore.sampleData.json":241,"reflux":212}],220:[function(require,module,exports){
 /**
  * Created by azibit on 10/7/15.
  */
@@ -25964,6 +25976,7 @@ module.exports = InputField;
 var React =  require('react');
 var Router = require('react-router');
 var Reflux =require('reflux');
+var InputField = require('./InputFieldComponent');
 
 var  AuthStore  = require('../store/AuthStore');
 var AuthActions = require ('../action/AuthActions');
@@ -25993,8 +26006,8 @@ var Login = React.createClass({displayName: "Login",
     event.preventDefault();
 
     AuthActions.login(
-      React.findDOMNode(this.refs.email).value,
-      React.findDOMNode(this.refs.password).value
+      this.refs.email.getText(),
+     this.refs.password.getText()
     );
   },
 
@@ -26021,11 +26034,22 @@ var Login = React.createClass({displayName: "Login",
       formContent = (
         React.createElement("div", null, 
            errorMessage, 
-          "Email: ", React.createElement("input", {defaultValue: "iwritecode@preact.com", ref: "email", style: { maxWidth: '100%'}, type: "email"}), 
-          React.createElement("br", null), 
-          "Password: ", React.createElement("input", {defaultValue: "wearehiring!", ref: "password", style: { maxWidth: '100%'}, type: "password"}), 
-          React.createElement("br", null), 
-          React.createElement("button", {onClick:  this.handleLogout}, "Log In")
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col s12 offset-s3 "}, 
+              React.createElement(InputField, {icon: "perm_identity", ref: "email", type: "text", label: "Username", name: "email"})
+            )
+          ), 
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col s12 offset-s3 grid-example"}, 
+              React.createElement(InputField, {icon: "vpn_key", ref: "password", type: "text", label: "Password", name: "password"})
+            )
+
+          ), 
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col s12 offset-s2 "}, 
+              React.createElement("button", {onClick:  this.handleLogout}, "Log In")
+            )
+          )
         )
       );
     }
@@ -26040,7 +26064,7 @@ var Login = React.createClass({displayName: "Login",
 
 module.exports = Login;
 
-},{"../action/AuthActions":219,"../store/AuthStore":240,"react":195,"react-router":32,"reflux":212}],228:[function(require,module,exports){
+},{"../action/AuthActions":219,"../store/AuthStore":240,"./InputFieldComponent":226,"react":195,"react-router":32,"reflux":212}],228:[function(require,module,exports){
 /**
  * Created by peter on 8/10/15.
  */
@@ -26088,26 +26112,26 @@ var ApplicationAction = require('../action/ApplicationAction');
 
 var RegistrationComponent = React.createClass({displayName: "RegistrationComponent",
 
-    getInitialState : function () {
-        return{
-            isRegistered : false
+    getInitialState: function () {
+        return {
+            isRegistered: false
         }
     },
-    mixins : [Reflux.ListenerMixin],
+    mixins: [Reflux.ListenerMixin],
 
-    onRegisteredHandler : function (event) {
+    onRegisteredHandler: function (event) {
 
         console.log("AM HERE");
         var registrationObj = {
-            userId : this.refs.userId.getText(),
-            password : this.refs.password.getText(),
-            firstName :this.refs.firstname.getText(),
-            lastName : this.refs.lastname.getText(),
+            userId: this.refs.userId.getText(),
+            password: this.refs.password.getText(),
+            firstName: this.refs.firstname.getText(),
+            lastName: this.refs.lastname.getText(),
             otherName: this.refs.othername.getText(),
             course: this.refs.course.getText(),
             email: this.refs.email.getText(),
-            dept : this.refs.dept.getSelectedOption(),
-            faculty :this.refs.faculty.getSelectedOption()
+            dept: this.refs.dept.getSelectedOption(),
+            faculty: this.refs.faculty.getSelectedOption()
         };
 
         console.log(registrationObj);
@@ -26120,58 +26144,63 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
             React.createElement("div", {className: "container"}, 
 
                 React.createElement("br", null), 
+
                 React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 offset-s1 grid-example"}, 
-                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "First Name", ref: "firstname", name: "firstName"}), 
+                    React.createElement("div", {className: "col s12"}, 
+                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "First Name", ref: "firstname", 
+                                    name: "firstName"}), 
                         React.createElement(InputField, {icon: "loyalty", type: "text", label: "Last Name", name: "lastName", ref: "lastname"})
                     )
                 ), 
 
                 React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 offset-s1 grid-example"}, 
-                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "Other Name", ref: "othername", name: "otherName"}), 
+                    React.createElement("div", {className: "col s12 "}, 
+                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "Other Name", ref: "othername", 
+                                    name: "otherName"}), 
                         React.createElement(InputField, {icon: "loyalty", type: "email", label: "Email", name: "email", ref: "email"})
                     )
                 ), 
 
 
                 React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 offset-s1 grid-example"}, 
+                    React.createElement("div", {className: "col s12"}, 
                         React.createElement(InputField, {icon: "verified_user", type: "text", 
                                     label: "ID", name: "studentId", ref: "userId"}), 
-                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
-                                    label: "Password", name: "password", ref: "password"})
-
-                    )
-                ), 
-
-
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 offset-s1 grid-example"}, 
-                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
-                                    label: "Retype Password", name: "re_password"}), 
                         React.createElement(InputField, {icon: "verified_user", type: "text", 
-                                    label: "Course", name: "course", ref: "course"}), 
-                        React.createElement("br", null), React.createElement("br", null), 
-                        React.createElement(DropDown, {optionsList: religion, ref: "faculty"}, "Faculty"), 
-                        React.createElement(DropDown, {optionsList: religion, ref: "dept"}, "Department")
+                                    label: "Course", name: "course", ref: "course"})
+
                     )
                 ), 
 
 
+                React.createElement("div", {className: "row"}, 
+                    React.createElement("div", {className: "col s12"}, 
+                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
+                                    label: "Password", name: "password", ref: "password"}), 
+                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
+                                    label: "Retype Password", name: "re_password"})
+
+                    )
+                ), 
+
 
                 React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 offset-s6 grid-example"}, 
+                    React.createElement("div", {className: "col s12"}, 
+                        React.createElement(DropDown, {optionsList: religion, ref: "faculty"}, "Faculty"), 
+                        React.createElement(DropDown, {optionsList: religion, ref: "dept"}, "Department"), 
+
+
                         React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "login"}, 
-                            React.createElement(Button, {name: "Sign in", icon: "replay"})
+                            React.createElement(Button, {name: "Sign in"})
                         ), 
                         "\u00a0", 
-                            React.createElement(Button, {name: "Submit", icon: "forward_10", onClick: this.onRegisteredHandler})
-
+                        React.createElement(Button, {name: "Submit", onClick: this.onRegisteredHandler})
                     )
-                )
 
-            ));
+                )
+            )
+
+        );
     }
 });
 
@@ -26666,7 +26695,7 @@ var ApplicationStore = Reflux.createStore({
     getInitialState: function () {
         return {
             resourcesData: [],
-            isRegistered : false
+            isRegistered: false
         }
     },
 
@@ -26675,15 +26704,19 @@ var ApplicationStore = Reflux.createStore({
         console.log("stored called");
         var httpResponse = response.body;
         console.log(JSON.stringify(httpResponse));
-        if(httpResponse){
+        if (httpResponse) {
             this.state.isRegistered = false;
         }
+    },
+
+    onMakeRegistrationFailed: function (result) {
+        console.log(result)
     },
 
 
     onCreateResourceCompleted: function (response) {
         console.log("Creating new Resources with json data of" + response.body);
-        if(response.ok){
+        if (response.ok) {
 
         }
     },

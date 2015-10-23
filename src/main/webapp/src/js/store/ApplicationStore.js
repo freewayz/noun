@@ -24,7 +24,7 @@ var ApplicationStore = Reflux.createStore({
     getInitialState: function () {
         return {
             resourcesData: [],
-            isRegistered : false
+            isRegistered: false
         }
     },
 
@@ -33,15 +33,19 @@ var ApplicationStore = Reflux.createStore({
         console.log("stored called");
         var httpResponse = response.body;
         console.log(JSON.stringify(httpResponse));
-        if(httpResponse){
+        if (httpResponse) {
             this.state.isRegistered = false;
         }
+    },
+
+    onMakeRegistrationFailed: function (result) {
+        console.log(result)
     },
 
 
     onCreateResourceCompleted: function (response) {
         console.log("Creating new Resources with json data of" + response.body);
-        if(response.ok){
+        if (response.ok) {
 
         }
     },
