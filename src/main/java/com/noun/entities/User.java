@@ -6,30 +6,35 @@
 package com.noun.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author azibit
+ * @author peter
  */
 @Entity
-@Table(name = "User", catalog = "noun", schema = "")
+@Table(name = "User")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
     @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName"),
     @NamedQuery(name = "User.findByOtherName", query = "SELECT u FROM User u WHERE u.otherName = :otherName"),
@@ -55,10 +60,6 @@ public class User implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "password")
     private String password;
-    @NotNull
-    @Size(min = 1, max = 64)
-    @Column(name = "role")
-    private String role;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
@@ -89,6 +90,11 @@ public class User implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "faculty")
     private String faculty;
+    @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY)
+    private List<Role> roleList;
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Role roleId;
 
     public User() {
     }
@@ -97,11 +103,10 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(String userId, String email, String password, String role, String firstName, String lastName, String otherName, String course, String dept, String faculty) {
+    public User(String userId, String email, String password, String firstName, String lastName, String otherName, String course, String dept, String faculty) {
         this.userId = userId;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.otherName = otherName;
@@ -132,14 +137,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getFirstName() {
@@ -190,6 +187,23 @@ public class User implements Serializable {
         this.faculty = faculty;
     }
 
+    @XmlTransient
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public Role getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -212,7 +226,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "org.yournamehere.client.User[ userId=" + userId + " ]";
+        return "tempStore.User[ userId=" + userId + " ]";
     }
     
 }

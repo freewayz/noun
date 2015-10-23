@@ -22,10 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author azibit
+ * @author peter
  */
 @Entity
-@Table(name = "Resource", catalog = "noun", schema = "")
+@Table(name = "Resource")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Resource.findAll", query = "SELECT r FROM Resource r"),
@@ -35,10 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Resource.findByCourse", query = "SELECT r FROM Resource r WHERE r.course = :course"),
     @NamedQuery(name = "Resource.findByDateUploaded", query = "SELECT r FROM Resource r WHERE r.dateUploaded = :dateUploaded"),
     @NamedQuery(name = "Resource.findByDept", query = "SELECT r FROM Resource r WHERE r.dept = :dept"),
-    @NamedQuery(name = "Resource.findByFaculty", query = "SELECT r FROM Resource r WHERE r.faculty = :faculty"),
-    @NamedQuery(name = "Resource.findByDeptAndFaculty", query = "SELECT r FROM "
-            + "Resource r WHERE r.dept = :dept AND r.faculty = :faculty")
-})
+    @NamedQuery(name = "Resource.findByFaculty", query = "SELECT r FROM Resource r WHERE r.faculty = :faculty")})
 public class Resource implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -150,7 +147,7 @@ public class Resource implements Serializable {
 
     @Override
     public String toString() {
-        return "org.yournamehere.client.Resource[ id=" + id + " ]";
+        return "tempStore.Resource[ id=" + id + " ]";
     }
     
 }

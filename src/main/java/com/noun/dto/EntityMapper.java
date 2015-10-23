@@ -6,6 +6,7 @@
 package com.noun.dto;
 
 import com.noun.entities.Resource;
+import com.noun.entities.Role;
 import com.noun.entities.User;
 
 /**
@@ -81,5 +82,13 @@ public class EntityMapper {
         resourceDto.setFaculty(resource.getFaculty());
        
         return resourceDto;
+    }
+    
+    public static RoleDto mapToRole(Role role){
+        RoleDto roleDto = new RoleDto();
+        roleDto.setDescription(role.getDescription());
+        roleDto.setRoleId(role.getRoleId());
+        
+        return roleDto;
     }
 }
