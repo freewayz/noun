@@ -5,8 +5,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
       <group name="srms"/>
     </open-files>
+    <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group name="srms"/>
+      <group name="srms">
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/mngr/RoleMngr.java</file>
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/entities/Role.java</file>
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/dto/ResourceDto.java</file>
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/dto/UserDto.java</file>
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/entities/Resource.java</file>
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/dto/RoleDto.java</file>
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/dto/EntityMapper.java</file>
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/mngr/RoleLocal.java</file>
+        <file>file:/home/azibit/NetBeansProjects/noun/src/main/java/com/noun/entities/User.java</file>
+      </group>
     </open-files>
   </auxiliary>
 </gradle-project-properties>

@@ -8,7 +8,8 @@ var ButtonComponent = React.createClass({
     render: function () {
         return (
 
-                <button className="btn waves-effect waves-light" type="submit" name="action">
+                <button className="btn waves-effect waves-light" type="submit"
+                        name="action" onClick={this.props.onClick} >
                     {this.props.name}
                     <i className="material-icons right">{this.props.icon}</i>
                 </button>

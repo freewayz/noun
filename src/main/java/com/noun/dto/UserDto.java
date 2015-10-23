@@ -20,6 +20,7 @@ public class UserDto {
     private String userId;
     private String email;
     private String password;
+    @JsonIgnore
     private RoleDto role;
     private String firstName;
     private String lastName;

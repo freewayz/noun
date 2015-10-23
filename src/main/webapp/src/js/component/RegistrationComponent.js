@@ -29,29 +29,23 @@ var RegistrationComponent = React.createClass({
     mixins : [Reflux.ListenerMixin],
 
     onRegisteredHandler : function (event) {
+
+        console.log("AM HERE");
         var registrationObj = {
             userId : this.refs.userId.getText(),
-            email :this.refs.email.getText(),
             password : this.refs.password.getText(),
-            role : this.refs.role.getText(),
             firstName :this.refs.firstname.getText(),
             lastName : this.refs.lastname.getText(),
-            otherName :this.refs.othername.getText(),
-            course : this.refs.course.getText(),
+            otherName: this.refs.othername.getText(),
+            course: this.refs.course.getText(),
+            email: this.refs.email.getText(),
             dept : this.refs.dept.getSelectedOption(),
             faculty :this.refs.faculty.getSelectedOption()
-
         };
-        ApplicationAction.makeRegistration(registrationObj);
+
+        console.log(registrationObj);
     },
 
-
-    listendForRegistrationChanges : function (newState) {
-        this.setState({isRegistered : newState});
-    },
-    componentDidMount(){
-        this.listenTo(ApplicationStore)
-    },
 
     render: function () {
 
@@ -61,16 +55,25 @@ var RegistrationComponent = React.createClass({
                 <br/>
                 <div className = "row">
                     <div  className = "col s12 offset-s1 grid-example">
-                        <InputField icon = "account_circle" type = "text" label = "First Name" name = "firstName"/>
-                        <InputField icon = "loyalty" type = "text" label = "Last Name" name = "lastName"/>
+                        <InputField icon = "account_circle" type = "text" label = "First Name" ref = "firstname" name = "firstName"/>
+                        <InputField icon = "loyalty" type = "text" label = "Last Name" name = "lastName" ref = "lastname"/>
+                    </div>
+                </div>
+
+                <div className = "row">
+                    <div  className = "col s12 offset-s1 grid-example">
+                        <InputField icon = "account_circle" type = "text" label = "Other Name" ref = "othername" name = "otherName"/>
+                        <InputField icon = "loyalty" type = "email" label = "Email" name = "email" ref = "email"/>
                     </div>
                 </div>
 
 
                 <div className = "row">
                     <div  className = "col s12 offset-s1 grid-example">
-                        <InputField icon = "verified_user" type = "text" label = "ID" name = "studentId"/>
-                        <InputField icon = "perm_contact_calendar" type = "text" label = "Password" name = "password"/>
+                        <InputField icon = "verified_user" type = "text"
+                                    label = "ID" name = "studentId" ref = "userId"/>
+                        <InputField icon = "perm_contact_calendar" type = "password"
+                                    label = "Password" name = "password" ref = "password"/>
 
                     </div>
                 </div>
@@ -78,9 +81,13 @@ var RegistrationComponent = React.createClass({
 
                 <div className = "row">
                     <div  className = "col s12 offset-s1 grid-example">
-                        <InputField icon = "perm_contact_calendar" type = "text" label = "Retype Password" name = "re_password"/>
-                        <DropDown optionsList = {religion}>Faculty</DropDown>
-                        <DropDown optionsList = {religion}>Department</DropDown>
+                        <InputField icon = "perm_contact_calendar" type = "password"
+                                    label = "Retype Password" name = "re_password"/>
+                        <InputField icon = "verified_user" type = "text"
+                                    label = "Course" name = "course" ref = "course"/>
+                        <br/><br/>
+                        <DropDown optionsList = {religion} ref = "faculty">Faculty</DropDown>
+                        <DropDown optionsList = {religion} ref = "dept">Department</DropDown>
                     </div>
                 </div>
 
@@ -92,9 +99,8 @@ var RegistrationComponent = React.createClass({
                             <Button name = "Sign in" icon = "replay"/>
                         </ReactRouter.Link>
                         {"\u00a0"}
-                        <ReactRouter.Link activeClassName="selected"  to="home">
-                            <Button name = "Submit" icon = "forward_10"/>
-                        </ReactRouter.Link>
+                            <Button name = "Submit" icon = "forward_10" onClick={this.onRegisteredHandler}/>
+
                     </div>
                 </div>
 

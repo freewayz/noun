@@ -14,6 +14,10 @@ var InputField = React.createClass({
         return React.findDOMNode(this.refs.value).value;
     },
 
+    setText: function (result) {
+        React.findDOMNode(this.refs.value).value = result;
+    },
+
     render: function () {
 
         return (

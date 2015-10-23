@@ -77,4 +77,18 @@ public class ResourceMngr implements  ResourceMngrLocal{
                                 .and("faculty", faculty).parameters(), 
                 Resource.class);
     }
+
+    @Override
+    public List<Resource> getByDept(String dept) {
+        return crudServiceProvider .findByNamedQuery("Resource.findByDept",
+                        QueryParameter.with("dept", dept).parameters(), 
+                Resource.class);
+    }
+
+    @Override
+    public List<Resource> getByFacluty(String faculty) {
+         return crudServiceProvider .findByNamedQuery("Resource.findByFaculty",
+                        QueryParameter.with("faculty", faculty).parameters(), 
+                Resource.class);
+    }
 }
