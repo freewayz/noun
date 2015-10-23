@@ -57,7 +57,8 @@ var ApplicationAction = Reflux.createActions({
     'createResources': {children: ['completed', 'failed']},
     'getAllResources': {children: ['completed', 'failed']},
     'getResourceByDeptFaculty': {children: ['completed', 'failed']},
-    'resources':{}
+    'resources':{},
+    'getResourceBySearch':{}
 });
 
 

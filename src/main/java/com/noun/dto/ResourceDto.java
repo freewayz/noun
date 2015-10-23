@@ -5,7 +5,6 @@
  */
 package com.noun.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
@@ -17,13 +16,13 @@ import java.util.Objects;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ResourceDto {
-    @JsonIgnore
+//    @JsonIgnore
     private Integer id;
     private String name;
-    @JsonIgnore
+//    @JsonIgnore
     private String url;
     private String course;
-    @JsonIgnore
+//    @JsonIgnore
     private Date dateUploaded;
     private String department;
     private String faculty;

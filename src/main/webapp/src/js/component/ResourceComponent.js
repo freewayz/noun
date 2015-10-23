@@ -10,44 +10,44 @@ var Reflux = require('reflux');
 var ApplicationStore = require('../store/ApplicationStore');
 var ApplicationAction = require('../action/ApplicationAction');
 var data = [{
-    name : "WAEC QUestions",
-    dept : "Mathematics",
-    faculty : "Engineering",
-    url : "google.com",
-    date : "Jan 2015",
-    course : "AC101"
+    name: "WAEC QUestions",
+    dept: "Mathematics",
+    faculty: "Engineering",
+    url: "google.com",
+    date: "Jan 2015",
+    course: "AC101"
 },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     }
 ];
 
@@ -57,7 +57,7 @@ var ResourceComponent = React.createClass({
 
     mixins: [Reflux.ListenerMixin],
 
-    setResources : function (resources) {
+    setResources: function (resources) {
         this.setState({resources: resources})
     },
 
@@ -67,7 +67,7 @@ var ResourceComponent = React.createClass({
         console.log("Value is " + this.state.resourcesData);
     },
 
-    componentWillMount : function () {
+    componentWillMount: function () {
         //ApplicationAction.getAllResources("Maths", "Science");
     },
     getInitialState: function () {
@@ -78,11 +78,16 @@ var ResourceComponent = React.createClass({
 
     render: function () {
         console.log("Resource " + this.state.resources);
-        return(
-            <div>
-                <TableComponent table_data = {data} header_data = {headerData}/>
-            </div>
-        )
+
+        if (this.state.resources) {
+            return (<div>
+                <TableComponent table_data={this.state.resources} header_data={headerData}/>
+            </div>)
+        } else {
+           return (<div>Loading.....</div>)
+        }
+
+
     }
 });
 

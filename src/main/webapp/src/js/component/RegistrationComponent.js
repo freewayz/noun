@@ -51,62 +51,81 @@ var RegistrationComponent = React.createClass({
 
         return (
             <div className="container">
-
                 <br/>
 
                 <div className="row">
-                    <div className="col s12">
-                        <InputField icon="account_circle" type="text" label="First Name" ref="firstname"
-                                    name="firstName"/>
-                        <InputField icon="loyalty" type="text" label="Last Name" name="lastName" ref="lastname"/>
+
+                    <div className="col s4">
+                        <div className="row">
+                            <div className="col s12">
+                                <img src={"/noun/images/resources.png"} width="500"/>
+
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col s12">
+                                <p>
+                                    The National Open University of Nigeria is a Federal Open and Distance Learning
+                                    institution, the first of its kind in the West African sub-region.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col s5 offset-s3">
+                        <div className="row">
+                            <div className="col s12">
+                                <InputField icon="account_circle" type="text" label="First Name" ref="firstname"
+                                            name="firstName"/>
+                                <InputField icon="loyalty" type="text" label="Last Name" name="lastName"
+                                            ref="lastname"/>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col s12 ">
+                                <InputField icon="account_circle" type="text" label="Other Name" ref="othername"
+                                            name="otherName"/>
+                                <InputField icon="loyalty" type="email" label="Email" name="email" ref="email"/>
+                            </div>
+                        </div>
+
+
+                        <div className="row">
+                            <div className="col s12">
+                                <InputField icon="verified_user" type="text"
+                                            label="ID" name="studentId" ref="userId"/>
+                                <InputField icon="verified_user" type="text"
+                                            label="Course" name="course" ref="course"/>
+
+                            </div>
+                        </div>
+
+
+                        <div className="row">
+                            <div className="col s12">
+                                <InputField icon="perm_contact_calendar" type="password"
+                                            label="Password" name="password" ref="password"/>
+                                <InputField icon="perm_contact_calendar" type="password"
+                                            label="Retype Password" name="re_password"/>
+
+                            </div>
+                        </div>
+
+
+                        <div className="row">
+                            <div className="col s12 offset-s1">
+                                <DropDown optionsList={religion} ref="faculty">Faculty</DropDown>
+                                <DropDown optionsList={religion} ref="dept">Department</DropDown>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col s12 offset-s4">
+                                <Button name="Submit" onClick={this.onRegisteredHandler}/>
+                                </div>
+                            </div>
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col s12 ">
-                        <InputField icon="account_circle" type="text" label="Other Name" ref="othername"
-                                    name="otherName"/>
-                        <InputField icon="loyalty" type="email" label="Email" name="email" ref="email"/>
-                    </div>
-                </div>
-
-
-                <div className="row">
-                    <div className="col s12">
-                        <InputField icon="verified_user" type="text"
-                                    label="ID" name="studentId" ref="userId"/>
-                        <InputField icon="verified_user" type="text"
-                                    label="Course" name="course" ref="course"/>
-
-                    </div>
-                </div>
-
-
-                <div className="row">
-                    <div className="col s12">
-                        <InputField icon="perm_contact_calendar" type="password"
-                                    label="Password" name="password" ref="password"/>
-                        <InputField icon="perm_contact_calendar" type="password"
-                                    label="Retype Password" name="re_password"/>
-
-                    </div>
-                </div>
-
-
-                <div className="row">
-                    <div className="col s12">
-                        <DropDown optionsList={religion} ref="faculty">Faculty</DropDown>
-                        <DropDown optionsList={religion} ref="dept">Department</DropDown>
-
-
-                        <ReactRouter.Link activeClassName="selected" to="login">
-                            <Button name="Sign in"/>
-                        </ReactRouter.Link>
-                        {"\u00a0"}
-                        <Button name="Submit" onClick={this.onRegisteredHandler}/>
-                    </div>
-
-                </div>
             </div>
 
         );

@@ -21,6 +21,7 @@ var MainApp = React.createClass({
                 <PageWrapper>
                     <ReactRouter.RouteHandler/>
                 </PageWrapper>
+                <Footer/>
             </div>
         );
     }
@@ -33,11 +34,11 @@ var Router = (
     <ReactRouter.Route>
         <ReactRouter.Route handler={MainApp}>
             <ReactRouter.Route path="/login" name="login" handler={LoginComponent}/>
-                <ReactRouter.Route path="/" name="home" handler={HomePage}/>
-                <ReactRouter.Route path="/resource" name="resource" handler={ResourceComponent}/>
-                <ReactRouter.Route path="/users" name="users" handler={ResourceUpload}/>
+            <ReactRouter.Route path="/" name="home" handler={HomePage}/>
+            <ReactRouter.Route path="/resource" name="resource" handler={ResourceComponent}/>
+            <ReactRouter.Route path="/users" name="users" handler={ResourceUpload}/>
+            <ReactRouter.Route path="/register" name="register" handler={RegistrationComponent}/>
         </ReactRouter.Route>
-        <ReactRouter.Route path="/register" name="register" handler={RegistrationComponent}/>
     </ReactRouter.Route>
 );
 

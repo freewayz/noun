@@ -25,7 +25,7 @@ var DropDown = React.createClass({
 
         return (
 
-                <div className="input-field col s3">
+                <div className="input-field col s6">
                     <select ref="selectOption">
                         {options}
                     </select>

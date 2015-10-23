@@ -16,51 +16,46 @@ var FooterComponent = React.createClass({
     render: function () {
 
         return (
-            <footer className="page-footer orange">
+            <footer className="page-footer teal">
                 <div className="container">
                     <div className="row">
-                        <div classNameName="col l6 s12">
-                            <h5 className="white-text">Programming and Online Resources</h5>
+                        <div className="col l6 s12">
+                            <h5 className="white-text">Noun Nigeria</h5>
+
+                            <p className="grey-text text-lighten-4">We are a team of college
+                                students working on this project like it's our full time
+                                job. Any amount would help support and continue development
+                                on this project and is greatly appreciated.</p>
+
 
                         </div>
                         <div className="col l3 s12">
-                            <h5 className="white-text">Learn</h5>
+                            <h5 className="white-text">Category</h5>
                             <ul>
-                                <li><a href="https://developers.google.com/" className="white-text">Google Technology
-                                    and API</a></li>
-                                <li><a href="www.tutorialspoint.com" className="white-text">Programming Tutorials</a>
-                                </li>
-                                <li><a href="www.thecodeplayer.com" className="white-text"> Free CSS &amp; Javascript
-                                    Code</a></li>
-                                <li><a href="pitaside.wordpress.com" className="white-text">Quick Info's</a></li>
-                                <li><a href="http://www.google.com/press" className="white-text">Google News</a></li>
+                                <li><a className="white-text" href="#!">Science</a></li>
+                                <li><a className="white-text" href="#!">Social-Science</a></li>
+                                <li><a className="white-text" href="#!">Education</a></li>
+                                <li><a className="white-text" href="#!">Mathematics</a></li>
                             </ul>
                         </div>
                         <div className="col l3 s12">
                             <h5 className="white-text">Connect</h5>
                             <ul>
-                                <li><a className="white-text" href="https://plus.google.com/107415840199830484575">Google +</a></li>
-                                <li><a className="white-text" href="www.gdgjsiit.wordpress.com">Blog</a>
-                                </li>
-                                <li><a className="white-text" href="www.facebook.com/gdg_jsiit">Facebook</a></li>
-                                <li><a className="white-text" href="https://twitter.com/gdgjsiit">Twitter</a></li>
+                                <li><a className="white-text" href="#!">Academic Session</a></li>
+                                <li><a className="white-text" href="#!">Student Gist</a></li>
+                                <li><a className="white-text" href="#!">Latest News</a></li>
+                                <li><a className="white-text" href="#!">VC Office</a></li>
                             </ul>
-                        </div>
-
-                        <div className="col l6 s12">
-                            <div id="location">
-
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="footer-copyright">
                     <div className="container">
-                        Made With Love from <a className="orange-text text-lighten-3"
-                                               href="http://materializecss.com">Materialize CSS</a>
+                        Design by <a className="brown-text text-lighten-3" href="http://materializecss.com">Bashir Okinu</a>
                     </div>
                 </div>
             </footer>
+
 
         )
     }

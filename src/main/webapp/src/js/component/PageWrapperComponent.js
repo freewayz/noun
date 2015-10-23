@@ -19,14 +19,13 @@ var PageWrapper = React.createClass({
         }
     },
 
-
     updateAuth : function (loggedIn) {
         this.setState({loggedIn : loggedIn})
     },
 
     render : function () {
         return(
-            <div id="page-wrapper">
+            <div>
                 {this.props.children}
             </div>
         )

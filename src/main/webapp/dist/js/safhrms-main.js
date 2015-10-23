@@ -25745,7 +25745,8 @@ var ApplicationAction = Reflux.createActions({
     'createResources': {children: ['completed', 'failed']},
     'getAllResources': {children: ['completed', 'failed']},
     'getResourceByDeptFaculty': {children: ['completed', 'failed']},
-    'resources':{}
+    'resources':{},
+    'getResourceBySearch':{}
 });
 
 
@@ -25855,7 +25856,7 @@ var DropDown = React.createClass({displayName: "DropDown",
 
         return (
 
-                React.createElement("div", {className: "input-field col s3"}, 
+                React.createElement("div", {className: "input-field col s6"}, 
                     React.createElement("select", {ref: "selectOption"}, 
                         options
                     ), 
@@ -25910,51 +25911,46 @@ var FooterComponent = React.createClass({displayName: "FooterComponent",
     render: function () {
 
         return (
-            React.createElement("footer", {className: "page-footer orange"}, 
+            React.createElement("footer", {className: "page-footer teal"}, 
                 React.createElement("div", {className: "container"}, 
                     React.createElement("div", {className: "row"}, 
-                        React.createElement("div", {classNameName: "col l6 s12"}, 
-                            React.createElement("h5", {className: "white-text"}, "Programming and Online Resources")
+                        React.createElement("div", {className: "col l6 s12"}, 
+                            React.createElement("h5", {className: "white-text"}, "Noun Nigeria"), 
+
+                            React.createElement("p", {className: "grey-text text-lighten-4"}, "We are a team of college" + ' ' +
+                                "students working on this project like it's our full time" + ' ' +
+                                "job. Any amount would help support and continue development" + ' ' +
+                                "on this project and is greatly appreciated.")
+
 
                         ), 
                         React.createElement("div", {className: "col l3 s12"}, 
-                            React.createElement("h5", {className: "white-text"}, "Learn"), 
+                            React.createElement("h5", {className: "white-text"}, "Category"), 
                             React.createElement("ul", null, 
-                                React.createElement("li", null, React.createElement("a", {href: "https://developers.google.com/", className: "white-text"}, "Google Technology" + ' ' +
-                                    "and API")), 
-                                React.createElement("li", null, React.createElement("a", {href: "www.tutorialspoint.com", className: "white-text"}, "Programming Tutorials")
-                                ), 
-                                React.createElement("li", null, React.createElement("a", {href: "www.thecodeplayer.com", className: "white-text"}, " Free CSS & Javascript" + ' ' +
-                                    "Code")), 
-                                React.createElement("li", null, React.createElement("a", {href: "pitaside.wordpress.com", className: "white-text"}, "Quick Info's")), 
-                                React.createElement("li", null, React.createElement("a", {href: "http://www.google.com/press", className: "white-text"}, "Google News"))
+                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Science")), 
+                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Social-Science")), 
+                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Education")), 
+                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Mathematics"))
                             )
                         ), 
                         React.createElement("div", {className: "col l3 s12"}, 
                             React.createElement("h5", {className: "white-text"}, "Connect"), 
                             React.createElement("ul", null, 
-                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "https://plus.google.com/107415840199830484575"}, "Google +")), 
-                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "www.gdgjsiit.wordpress.com"}, "Blog")
-                                ), 
-                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "www.facebook.com/gdg_jsiit"}, "Facebook")), 
-                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "https://twitter.com/gdgjsiit"}, "Twitter"))
-                            )
-                        ), 
-
-                        React.createElement("div", {className: "col l6 s12"}, 
-                            React.createElement("div", {id: "location"}
-
+                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Academic Session")), 
+                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Student Gist")), 
+                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "Latest News")), 
+                                React.createElement("li", null, React.createElement("a", {className: "white-text", href: "#!"}, "VC Office"))
                             )
                         )
                     )
                 ), 
                 React.createElement("div", {className: "footer-copyright"}, 
                     React.createElement("div", {className: "container"}, 
-                        "Made With Love from ", React.createElement("a", {className: "orange-text text-lighten-3", 
-                                               href: "http://materializecss.com"}, "Materialize CSS")
+                        "Design by ", React.createElement("a", {className: "brown-text text-lighten-3", href: "http://materializecss.com"}, "Bashir Okinu")
                     )
                 )
             )
+
 
         )
     }
@@ -25979,15 +25975,18 @@ var Header = React.createClass({displayName: "Header",
 
     render: function () {
         return (
-            React.createElement("nav", {className: "light-blue lighten-1", role: "navigation"}, 
+            React.createElement("nav", {className: "white", role: "navigation"}, 
                 React.createElement("div", {className: "navbar-fixed"}, 
                     React.createElement("div", {className: "nav-wrapper container"}, 
-                        React.createElement("a", {id: "logo-container", href: "#", className: "brand-logo"}, "NOUN.ng"), 
+                        React.createElement("a", {id: "logo-container", href: "#", className: "brand-logo"}, 
+                             React.createElement("img", {src: "/noun/images/logo_noun_2.png", width: "50", height: "50"})
+                        ), 
                         React.createElement("ul", {id: "nav-mobile", className: "right hide-on-med-and-down"}, 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "home"}, "Home")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "All Resources")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Faculty Resource")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Department Resource")), 
+                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "login"}, "Contact Us")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "login"}, "Login"))
                         ), 
                         React.createElement("a", {"data-activates": "nav-mobile", className: "button-collapse"}, React.createElement("i", {className: "material-icons"}, "menu"))
@@ -26015,50 +26014,81 @@ var TestPhoto = require('./TestPhoto');
 var Button = require('./ButtonComponent');
 var ReactRouter = require('react-router');
 
-var religion = ["Christian", "Islam", "Other"];
 var HomePage = React.createClass({displayName: "HomePage",
 
     render: function () {
         return (
-            React.createElement("div", {className: "row"}, 
-                React.createElement("div", {className: "section"}, 
-                    React.createElement("div", {className: "col s12"}, 
-                        React.createElement("div", {className: "slider"}, 
-                            React.createElement("ul", {className: "slides"}, 
-                                React.createElement("li", null, 
-                                    React.createElement("img", {src: "http://lorempixel.com/580/250/nature/1"}), 
+            React.createElement("div", null, 
+                React.createElement("div", {id: "index-banner", className: "parallax-container"}, 
+                    React.createElement("div", {classNameName: "section no-pad-bot"}, 
+                        React.createElement("div", {className: "container"}, 
+                            React.createElement("br", null), React.createElement("br", null), 
+                            React.createElement("div", {className: "row center"}
 
-                                    React.createElement("div", {className: "caption center-align"}, 
-                                        React.createElement("h3", null, "This is our big Tagline!"), 
-                                        React.createElement("h5", {className: "light grey-text text-lighten-3"}, "Here's our small slogan.")
-                                    )
-                                ), 
-                                React.createElement("li", null, 
-                                    React.createElement("img", {src: "http://lorempixel.com/580/250/nature/2"}), 
+                            ), 
+                            React.createElement("div", {className: "row center"}
 
-                                    React.createElement("div", {className: "caption left-align"}, 
-                                        React.createElement("h3", null, "Left Aligned Caption"), 
-                                        React.createElement("h5", {className: "light grey-text text-lighten-3"}, "Here's our small slogan.")
-                                    )
-                                ), 
-                                React.createElement("li", null, 
-                                    React.createElement("img", {src: "http://lorempixel.com/580/250/nature/3"}), 
+                            ), 
+                            React.createElement("div", {className: "row center"}
 
-                                    React.createElement("div", {className: "caption right-align"}, 
-                                        React.createElement("h3", null, "Right Aligned Caption"), 
-                                        React.createElement("h5", {className: "light grey-text text-lighten-3"}, "Here's our small slogan.")
-                                    )
-                                ), 
-                                React.createElement("li", null, 
-                                    React.createElement("img", {src: "http://lorempixel.com/580/250/nature/4"}), 
+                            ), 
+                            React.createElement("div", {className: "row center"}, 
+                                React.createElement("a", {href: "http://materializecss.com/getting-started.html", id: "download-button", 
+                                   className: "btn-large waves-effect waves-light teal lighten-1"}, "View Resources")
+                            ), 
+                            React.createElement("br", null), React.createElement("br", null)
 
-                                    React.createElement("div", {className: "caption center-align"}, 
-                                        React.createElement("h3", null, "This is our big Tagline!"), 
-                                        React.createElement("h5", {className: "light grey-text text-lighten-3"}, "Here's our small slogan.")
-                                    )
+                        )
+                    ), 
+
+                    React.createElement("div", {className: "parallax"}, React.createElement("img", {src: "/noun/images/now_bg.jpg", alt: "Unsplashed background img 1"}))
+                ), 
+
+
+                React.createElement("div", {className: "container"}, 
+                    React.createElement("div", {className: "section"}, 
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12 m4"}, 
+                                React.createElement("div", {className: "icon-block"}, 
+                                    React.createElement("h2", {className: "center brown-text"}, React.createElement("i", {className: "material-icons"}, "flash_on")
+                                    ), 
+                                    React.createElement("h5", {className: "center"}, "Learn New Stuff"), 
+
+                                    React.createElement("p", {className: "light"}, "We did most of the heavy lifting for you to provide" + ' ' +
+                                        "a default stylings that incorporate our custom components." + ' ' +
+                                        "Additionally, we refined animations and transitions to provide a" + ' ' +
+                                        "smoother experience for developers.")
+                                )
+                            ), 
+
+                            React.createElement("div", {className: "col s12 m4"}, 
+                                React.createElement("div", {className: "icon-block"}, 
+                                    React.createElement("h2", {className: "center brown-text"}, React.createElement("i", {className: "material-icons"}, "group")
+                                    ), 
+                                    React.createElement("h5", {className: "center"}, "Reseearch Lab"), 
+
+                                    React.createElement("p", {className: "light"}, "By utilizing elements and principles of Material" + ' ' +
+                                        "Design, we were able to create a framework that incorporates" + ' ' +
+                                        "components and animations that provide more feedback to users." + ' ' +
+                                        "Additionally, a single underlying responsive system across all" + ' ' +
+                                        "platforms allow for a more unified user experience.")
+                                )
+                            ), 
+
+                            React.createElement("div", {className: "col s12 m4"}, 
+                                React.createElement("div", {className: "icon-block"}, 
+                                    React.createElement("h2", {className: "center brown-text"}, React.createElement("i", {className: "material-icons"}, "settings")
+                                    ), 
+                                    React.createElement("h5", {className: "center"}, "Easy to work with"), 
+
+                                    React.createElement("p", {className: "light"}, "We have provided detailed documentation as well as" + ' ' +
+                                        "specific code examples to help new users get started. We are" + ' ' +
+                                        "also always open to feedback and can answer any questions a user" + ' ' +
+                                        "may have about Materialize.")
                                 )
                             )
                         )
+
                     )
                 )
             )
@@ -26166,41 +26196,49 @@ var Login = React.createClass({displayName: "Login",
       );
     } else {
       formContent = (
-        React.createElement("div", null, 
+        React.createElement("div", {className: "section"}, 
            errorMessage, 
           React.createElement("div", {className: "row"}, 
-            React.createElement("div", {className: "col s12 offset-s3 "}, 
-              React.createElement(InputField, {icon: "perm_identity", ref: "email", type: "text", label: "Username", name: "email"})
-            )
-          ), 
-          React.createElement("div", {className: "row"}, 
-            React.createElement("div", {className: "col s12 offset-s3 "}, 
-              React.createElement(InputField, {icon: "vpn_key", ref: "password", type: "text", label: "Password", name: "password"})
-            )
+            React.createElement("div", {className: "col s5 offset-s1"}, 
+                React.createElement("img", {src: "/noun/images/noun-ilearn.jpg"})
+            ), 
 
-          ), 
-          React.createElement("div", {className: "row"}, 
-            React.createElement("div", {className: "col s12 offset-s4"}, 
-              React.createElement("button", {className: "btn waves-effect waves-light", onClick:  this.handleLogout}, "Log In", 
-                React.createElement("i", {className: "material-icons right"}, "send")
+            React.createElement("div", {className: "col s4"}, 
+              React.createElement("div", {className: "row"}, 
+                React.createElement("div", {className: "col s12 offset-s2"}, 
+                  React.createElement(InputField, {icon: "perm_identity", ref: "email", type: "text", label: "Username", name: "email"})
+                )
               ), 
-              "\u00a0", 
-              "\u00a0", 
-              "\u00a0", 
-              "\u00a0", 
-              "\u00a0", 
-              "\u00a0", 
-              "\u00a0", 
-              "\u00a0", 
-              "\u00a0", 
-              React.createElement("span", {className: "offset-s5"}), 
-              React.createElement(Router.Link, {activeClassName: "selected", to: "register"}, 
-                React.createElement("button", {className: "btn waves-effect waves-light"}, 
-                  "Register", 
-                  React.createElement("i", {className: "material-icons right"}, "send")
+              React.createElement("div", {className: "row"}, 
+                React.createElement("div", {className: "col s12  offset-s2"}, 
+                  React.createElement(InputField, {icon: "vpn_key", ref: "password", type: "text", label: "Password", name: "password"})
+                )
+
+              ), 
+              React.createElement("div", {className: "row"}, 
+                React.createElement("div", {className: "col s12 offset-s4"}, 
+                  React.createElement("button", {className: "btn waves-effect waves-light", onClick:  this.handleLogout}, "Log In", 
+                    React.createElement("i", {className: "material-icons right"}, "send")
+                  ), 
+                  "\u00a0", 
+                  "\u00a0", 
+                  "\u00a0", 
+                  "\u00a0", 
+                  "\u00a0", 
+                  "\u00a0", 
+                  "\u00a0", 
+                  React.createElement("span", {className: "offset-s5"}), 
+                  React.createElement(Router.Link, {activeClassName: "selected", to: "register"}, 
+                    React.createElement("button", {className: "btn waves-effect waves-light"}, 
+                      "Sign Up", 
+                      React.createElement("i", {className: "material-icons right"}, "send")
+                    )
+                  )
                 )
               )
             )
+
+
           )
         )
       );
@@ -26231,7 +26269,7 @@ var Container = React.createClass({displayName: "Container",
 
     render: function () {
         return (
-            React.createElement("div", {className: "container"}, 
+            React.createElement("div", null, 
                 this.props.children
             )
         )
@@ -26294,62 +26332,81 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
 
         return (
             React.createElement("div", {className: "container"}, 
-
                 React.createElement("br", null), 
 
                 React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12"}, 
-                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "First Name", ref: "firstname", 
-                                    name: "firstName"}), 
-                        React.createElement(InputField, {icon: "loyalty", type: "text", label: "Last Name", name: "lastName", ref: "lastname"})
-                    )
-                ), 
 
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 "}, 
-                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "Other Name", ref: "othername", 
-                                    name: "otherName"}), 
-                        React.createElement(InputField, {icon: "loyalty", type: "email", label: "Email", name: "email", ref: "email"})
-                    )
-                ), 
+                    React.createElement("div", {className: "col s4"}, 
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12"}, 
+                                React.createElement("img", {src: "/noun/images/resources.png", width: "500"})
 
-
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12"}, 
-                        React.createElement(InputField, {icon: "verified_user", type: "text", 
-                                    label: "ID", name: "studentId", ref: "userId"}), 
-                        React.createElement(InputField, {icon: "verified_user", type: "text", 
-                                    label: "Course", name: "course", ref: "course"})
-
-                    )
-                ), 
-
-
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12"}, 
-                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
-                                    label: "Password", name: "password", ref: "password"}), 
-                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
-                                    label: "Retype Password", name: "re_password"})
-
-                    )
-                ), 
-
-
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12"}, 
-                        React.createElement(DropDown, {optionsList: religion, ref: "faculty"}, "Faculty"), 
-                        React.createElement(DropDown, {optionsList: religion, ref: "dept"}, "Department"), 
-
-
-                        React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "login"}, 
-                            React.createElement(Button, {name: "Sign in"})
+                            )
                         ), 
-                        "\u00a0", 
-                        React.createElement(Button, {name: "Submit", onClick: this.onRegisteredHandler})
-                    )
 
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12"}, 
+                                React.createElement("p", null, 
+                                    "The National Open University of Nigeria is a Federal Open and Distance Learning" + ' ' +
+                                    "institution, the first of its kind in the West African sub-region.")
+                            )
+                        )
+                    ), 
+                    React.createElement("div", {className: "col s5 offset-s3"}, 
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12"}, 
+                                React.createElement(InputField, {icon: "account_circle", type: "text", label: "First Name", ref: "firstname", 
+                                            name: "firstName"}), 
+                                React.createElement(InputField, {icon: "loyalty", type: "text", label: "Last Name", name: "lastName", 
+                                            ref: "lastname"})
+                            )
+                        ), 
+
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12 "}, 
+                                React.createElement(InputField, {icon: "account_circle", type: "text", label: "Other Name", ref: "othername", 
+                                            name: "otherName"}), 
+                                React.createElement(InputField, {icon: "loyalty", type: "email", label: "Email", name: "email", ref: "email"})
+                            )
+                        ), 
+
+
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12"}, 
+                                React.createElement(InputField, {icon: "verified_user", type: "text", 
+                                            label: "ID", name: "studentId", ref: "userId"}), 
+                                React.createElement(InputField, {icon: "verified_user", type: "text", 
+                                            label: "Course", name: "course", ref: "course"})
+
+                            )
+                        ), 
+
+
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12"}, 
+                                React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
+                                            label: "Password", name: "password", ref: "password"}), 
+                                React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
+                                            label: "Retype Password", name: "re_password"})
+
+                            )
+                        ), 
+
+
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12 offset-s1"}, 
+                                React.createElement(DropDown, {optionsList: religion, ref: "faculty"}, "Faculty"), 
+                                React.createElement(DropDown, {optionsList: religion, ref: "dept"}, "Department")
+                            )
+                        ), 
+                        React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col s12 offset-s4"}, 
+                                React.createElement(Button, {name: "Submit", onClick: this.onRegisteredHandler})
+                                )
+                            )
+                    )
                 )
+
             )
 
         );
@@ -26372,44 +26429,44 @@ var Reflux = require('reflux');
 var ApplicationStore = require('../store/ApplicationStore');
 var ApplicationAction = require('../action/ApplicationAction');
 var data = [{
-    name : "WAEC QUestions",
-    dept : "Mathematics",
-    faculty : "Engineering",
-    url : "google.com",
-    date : "Jan 2015",
-    course : "AC101"
+    name: "WAEC QUestions",
+    dept: "Mathematics",
+    faculty: "Engineering",
+    url: "google.com",
+    date: "Jan 2015",
+    course: "AC101"
 },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     }
 ];
 
@@ -26419,7 +26476,7 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
     mixins: [Reflux.ListenerMixin],
 
-    setResources : function (resources) {
+    setResources: function (resources) {
         this.setState({resources: resources})
     },
 
@@ -26429,7 +26486,7 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
         console.log("Value is " + this.state.resourcesData);
     },
 
-    componentWillMount : function () {
+    componentWillMount: function () {
         //ApplicationAction.getAllResources("Maths", "Science");
     },
     getInitialState: function () {
@@ -26440,11 +26497,16 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
     render: function () {
         console.log("Resource " + this.state.resources);
-        return(
-            React.createElement("div", null, 
-                React.createElement(TableComponent, {table_data: data, header_data: headerData})
-            )
-        )
+
+        if (this.state.resources) {
+            return (React.createElement("div", null, 
+                React.createElement(TableComponent, {table_data: this.state.resources, header_data: headerData})
+            ))
+        } else {
+           return (React.createElement("div", null, "Loading....."))
+        }
+
+
     }
 });
 
@@ -26676,7 +26738,8 @@ var MainApp = React.createClass({displayName: "MainApp",
                 React.createElement(Header, null), 
                 React.createElement(PageWrapper, null, 
                     React.createElement(ReactRouter.RouteHandler, null)
-                )
+                ), 
+                React.createElement(Footer, null)
             )
         );
     }
@@ -26689,11 +26752,11 @@ var Router = (
     React.createElement(ReactRouter.Route, null, 
         React.createElement(ReactRouter.Route, {handler: MainApp}, 
             React.createElement(ReactRouter.Route, {path: "/login", name: "login", handler: LoginComponent}), 
-                React.createElement(ReactRouter.Route, {path: "/", name: "home", handler: HomePage}), 
-                React.createElement(ReactRouter.Route, {path: "/resource", name: "resource", handler: ResourceComponent}), 
-                React.createElement(ReactRouter.Route, {path: "/users", name: "users", handler: ResourceUpload})
-        ), 
-        React.createElement(ReactRouter.Route, {path: "/register", name: "register", handler: RegistrationComponent})
+            React.createElement(ReactRouter.Route, {path: "/", name: "home", handler: HomePage}), 
+            React.createElement(ReactRouter.Route, {path: "/resource", name: "resource", handler: ResourceComponent}), 
+            React.createElement(ReactRouter.Route, {path: "/users", name: "users", handler: ResourceUpload}), 
+            React.createElement(ReactRouter.Route, {path: "/register", name: "register", handler: RegistrationComponent})
+        )
     )
 );
 

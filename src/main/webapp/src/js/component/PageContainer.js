@@ -12,7 +12,7 @@ var Container = React.createClass({
 
     render: function () {
         return (
-            <div className="container">
+            <div>
                 {this.props.children}
             </div>
         )
