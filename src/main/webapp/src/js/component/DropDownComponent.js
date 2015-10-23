@@ -12,6 +12,11 @@ var DropDown = React.createClass({
     getSelectedOption : function () {
         return React.findDOMNode(this.refs.selectOption).value;
     },
+
+    setSelectedOption: function (result) {
+        React.findDOMNode(this.refs.selectOption).value = result;
+    },
+
     render: function () {
 
         var options = this.props.optionsList.map(function (item, key) {

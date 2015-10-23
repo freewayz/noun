@@ -50014,7 +50014,8 @@ var ButtonComponent = React.createClass({displayName: "ButtonComponent",
     render: function () {
         return (
 
-                React.createElement("button", {className: "btn waves-effect waves-light", type: "submit", name: "action"}, 
+                React.createElement("button", {className: "btn waves-effect waves-light", type: "submit", 
+                        name: "action", onClick: this.props.onClick}, 
                     this.props.name, 
                     React.createElement("i", {className: "material-icons right"}, this.props.icon)
                 )
@@ -50040,6 +50041,11 @@ var DropDown = React.createClass({displayName: "DropDown",
     getSelectedOption : function () {
         return React.findDOMNode(this.refs.selectOption).value;
     },
+
+    setSelectedOption: function (result) {
+        React.findDOMNode(this.refs.selectOption).value = result;
+    },
+
     render: function () {
 
         var options = this.props.optionsList.map(function (item, key) {
@@ -50319,6 +50325,10 @@ var InputField = React.createClass({displayName: "InputField",
         return React.findDOMNode(this.refs.value).value;
     },
 
+    setText: function (result) {
+        React.findDOMNode(this.refs.value).value = result;
+    },
+
     render: function () {
 
         return (
@@ -50360,6 +50370,16 @@ var LoginComponent = React.createClass({displayName: "LoginComponent",
 
     mixin:[ReactRouter.State],
 
+    onSubmit: function () {
+        var checkObj = {
+            userName : this.refs.userId.getText(),
+            password: this.refs.password.getText()
+        }
+
+        console.log(checkObj);
+    },
+
+
     render: function () {
 
         return (
@@ -50369,13 +50389,15 @@ var LoginComponent = React.createClass({displayName: "LoginComponent",
 
                 React.createElement("div", {className: "row"}, 
                     React.createElement("div", {className: "col s12 offset-s3 grid-example"}, 
-                        React.createElement(InputField, {icon: "perm_identity", type: "text", label: "User ID", name: "studentId"})
+                        React.createElement(InputField, {icon: "perm_identity", ref: "userId", 
+                                    type: "text", label: "User ID", name: "userId"})
                     )
                 ), 
 
                 React.createElement("div", {className: "row"}, 
                     React.createElement("div", {className: "col s12 offset-s3 grid-example"}, 
-                        React.createElement(InputField, {icon: "vpn_key", type: "text", label: "Password", name: "password"})
+                        React.createElement(InputField, {icon: "vpn_key", type: "password", 
+                                    label: "Password", name: "password", ref: "password"})
                     )
 
                 ), 
@@ -50386,9 +50408,8 @@ var LoginComponent = React.createClass({displayName: "LoginComponent",
                             React.createElement(Button, {name: "Sign Up", icon: "replay"})
                         ), 
                         "\u00a0", 
-                        React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "home"}, 
-                            React.createElement(Button, {name: "Submit", icon: "forward_10"})
-                        )
+                            React.createElement(Button, {name: "Submit", icon: "forward_10", onClick: this.onSubmit})
+
                     )
                 )
 
@@ -50510,29 +50531,23 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
     mixins : [Reflux.ListenerMixin],
 
     onRegisteredHandler : function (event) {
+
+        console.log("AM HERE");
         var registrationObj = {
             userId : this.refs.userId.getText(),
-            email :this.refs.email.getText(),
             password : this.refs.password.getText(),
-            role : this.refs.role.getText(),
             firstName :this.refs.firstname.getText(),
             lastName : this.refs.lastname.getText(),
-            otherName :this.refs.othername.getText(),
-            course : this.refs.course.getText(),
+            otherName: this.refs.othername.getText(),
+            course: this.refs.course.getText(),
+            email: this.refs.email.getText(),
             dept : this.refs.dept.getSelectedOption(),
             faculty :this.refs.faculty.getSelectedOption()
-
         };
-        ApplicationAction.makeRegistration(registrationObj);
+
+        console.log(registrationObj);
     },
 
-
-    listendForRegistrationChanges : function (newState) {
-        this.setState({isRegistered : newState});
-    },
-    componentDidMount(){
-        this.listenTo(ApplicationStore)
-    },
 
     render: function () {
 
@@ -50542,16 +50557,25 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
                 React.createElement("br", null), 
                 React.createElement("div", {className: "row"}, 
                     React.createElement("div", {className: "col s12 offset-s1 grid-example"}, 
-                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "First Name", name: "firstName"}), 
-                        React.createElement(InputField, {icon: "loyalty", type: "text", label: "Last Name", name: "lastName"})
+                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "First Name", ref: "firstname", name: "firstName"}), 
+                        React.createElement(InputField, {icon: "loyalty", type: "text", label: "Last Name", name: "lastName", ref: "lastname"})
+                    )
+                ), 
+
+                React.createElement("div", {className: "row"}, 
+                    React.createElement("div", {className: "col s12 offset-s1 grid-example"}, 
+                        React.createElement(InputField, {icon: "account_circle", type: "text", label: "Other Name", ref: "othername", name: "otherName"}), 
+                        React.createElement(InputField, {icon: "loyalty", type: "email", label: "Email", name: "email", ref: "email"})
                     )
                 ), 
 
 
                 React.createElement("div", {className: "row"}, 
                     React.createElement("div", {className: "col s12 offset-s1 grid-example"}, 
-                        React.createElement(InputField, {icon: "verified_user", type: "text", label: "ID", name: "studentId"}), 
-                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "text", label: "Password", name: "password"})
+                        React.createElement(InputField, {icon: "verified_user", type: "text", 
+                                    label: "ID", name: "studentId", ref: "userId"}), 
+                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
+                                    label: "Password", name: "password", ref: "password"})
 
                     )
                 ), 
@@ -50559,9 +50583,13 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
 
                 React.createElement("div", {className: "row"}, 
                     React.createElement("div", {className: "col s12 offset-s1 grid-example"}, 
-                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "text", label: "Retype Password", name: "re_password"}), 
-                        React.createElement(DropDown, {optionsList: religion}, "Faculty"), 
-                        React.createElement(DropDown, {optionsList: religion}, "Department")
+                        React.createElement(InputField, {icon: "perm_contact_calendar", type: "password", 
+                                    label: "Retype Password", name: "re_password"}), 
+                        React.createElement(InputField, {icon: "verified_user", type: "text", 
+                                    label: "Course", name: "course", ref: "course"}), 
+                        React.createElement("br", null), React.createElement("br", null), 
+                        React.createElement(DropDown, {optionsList: religion, ref: "faculty"}, "Faculty"), 
+                        React.createElement(DropDown, {optionsList: religion, ref: "dept"}, "Department")
                     )
                 ), 
 
@@ -50573,9 +50601,8 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
                             React.createElement(Button, {name: "Sign in", icon: "replay"})
                         ), 
                         "\u00a0", 
-                        React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "home"}, 
-                            React.createElement(Button, {name: "Submit", icon: "forward_10"})
-                        )
+                            React.createElement(Button, {name: "Submit", icon: "forward_10", onClick: this.onRegisteredHandler})
+
                     )
                 )
 

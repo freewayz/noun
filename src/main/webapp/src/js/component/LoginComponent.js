@@ -22,6 +22,16 @@ var LoginComponent = React.createClass({
 
     mixin:[ReactRouter.State],
 
+    onSubmit: function () {
+        var checkObj = {
+            userName : this.refs.userId.getText(),
+            password: this.refs.password.getText()
+        }
+
+        console.log(checkObj);
+    },
+
+
     render: function () {
 
         return (
@@ -31,13 +41,15 @@ var LoginComponent = React.createClass({
 
                 <div className = "row">
                     <div  className = "col s12 offset-s3 grid-example">
-                        <InputField icon = "perm_identity" type = "text" label = "User ID" name = "studentId"/>
+                        <InputField icon = "perm_identity" ref = "userId"
+                                    type = "text" label = "User ID" name = "userId"/>
                     </div>
                 </div>
 
                 <div className = "row">
                     <div  className = "col s12 offset-s3 grid-example">
-                        <InputField icon = "vpn_key" type = "text" label = "Password" name = "password"/>
+                        <InputField icon = "vpn_key" type = "password"
+                                    label = "Password" name = "password" ref = "password"/>
                     </div>
 
                 </div>
@@ -48,9 +60,8 @@ var LoginComponent = React.createClass({
                             <Button name = "Sign Up" icon = "replay"/>
                         </ReactRouter.Link>
                         {"\u00a0"}
-                        <ReactRouter.Link activeClassName="selected"  to="home">
-                            <Button name = "Submit" icon = "forward_10"/>
-                        </ReactRouter.Link>
+                            <Button name = "Submit" icon = "forward_10" onClick = {this.onSubmit}/>
+
                     </div>
                 </div>
 

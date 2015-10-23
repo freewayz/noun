@@ -29,4 +29,8 @@ public interface ResourceMngrLocal {
     int getResourceCount();
 
     List<Resource> getByDeptAndFaculty(String deptId, String faculty);
+    
+    List<Resource> getByDept(String dept);
+    
+    List<Resource> getByFacluty(String faculty);
 }
