@@ -16,13 +16,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author peter
+ * @author azibit
  */
 @Entity
 @Table(name = "Resource")
@@ -35,30 +33,27 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Resource.findByCourse", query = "SELECT r FROM Resource r WHERE r.course = :course"),
     @NamedQuery(name = "Resource.findByDateUploaded", query = "SELECT r FROM Resource r WHERE r.dateUploaded = :dateUploaded"),
     @NamedQuery(name = "Resource.findByDept", query = "SELECT r FROM Resource r WHERE r.dept = :dept"),
-    @NamedQuery(name = "Resource.findByFaculty", query = "SELECT r FROM Resource r WHERE r.faculty = :faculty")})
+    @NamedQuery(name = "Resource.findByFaculty", query = "SELECT r FROM Resource r WHERE r.faculty = :faculty"),
+    @NamedQuery(name = "Resource.findByDeptAndFaculty", query = "SELECT r FROM "
+            + "Resource r WHERE r.dept = :dept AND r.faculty = :faculty")
+})
 public class Resource implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
-    @Size(max = 128)
     @Column(name = "name")
     private String name;
-    @Size(max = 256)
     @Column(name = "url")
     private String url;
-    @Size(max = 64)
     @Column(name = "course")
     private String course;
     @Column(name = "date_uploaded")
     @Temporal(TemporalType.DATE)
     private Date dateUploaded;
-    @Size(max = 64)
     @Column(name = "dept")
     private String dept;
-    @Size(max = 64)
     @Column(name = "faculty")
     private String faculty;
 
@@ -147,7 +142,7 @@ public class Resource implements Serializable {
 
     @Override
     public String toString() {
-        return "tempStore.Resource[ id=" + id + " ]";
+        return "hellogit.Resource[ id=" + id + " ]";
     }
     
 }

@@ -6,26 +6,21 @@
 package com.noun.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author peter
+ * @author azibit
  */
 @Entity
 @Table(name = "User")
@@ -45,53 +40,32 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 16)
     @Column(name = "user_id")
     private String userId;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
     @Column(name = "first_name")
     private String firstName;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
     @Column(name = "last_name")
     private String lastName;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
     @Column(name = "other_name")
     private String otherName;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "course")
     private String course;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "dept")
     private String dept;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 128)
     @Column(name = "faculty")
     private String faculty;
-    @ManyToMany(mappedBy = "userList", fetch = FetchType.LAZY)
-    private List<Role> roleList;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Role roleId;
@@ -187,15 +161,6 @@ public class User implements Serializable {
         this.faculty = faculty;
     }
 
-    @XmlTransient
-    public List<Role> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
-    }
-
     public Role getRoleId() {
         return roleId;
     }
@@ -226,7 +191,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "tempStore.User[ userId=" + userId + " ]";
+        return "hellogit.User[ userId=" + userId + " ]";
     }
     
 }
