@@ -13,6 +13,8 @@ var Login = React.createClass({
     Reflux.ListenerMixin
   ],
 
+  listenables: [AuthActions],
+
   componentDidMount () {
     this.listenTo(AuthStore, this._onAuthChange);
   },
@@ -29,10 +31,16 @@ var Login = React.createClass({
   _handleSubmit(event) {
     event.preventDefault();
 
-    AuthActions.login(
+      console.log(React.findDOMNode(this.refs.email).value);
+      AuthStore.login(
       React.findDOMNode(this.refs.email).value,
       React.findDOMNode(this.refs.password).value
     );
+  },
+
+  handleLogout() {
+      AuthStore.logout();
+    this.transitionTo('/login');
   },
 
   render() {
