@@ -7,8 +7,22 @@
 
 
 var React = require('react');
+var render = require('react-dom')
+var auth = require('../utils/auth');
 
 var PageWrapper = React.createClass({
+
+    getInitialState : function () {
+
+        return{
+            loggedIn : auth.loggedIn()
+        }
+    },
+
+
+    updateAuth : function (loggedIn) {
+        this.setState({loggedIn : loggedIn})
+    },
 
     render : function () {
         return(

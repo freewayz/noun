@@ -68260,54 +68260,71 @@ var FileUpload = require('./FileUpload');
 var TestPhoto = require('./TestPhoto');
 var Button = require('./ButtonComponent');
 var TabComponent = require('./TabComponent');
-var ReactRouter = require('react-router');
-
-var religion = ["Christian", "Islam", "Other"];
+var History = require('react-router');
+var auth = require('../utils/auth');
 var LoginComponent = React.createClass({displayName: "LoginComponent",
 
-    mixin:[ReactRouter.State],
+    mixin: [History],
+
+    getInitialState : function () {
+
+        return {
+            error: false
+        }
+    },
+
+    handleSubmit(event) {
+        event.preventDefault()
+
+        var email = this.refs.email.value
+        var pass = this.refs.pass.value
+
+        auth.login(email, pass, function (loggedIn){
+            if (!loggedIn)
+                return this.setState({error: true});
+
+            var location = this.props;
+
+            if (location.state && location.state.nextPathname) {
+                this.history.replaceState(null, location.state.nextPathname)
+            } else {
+                this.history.replaceState(null, '/about')
+            }
+        })
+    },
 
     render: function () {
 
         return (
             React.createElement("div", {className: "container"}, 
-
                 React.createElement("br", null), 
+                React.createElement("form", {onSubmit: this.handleSubmit}, 
+                    React.createElement("div", {className: "row"}, 
+                        React.createElement("div", {className: "col s12 offset-s3 grid-example"}, 
+                            React.createElement(InputField, {icon: "perm_identity", type: "text", label: "Username", name: "username"})
+                        )
+                    ), 
+                    React.createElement("div", {className: "row"}, 
+                        React.createElement("div", {className: "col s12 offset-s3 grid-example"}, 
+                            React.createElement(InputField, {icon: "vpn_key", type: "text", label: "Password", name: "password"})
+                        )
 
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 offset-s3 grid-example"}, 
-                        React.createElement(InputField, {icon: "perm_identity", type: "text", label: "User ID", name: "studentId"})
-                    )
-                ), 
-
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 offset-s3 grid-example"}, 
-                        React.createElement(InputField, {icon: "vpn_key", type: "text", label: "Password", name: "password"})
-                    )
-
-                ), 
-
-                React.createElement("div", {className: "row"}, 
-                    React.createElement("div", {className: "col s12 offset-s4 grid-example"}, 
-                        React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "register"}, 
-                            React.createElement(Button, {name: "Sign Up", icon: "replay"})
-                        ), 
-                        "\u00a0", 
-                        React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "home"}, 
-                            React.createElement(Button, {name: "Submit", icon: "forward_10"})
+                    ), 
+                    React.createElement("div", {className: "row"}, 
+                        React.createElement("div", {className: "col s12 offset-s4 "}, 
+                            React.createElement("button", {type: "submit"}, "Login"), 
+                            this.state.error && (React.createElement("p", null, "Bad login information"))
                         )
                     )
                 )
-
-
-
-            ));
+            )
+        );
     }
 });
 
 module.exports = LoginComponent;
 
-},{"./ButtonComponent":604,"./DropDownComponent":605,"./FileUpload":606,"./InputFieldComponent":611,"./SwitchButton":618,"./TabComponent":619,"./TestPhoto":620,"./TextArea":621,"react":579,"react-router":416}],613:[function(require,module,exports){
+},{"../utils/auth":632,"./ButtonComponent":604,"./DropDownComponent":605,"./FileUpload":606,"./InputFieldComponent":611,"./SwitchButton":618,"./TabComponent":619,"./TestPhoto":620,"./TextArea":621,"react":579,"react-router":416}],613:[function(require,module,exports){
 /**
  * Created by peter on 8/10/15.
  */
@@ -68826,6 +68843,7 @@ var ResourceComponent = require('./component/ResourceComponent');
 var ResourceUpload = require('./component/ResourceUpload');
 var RefluxComponent = require('./component/RefluxComponent');
 var RegistrationComponent = require('./component/RegistrationComponent');
+var auth = require('./utils/auth');
 
 var ImageActions = require('./action/RefluxAction');
 
@@ -68838,21 +68856,23 @@ var MainApp = React.createClass({displayName: "MainApp",
                 React.createElement(Header, null), 
                 React.createElement(PageWrapper, null, 
                     React.createElement(ReactRouter.RouteHandler, null)
-                ), 
-                React.createElement(Footer, null)
+                )
             )
         );
     }
 });
+function requireAuth(nextState, replaceState) {
+    if (!auth.loggedIn())
+        replaceState({nextPathname: nextState.location.pathname}, '/login')
+}
 
 var Router = (
     React.createElement(ReactRouter.Route, {handler: MainApp}, 
-        React.createElement(ReactRouter.Route, {path: "/", name: "home", handler: HomePage}), 
+        React.createElement(ReactRouter.Route, {path: "/", name: "home", handler: HomePage, onEnter: requireAuth}), 
         React.createElement(ReactRouter.Route, {path: "/login", name: "login", handler: LoginComponent}), 
         React.createElement(ReactRouter.Route, {path: "/resource", name: "resource", handler: ResourceComponent}), 
-        React.createElement(ReactRouter.Route, {path: "/users", name: "users", handler: ResourceUpload}), 
-        React.createElement(ReactRouter.Route, {path: "/react-reflux", name: "react-reflux", handler: RefluxComponent}), 
-        React.createElement(ReactRouter.Route, {path: "/register", name: "register", handler: RegistrationComponent})
+        React.createElement(ReactRouter.Route, {path: "/users", name: "users", handler: ResourceUpload, onEnter: requireAuth}), 
+        React.createElement(ReactRouter.Route, {path: "/register", name: "register", handler: RegistrationComponent, onEnter: requireAuth})
     )
 );
 
@@ -68862,12 +68882,7 @@ ReactRouter.run(
         React.render(React.createElement(Handler, null), document.getElementById('noun-entry-point'));
     });
 
-
-setInterval(function() {
-    ImageActions.fetchList();
-}, 500000000000);
-
-},{"./action/RefluxAction":603,"./component/FooterComponent":607,"./component/HeaderComponent":608,"./component/HomePageComponent":609,"./component/LoginComponent":612,"./component/PageContainer":613,"./component/RefluxComponent":614,"./component/RegistrationComponent":615,"./component/ResourceComponent":616,"./component/ResourceUpload":617,"react":579,"react-router":416}],623:[function(require,module,exports){
+},{"./action/RefluxAction":603,"./component/FooterComponent":607,"./component/HeaderComponent":608,"./component/HomePageComponent":609,"./component/LoginComponent":612,"./component/PageContainer":613,"./component/RefluxComponent":614,"./component/RegistrationComponent":615,"./component/ResourceComponent":616,"./component/ResourceUpload":617,"./utils/auth":632,"react":579,"react-router":416}],623:[function(require,module,exports){
 /**
  * Created by azibit on 10/13/15.
  */
@@ -69241,4 +69256,59 @@ var RefluxStore = Reflux.createStore({
 
 module.exports = RefluxStore;
 
-},{"../action/RefluxAction":603,"jquery":2,"reflux":596}]},{},[622]);
+},{"../action/RefluxAction":603,"jquery":2,"reflux":596}],632:[function(require,module,exports){
+/**
+ * Created by peter on 10/22/15.
+ */
+
+module.exports = {
+    login(email, pass, cb) {
+        cb = arguments[arguments.length - 1]
+        if (localStorage.token) {
+            if (cb) cb(true)
+            this.onChange(true)
+            return
+        }
+        pretendRequest(email, pass, (res) => {
+            if (res.authenticated) {
+                localStorage.token = res.token
+                if (cb) cb(true)
+                this.onChange(true)
+            } else {
+                if (cb) cb(false)
+                this.onChange(false)
+            }
+        })
+    },
+
+    getToken: function () {
+        return localStorage.token
+    },
+
+    logout: function (cb) {
+        delete localStorage.token
+        if (cb) cb()
+        this.onChange(false)
+    },
+
+    loggedIn: function () {
+        return !!localStorage.token
+    },
+
+    onChange: function () {}
+}
+
+function pretendRequest(email, pass, cb) {
+    setTimeout(() => {
+        if (email === 'joe@example.com' && pass === 'password1') {
+            cb({
+                authenticated: true,
+                token: Math.random().toString(36).substring(7)
+            })
+        } else {
+            cb({ authenticated: false })
+        }
+    }, 0)
+}
+
+},{}]},{},[622]);

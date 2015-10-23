@@ -89,8 +89,7 @@ ApplicationAction.createResources.listen(function (registrationJson) {
         data: registrationJson,
         url: api.BASE_ROOT + api.CREATE_RESOURCE
     };
-    Request.post(api.BASE_ROOT + api.CREATE_RESOURCE, registrationJson, function (err, err) {
-    }).set(apiHeaders).end().then(this.completed, this.failed)
+   sendAjaxRequest(registrationInfo).then(this.completed).catch(this.failed)
 });
 
 
