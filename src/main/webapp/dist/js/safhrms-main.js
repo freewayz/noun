@@ -26005,6 +26005,7 @@ var Header = React.createClass({displayName: "Header",
                         React.createElement("a", {id: "logo-container", href: "#", className: "brand-logo"}, "NOUN.ng"), 
                         React.createElement("ul", {id: "nav-mobile", className: "right hide-on-med-and-down"}, 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "home"}, "Home")), 
+                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resourceUpload"}, "Upload Resource")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "All Resources")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Faculty Resource")), 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Department Resource")), 
@@ -26195,7 +26196,7 @@ var Login = React.createClass({displayName: "Login",
           ), 
           React.createElement("div", {className: "row"}, 
             React.createElement("div", {className: "col s12 offset-s3 "}, 
-              React.createElement(InputField, {icon: "vpn_key", ref: "password", type: "text", label: "Password", name: "password"})
+              React.createElement(InputField, {icon: "vpn_key", ref: "password", type: "password", label: "Password", name: "password"})
             )
 
           ), 
@@ -26533,6 +26534,7 @@ var ResourceUpload = React.createClass({displayName: "ResourceUpload",
 
                         React.createElement("br", null), 
 
+                        React.createElement("form", {action: "api/noun/upload", method: "post", enctype: "multipart/form-data"}, 
                         React.createElement("div", {className: "row"}, 
                             React.createElement("div", {className: "col s6 "}, 
                                 React.createElement("div", {className: "input-field col s12"}, 
@@ -26575,12 +26577,10 @@ var ResourceUpload = React.createClass({displayName: "ResourceUpload",
 
                         React.createElement("div", {className: "row"}, 
                             React.createElement("div", null, 
-                                React.createElement("button", {className: "btn waves-effect waves-light", onClick: this._onCreateNewResource}, 
-                                    "Save ", React.createElement("i", {className: "mdi-content-send-right"})
-                                )
+                                React.createElement("input", {className: "btn waves-effect waves-light", type: "Submit", value: "Save"})
                             )
                         )
-
+)
                     )
                 )
             )
@@ -26716,7 +26716,7 @@ var Router = (
             React.createElement(ReactRouter.Route, {path: "/login", name: "login", handler: LoginComponent}), 
                 React.createElement(ReactRouter.Route, {path: "/", name: "home", handler: HomePage}), 
                 React.createElement(ReactRouter.Route, {path: "/resource", name: "resource", handler: ResourceComponent}), 
-                React.createElement(ReactRouter.Route, {path: "/users", name: "users", handler: ResourceUpload})
+                React.createElement(ReactRouter.Route, {path: "/resourceUpload", name: "resourceUpload", handler: ResourceUpload})
         ), 
         React.createElement(ReactRouter.Route, {path: "/register", name: "register", handler: RegistrationComponent})
     )

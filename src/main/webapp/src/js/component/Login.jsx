@@ -66,7 +66,7 @@ var Login = React.createClass({
           </div>
           <div className="row">
             <div className="col s12 offset-s3 ">
-              <InputField icon="vpn_key" ref="password" type="text" label="Password" name="password"/>
+              <InputField icon="vpn_key" ref="password" type="password" label="Password" name="password"/>
             </div>
 
           </div>

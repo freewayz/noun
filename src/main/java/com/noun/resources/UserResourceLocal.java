@@ -8,11 +8,14 @@ package com.noun.resources;
 import com.noun.dto.ResourceDto;
 import com.noun.dto.UserDto;
 import com.noun.util.ResourcePath;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ejb.Local;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -68,6 +71,14 @@ public interface UserResourceLocal {
     @Produces(MediaType.APPLICATION_JSON)
     Response
             getResourceByDept(@PathParam("deptId") String deptId);
+
+
+    @Path("/upload")
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    Response uploadFile(
+            @FormDataParam("file") InputStream uploadedInputStream,
+            @FormDataParam("file") FormDataContentDisposition fileDetail);
 
     @Path(ResourcePath.GET_ALL_RESOURCES_BY_FACULTY + "/{faculty}")
     @GET
