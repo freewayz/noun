@@ -2,7 +2,8 @@ var  Reflux = require('reflux');
 
 var Actions =  Reflux.createActions({
   login: {children: ['completed', 'failed']},
-  logout: {}
+  logout: {},
+  editDataArray: {}
 });
 
 Actions.login.listen(function (email, password) {

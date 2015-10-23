@@ -23187,369 +23187,7 @@ module.exports = warning;
 },{"./emptyFunction":156,"_process":3}],197:[function(require,module,exports){
 module.exports = require('./lib/React');
 
-<<<<<<< HEAD
 },{"./lib/React":70}],198:[function(require,module,exports){
-=======
-},{"./lib/React":68}],196:[function(require,module,exports){
-'use strict';
-
-var utils = require('./utils.js');
-
-/**
- * Creates the mixin, ready for use in a store
- *
- * @param Reflux object An instance of Reflux
- * @returns {{setState: Function, init: Function}}
- */
-module.exports = function stateMixin(Reflux) {
-
-  if (typeof Reflux !== 'object' || typeof Reflux.createAction !== 'function') {
-    throw new Error('Must pass reflux instance to reflux-state-mixin');
-  }
-
-  function attachAction(options, actionName) {
-    if (this[actionName]) {
-      console.warn(
-          'Not attaching event ' + actionName + '; key already exists'
-      );
-      return;
-    }
-    this[actionName] = Reflux.createAction(options);
-  }
-
-  return {
-    setState: function (state) {
-      var changed = false;
-      var prevState = utils.extend({}, this.state);
-
-      for (var key in state) {
-        if (state.hasOwnProperty(key)) {
-          if (this.state[key] !== state[key]) {
-            this[key].trigger(state[key]);
-            changed = true;
-          }
-        }
-      }
-
-      if (changed) {
-        this.state = utils.extend(this.state, state);
-
-        if (utils.isFunction(this.storeDidUpdate)) {
-          this.storeDidUpdate(prevState);
-        }
-
-        this.trigger(this.state);
-      }
-
-    },
-
-    init: function () {
-      if (utils.isFunction(this.getInitialState)) {
-        this.state = this.getInitialState();
-        for (var key in this.state) {
-          if (this.state.hasOwnProperty(key)) {
-            attachAction.call(this, this.state[key], key);
-          }
-        }
-      }
-    },
-
-    connect: function (store, key) {
-      return {
-        getInitialState: function () {
-          if (!utils.isFunction(store.getInitialState)) {
-            return {};
-          } else if (key === undefined) {
-            return store.state;
-          } else {
-            return utils.object([key], [store.state[key]]);
-          }
-        },
-        componentDidMount: function () {
-          utils.extend(this, Reflux.ListenerMethods);
-          var noKey = key === undefined;
-          var me = this,
-              cb = (noKey ? this.setState : function (v) {
-                if (typeof me.isMounted === "undefined" || me.isMounted() === true) {
-                  me.setState(utils.object([key], [v]));
-                }
-              }),
-              listener = noKey ? store : store[key];
-          this.listenTo(listener, cb);
-        },
-        componentWillUnmount: Reflux.ListenerMixin.componentWillUnmount
-      }
-    }
-  }
-};
-
-
-
-},{"./utils.js":197}],197:[function(require,module,exports){
-var utils = {};
-
-utils.object = function (keys, vals) {
-    var o = {}, i = 0;
-    for (; i < keys.length; i++) {
-        o[keys[i]] = vals[i];
-    }
-    return o;
-};
-
-utils.isObject = function (obj) {
-    var type = typeof obj;
-    return type === 'function' || type === 'object' && !!obj;
-};
-
-utils.extend = function (obj) {
-    if (!utils.isObject(obj)) {
-        return obj;
-    }
-    var source, prop;
-    for (var i = 1, length = arguments.length; i < length; i++) {
-        source = arguments[i];
-        for (prop in source) {
-            if (Object.getOwnPropertyDescriptor && Object.defineProperty) {
-                var propertyDescriptor = Object.getOwnPropertyDescriptor(source, prop);
-                Object.defineProperty(obj, prop, propertyDescriptor);
-            } else {
-                obj[prop] = source[prop];
-            }
-        }
-    }
-    return obj;
-};
-
-utils.isFunction = function (value) {
-    return typeof value === 'function';
-};
-
-module.exports = utils;
-
-},{}],198:[function(require,module,exports){
-'use strict';
-
-//
-// We store our EE objects in a plain object whose properties are event names.
-// If `Object.create(null)` is not supported we prefix the event names with a
-// `~` to make sure that the built-in object properties are not overridden or
-// used as an attack vector.
-// We also assume that `Object.create(null)` is available when the event name
-// is an ES6 Symbol.
-//
-var prefix = typeof Object.create !== 'function' ? '~' : false;
-
-/**
- * Representation of a single EventEmitter function.
- *
- * @param {Function} fn Event handler to be called.
- * @param {Mixed} context Context for function execution.
- * @param {Boolean} once Only emit once
- * @api private
- */
-function EE(fn, context, once) {
-  this.fn = fn;
-  this.context = context;
-  this.once = once || false;
-}
-
-/**
- * Minimal EventEmitter interface that is molded against the Node.js
- * EventEmitter interface.
- *
- * @constructor
- * @api public
- */
-function EventEmitter() { /* Nothing to set */ }
-
-/**
- * Holds the assigned EventEmitters by name.
- *
- * @type {Object}
- * @private
- */
-EventEmitter.prototype._events = undefined;
-
-/**
- * Return a list of assigned event listeners.
- *
- * @param {String} event The events that should be listed.
- * @param {Boolean} exists We only need to know if there are listeners.
- * @returns {Array|Boolean}
- * @api public
- */
-EventEmitter.prototype.listeners = function listeners(event, exists) {
-  var evt = prefix ? prefix + event : event
-    , available = this._events && this._events[evt];
-
-  if (exists) return !!available;
-  if (!available) return [];
-  if (available.fn) return [available.fn];
-
-  for (var i = 0, l = available.length, ee = new Array(l); i < l; i++) {
-    ee[i] = available[i].fn;
-  }
-
-  return ee;
-};
-
-/**
- * Emit an event to all registered event listeners.
- *
- * @param {String} event The name of the event.
- * @returns {Boolean} Indication if we've emitted an event.
- * @api public
- */
-EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  var evt = prefix ? prefix + event : event;
-
-  if (!this._events || !this._events[evt]) return false;
-
-  var listeners = this._events[evt]
-    , len = arguments.length
-    , args
-    , i;
-
-  if ('function' === typeof listeners.fn) {
-    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
-
-    switch (len) {
-      case 1: return listeners.fn.call(listeners.context), true;
-      case 2: return listeners.fn.call(listeners.context, a1), true;
-      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
-      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
-      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
-    }
-
-    for (i = 1, args = new Array(len -1); i < len; i++) {
-      args[i - 1] = arguments[i];
-    }
-
-    listeners.fn.apply(listeners.context, args);
-  } else {
-    var length = listeners.length
-      , j;
-
-    for (i = 0; i < length; i++) {
-      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
-
-      switch (len) {
-        case 1: listeners[i].fn.call(listeners[i].context); break;
-        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
-        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
-        default:
-          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
-            args[j - 1] = arguments[j];
-          }
-
-          listeners[i].fn.apply(listeners[i].context, args);
-      }
-    }
-  }
-
-  return true;
-};
-
-/**
- * Register a new EventListener for the given event.
- *
- * @param {String} event Name of the event.
- * @param {Functon} fn Callback function.
- * @param {Mixed} context The context of the function.
- * @api public
- */
-EventEmitter.prototype.on = function on(event, fn, context) {
-  var listener = new EE(fn, context || this)
-    , evt = prefix ? prefix + event : event;
-
-  if (!this._events) this._events = prefix ? {} : Object.create(null);
-  if (!this._events[evt]) this._events[evt] = listener;
-  else {
-    if (!this._events[evt].fn) this._events[evt].push(listener);
-    else this._events[evt] = [
-      this._events[evt], listener
-    ];
-  }
-
-  return this;
-};
-
-/**
- * Add an EventListener that's only called once.
- *
- * @param {String} event Name of the event.
- * @param {Function} fn Callback function.
- * @param {Mixed} context The context of the function.
- * @api public
- */
-EventEmitter.prototype.once = function once(event, fn, context) {
-  var listener = new EE(fn, context || this, true)
-    , evt = prefix ? prefix + event : event;
-
-  if (!this._events) this._events = prefix ? {} : Object.create(null);
-  if (!this._events[evt]) this._events[evt] = listener;
-  else {
-    if (!this._events[evt].fn) this._events[evt].push(listener);
-    else this._events[evt] = [
-      this._events[evt], listener
-    ];
-  }
-
-  return this;
-};
-
-/**
- * Remove event listeners.
- *
- * @param {String} event The event we want to remove.
- * @param {Function} fn The listener that we need to find.
- * @param {Mixed} context Only remove listeners matching this context.
- * @param {Boolean} once Only remove once listeners.
- * @api public
- */
-EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var evt = prefix ? prefix + event : event;
-
-  if (!this._events || !this._events[evt]) return this;
-
-  var listeners = this._events[evt]
-    , events = [];
-
-  if (fn) {
-    if (listeners.fn) {
-      if (
-           listeners.fn !== fn
-        || (once && !listeners.once)
-        || (context && listeners.context !== context)
-      ) {
-        events.push(listeners);
-      }
-    } else {
-      for (var i = 0, length = listeners.length; i < length; i++) {
-        if (
-             listeners[i].fn !== fn
-          || (once && !listeners[i].once)
-          || (context && listeners[i].context !== context)
-        ) {
-          events.push(listeners[i]);
-        }
-      }
-    }
-  }
-
-  //
-  // Reset the array, or remove it completely if we have no more listeners.
-  //
-  if (events.length) {
-    this._events[evt] = events.length === 1 ? events[0] : events;
-  } else {
-    delete this._events[evt];
-  }
-
-  return this;
-};
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
 
 /**
  * Reduce `arr` with `fn`.
@@ -23574,22 +23212,6 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-<<<<<<< HEAD
-=======
-
-//
-// Expose the prefix.
-//
-EventEmitter.prefixed = prefix;
-
-//
-// Expose the module.
-//
-if ('undefined' !== typeof module) {
-  module.exports = EventEmitter;
-}
-
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
 },{}],199:[function(require,module,exports){
 /**
  * A module of methods that you want to include in all actions.
@@ -24610,11 +24232,143 @@ function throwIf(val, msg) {
         throw Error(msg || val);
     }
 }
-<<<<<<< HEAD
 },{"eventemitter3":2}],211:[function(require,module,exports){
-=======
-},{"eventemitter3":198}],211:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+'use strict';
+
+var utils = require('./utils.js');
+
+/**
+ * Creates the mixin, ready for use in a store
+ *
+ * @param Reflux object An instance of Reflux
+ * @returns {{setState: Function, init: Function}}
+ */
+module.exports = function stateMixin(Reflux) {
+
+  if (typeof Reflux !== 'object' || typeof Reflux.createAction !== 'function') {
+    throw new Error('Must pass reflux instance to reflux-state-mixin');
+  }
+
+  function attachAction(options, actionName) {
+    if (this[actionName]) {
+      console.warn(
+          'Not attaching event ' + actionName + '; key already exists'
+      );
+      return;
+    }
+    this[actionName] = Reflux.createAction(options);
+  }
+
+  return {
+    setState: function (state) {
+      var changed = false;
+      var prevState = utils.extend({}, this.state);
+
+      for (var key in state) {
+        if (state.hasOwnProperty(key)) {
+          if (this.state[key] !== state[key]) {
+            this[key].trigger(state[key]);
+            changed = true;
+          }
+        }
+      }
+
+      if (changed) {
+        this.state = utils.extend(this.state, state);
+
+        if (utils.isFunction(this.storeDidUpdate)) {
+          this.storeDidUpdate(prevState);
+        }
+
+        this.trigger(this.state);
+      }
+
+    },
+
+    init: function () {
+      if (utils.isFunction(this.getInitialState)) {
+        this.state = this.getInitialState();
+        for (var key in this.state) {
+          if (this.state.hasOwnProperty(key)) {
+            attachAction.call(this, this.state[key], key);
+          }
+        }
+      }
+    },
+
+    connect: function (store, key) {
+      return {
+        getInitialState: function () {
+          if (!utils.isFunction(store.getInitialState)) {
+            return {};
+          } else if (key === undefined) {
+            return store.state;
+          } else {
+            return utils.object([key], [store.state[key]]);
+          }
+        },
+        componentDidMount: function () {
+          utils.extend(this, Reflux.ListenerMethods);
+          var noKey = key === undefined;
+          var me = this,
+              cb = (noKey ? this.setState : function (v) {
+                if (typeof me.isMounted === "undefined" || me.isMounted() === true) {
+                  me.setState(utils.object([key], [v]));
+                }
+              }),
+              listener = noKey ? store : store[key];
+          this.listenTo(listener, cb);
+        },
+        componentWillUnmount: Reflux.ListenerMixin.componentWillUnmount
+      }
+    }
+  }
+};
+
+
+
+},{"./utils.js":212}],212:[function(require,module,exports){
+var utils = {};
+
+utils.object = function (keys, vals) {
+    var o = {}, i = 0;
+    for (; i < keys.length; i++) {
+        o[keys[i]] = vals[i];
+    }
+    return o;
+};
+
+utils.isObject = function (obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+};
+
+utils.extend = function (obj) {
+    if (!utils.isObject(obj)) {
+        return obj;
+    }
+    var source, prop;
+    for (var i = 1, length = arguments.length; i < length; i++) {
+        source = arguments[i];
+        for (prop in source) {
+            if (Object.getOwnPropertyDescriptor && Object.defineProperty) {
+                var propertyDescriptor = Object.getOwnPropertyDescriptor(source, prop);
+                Object.defineProperty(obj, prop, propertyDescriptor);
+            } else {
+                obj[prop] = source[prop];
+            }
+        }
+    }
+    return obj;
+};
+
+utils.isFunction = function (value) {
+    return typeof value === 'function';
+};
+
+module.exports = utils;
+
+},{}],213:[function(require,module,exports){
 var _ = require('reflux-core/lib/utils'),
     ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
@@ -24633,7 +24387,7 @@ module.exports = _.extend({
 
 }, ListenerMethods);
 
-},{"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],212:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],214:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods'),
     ListenerMixin = require('./ListenerMixin'),
     _ = require('reflux-core/lib/utils');
@@ -24662,7 +24416,7 @@ module.exports = function(listenable,key){
     };
 };
 
-},{"./ListenerMixin":211,"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],213:[function(require,module,exports){
+},{"./ListenerMixin":213,"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],215:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods'),
     ListenerMixin = require('./ListenerMixin'),
     _ = require('reflux-core/lib/utils');
@@ -24704,7 +24458,7 @@ module.exports = function(listenable, key, filterFunc) {
 };
 
 
-},{"./ListenerMixin":211,"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],214:[function(require,module,exports){
+},{"./ListenerMixin":213,"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],216:[function(require,module,exports){
 var Reflux = require('reflux-core');
 
 Reflux.connect = require('./connect');
@@ -24719,7 +24473,7 @@ Reflux.listenToMany = require('./listenToMany');
 
 module.exports = Reflux;
 
-},{"./ListenerMixin":211,"./connect":212,"./connectFilter":213,"./listenTo":215,"./listenToMany":216,"reflux-core":207}],215:[function(require,module,exports){
+},{"./ListenerMixin":213,"./connect":214,"./connectFilter":215,"./listenTo":217,"./listenToMany":218,"reflux-core":207}],217:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
 /**
@@ -24756,7 +24510,7 @@ module.exports = function(listenable,callback,initial){
     };
 };
 
-},{"reflux-core/lib/ListenerMethods":201}],216:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":201}],218:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
 /**
@@ -24791,7 +24545,7 @@ module.exports = function(listenables){
     };
 };
 
-},{"reflux-core/lib/ListenerMethods":201}],217:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":201}],219:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -25950,202 +25704,7 @@ request.put = function(url, data, fn){
 
 module.exports = request;
 
-<<<<<<< HEAD
-},{"emitter":1,"reduce":198}],218:[function(require,module,exports){
-=======
-},{"emitter":218,"reduce":219}],218:[function(require,module,exports){
-
-/**
- * Expose `Emitter`.
- */
-
-module.exports = Emitter;
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks[event] = this._callbacks[event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  var self = this;
-  this._callbacks = this._callbacks || {};
-
-  function on() {
-    self.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks[event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks[event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
-    , callbacks = this._callbacks[event];
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks[event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-},{}],219:[function(require,module,exports){
-
-/**
- * Reduce `arr` with `fn`.
- *
- * @param {Array} arr
- * @param {Function} fn
- * @param {Mixed} initial
- *
- * TODO: combatible error handling?
- */
-
-module.exports = function(arr, fn, initial){  
-  var idx = 0;
-  var len = arr.length;
-  var curr = arguments.length == 3
-    ? initial
-    : arr[idx++];
-
-  while (idx < len) {
-    curr = fn.call(null, curr, arr[idx], ++idx, arr);
-  }
-  
-  return curr;
-};
-},{}],220:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"emitter":1,"reduce":198}],220:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26248,23 +25807,13 @@ ApplicationAction.createResources.listen(function (registrationJson) {
 
 module.exports = ApplicationAction;
 
-<<<<<<< HEAD
-},{"reflux":214,"superagent":217}],219:[function(require,module,exports){
-var  Reflux = require('reflux');
-
-module.export =  Reflux.createActions({
-  login: {},
-  logout: {}
-});
-
-},{"reflux":214}],220:[function(require,module,exports){
-=======
-},{"reflux":214,"superagent":217}],221:[function(require,module,exports){
+},{"reflux":216,"superagent":219}],221:[function(require,module,exports){
 var  Reflux = require('reflux');
 
 var Actions =  Reflux.createActions({
   login: {children: ['completed', 'failed']},
-  logout: {}
+  logout: {},
+  editDataArray: {}
 });
 
 Actions.login.listen(function (email, password) {
@@ -26275,8 +25824,7 @@ Actions.login.listen(function (email, password) {
 });
 module.export = Actions;
 
-},{"../store/AuthStore.sampleData.json":243,"reflux":214}],222:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"../store/AuthStore.sampleData.json":245,"reflux":216}],222:[function(require,module,exports){
 /**
  * Created by azibit on 10/7/15.
  */
@@ -26299,11 +25847,7 @@ var ButtonComponent = React.createClass({displayName: "ButtonComponent",
 
 module.exports = ButtonComponent;
 
-<<<<<<< HEAD
-},{"react":197}],221:[function(require,module,exports){
-=======
-},{"react":195}],223:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],223:[function(require,module,exports){
 /**
  * Created by azibit on 9/11/15.
  */
@@ -26343,11 +25887,7 @@ var DropDown = React.createClass({displayName: "DropDown",
 
 module.exports = DropDown;
 
-<<<<<<< HEAD
-},{"react":197}],222:[function(require,module,exports){
-=======
-},{"react":195}],224:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],224:[function(require,module,exports){
 /**
  * Created by azibit on 9/17/15.
  */
@@ -26371,11 +25911,7 @@ var FileUpload = React.createClass({displayName: "FileUpload",
 
 module.exports = FileUpload;
 
-<<<<<<< HEAD
-},{"react":197}],223:[function(require,module,exports){
-=======
-},{"react":195}],225:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],225:[function(require,module,exports){
 /**
  * Created by peter on 8/6/15.
  */
@@ -26446,11 +25982,7 @@ var FooterComponent = React.createClass({displayName: "FooterComponent",
 
 module.exports = FooterComponent;
 
-<<<<<<< HEAD
-},{"react":197}],224:[function(require,module,exports){
-=======
-},{"react":195}],226:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],226:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**Created by peter on 8/6/15.*/
@@ -26488,11 +26020,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-<<<<<<< HEAD
-},{"react":197,"react-router":33,"reflux":214}],225:[function(require,module,exports){
-=======
-},{"react":195,"react-router":32,"reflux":214}],227:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197,"react-router":33,"reflux":216}],227:[function(require,module,exports){
 /**
  * Created by azibit on 9/11/15.
  */
@@ -26561,11 +26089,7 @@ var HomePage = React.createClass({displayName: "HomePage",
 
 module.exports = HomePage;
 
-<<<<<<< HEAD
-},{"./ButtonComponent":220,"./DropDownComponent":221,"./FileUpload":222,"./InputFieldComponent":226,"./SwitchButton":232,"./TestPhoto":233,"./TextArea":234,"react":197,"react-router":33}],226:[function(require,module,exports){
-=======
-},{"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"react-router":32}],228:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":197,"react-router":33}],228:[function(require,module,exports){
 /**
  * Created by azibit on 9/11/15.
  */
@@ -26602,11 +26126,7 @@ var InputField = React.createClass({displayName: "InputField",
 
 module.exports = InputField;
 
-<<<<<<< HEAD
-},{"react":197}],227:[function(require,module,exports){
-=======
-},{"react":195}],229:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],229:[function(require,module,exports){
 var React =  require('react');
 var Router = require('react-router');
 var Reflux =require('reflux');
@@ -26622,8 +26142,6 @@ var Login = React.createClass({displayName: "Login",
     Reflux.connect(AuthStore),
     Reflux.ListenerMixin
   ],
-
-  listenables: [AuthActions],
 
   componentDidMount () {
     this.listenTo(AuthStore, this._onAuthChange);
@@ -26641,22 +26159,10 @@ var Login = React.createClass({displayName: "Login",
   _handleSubmit(event) {
     event.preventDefault();
 
-<<<<<<< HEAD
-      console.log(React.findDOMNode(this.refs.email).value);
-      AuthStore.login(
-      React.findDOMNode(this.refs.email).value,
-      React.findDOMNode(this.refs.password).value
-=======
     AuthActions.login(
       this.refs.email.getText(),
      this.refs.password.getText()
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
     );
-  },
-
-  handleLogout() {
-      AuthStore.logout();
-    this.transitionTo('/login');
   },
 
   render() {
@@ -26730,11 +26236,7 @@ var Login = React.createClass({displayName: "Login",
 
 module.exports = Login;
 
-<<<<<<< HEAD
-},{"../action/AuthActions":219,"../store/AuthStore":240,"react":197,"react-router":33,"reflux":214}],228:[function(require,module,exports){
-=======
-},{"../action/AuthActions":221,"../store/AuthStore":242,"./InputFieldComponent":228,"react":195,"react-router":32,"reflux":214}],230:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"../action/AuthActions":221,"../store/AuthStore":244,"./InputFieldComponent":228,"react":197,"react-router":33,"reflux":216}],230:[function(require,module,exports){
 /**
  * Created by peter on 8/10/15.
  */
@@ -26758,11 +26260,7 @@ var Container = React.createClass({displayName: "Container",
 
 module.exports = Container;
 
-<<<<<<< HEAD
-},{"react":197,"react-router":33}],229:[function(require,module,exports){
-=======
-},{"react":195,"react-router":32}],231:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197,"react-router":33}],231:[function(require,module,exports){
 /**
  *
  * Created by azibit on 10/7/15.
@@ -26881,11 +26379,7 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
 
 module.exports = RegistrationComponent;
 
-<<<<<<< HEAD
-},{"../action/ApplicationAction":218,"../store/ApplicationStore":239,"./ButtonComponent":220,"./DropDownComponent":221,"./FileUpload":222,"./InputFieldComponent":226,"./SwitchButton":232,"./TestPhoto":233,"./TextArea":234,"react":197,"react-router":33,"reflux":214}],230:[function(require,module,exports){
-=======
-},{"../action/ApplicationAction":220,"../store/ApplicationStore":241,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"react-router":32,"reflux":214}],232:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"../action/ApplicationAction":220,"../store/ApplicationStore":243,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":197,"react-router":33,"reflux":216}],232:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26893,59 +26387,61 @@ module.exports = RegistrationComponent;
 
 var React = require('react');
 var TableComponent = require('../reuseable-ui/TableComponent');
+var NewTableHeader = require('../reuseable-ui/NewTableHeader');
+var NewTableRow = require('../reuseable-ui/NewTableRow');
 var Reflux = require('reflux');
 
 var ApplicationStore = require('../store/ApplicationStore');
 var ApplicationAction = require('../action/ApplicationAction');
 var data = [{
-    name : "WAEC QUestions",
-    dept : "Mathematics",
-    faculty : "Engineering",
-    url : "google.com",
-    date : "Jan 2015",
-    course : "AC101"
+    name: "WAEC QUestions",
+    dept: "Mathematics",
+    faculty: "Engineering",
+    url: "google.com",
+    date: "Jan 2015",
+    course: "AC101"
 },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     },
     {
-        name : "WAEC QUestions",
-        dept : "Mathematics",
-        faculty : "Engineering",
-        url : "google.com",
-        date : "Jan 2015",
-        course : "AC101"
+        name: "WAEC QUestions",
+        dept: "Mathematics",
+        faculty: "Engineering",
+        url: "google.com",
+        date: "Jan 2015",
+        course: "AC101"
     }
 ];
 
-var headerData = ["Name", "Dept", "Faculty", "Course", "Date", "URL", "EDIT", "DELETE"];
+var headerData = ["Name", "Dept", "Faculty", "Course", "Date", "URL", "DELETE"];
 
 var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
     mixins: [Reflux.ListenerMixin],
 
-    setResources : function (resources) {
+    setResources: function (resources) {
         this.setState({resources: resources})
     },
 
@@ -26955,7 +26451,7 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
         console.log("Value is " + this.state.resourcesData);
     },
 
-    componentWillMount : function () {
+    componentWillMount: function () {
         //ApplicationAction.getAllResources("Maths", "Science");
     },
     getInitialState: function () {
@@ -26966,9 +26462,12 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
     render: function () {
         console.log("Resource " + this.state.resources);
-        return(
+        return (
             React.createElement("div", null, 
-                React.createElement(TableComponent, {table_data: data, header_data: headerData})
+                React.createElement("table", null, 
+                    React.createElement(NewTableHeader, {column_header_data: headerData}), 
+                    React.createElement(NewTableRow, {column_data: data})
+                )
             )
         )
     }
@@ -26976,11 +26475,7 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
 module.exports = ResourceComponent;
 
-<<<<<<< HEAD
-},{"../action/ApplicationAction":218,"../reuseable-ui/TableComponent":237,"../store/ApplicationStore":239,"react":197,"reflux":214}],231:[function(require,module,exports){
-=======
-},{"../action/ApplicationAction":220,"../reuseable-ui/TableComponent":239,"../store/ApplicationStore":241,"react":195,"reflux":214}],233:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"../action/ApplicationAction":220,"../reuseable-ui/NewTableHeader":238,"../reuseable-ui/NewTableRow":239,"../reuseable-ui/TableComponent":241,"../store/ApplicationStore":243,"react":197,"reflux":216}],233:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -27095,11 +26590,7 @@ var ResourceUpload = React.createClass({displayName: "ResourceUpload",
 
 module.exports = ResourceUpload;
 
-<<<<<<< HEAD
-},{"../action/ApplicationAction":218,"../store/ApplicationStore":239,"./ButtonComponent":220,"./DropDownComponent":221,"./FileUpload":222,"./InputFieldComponent":226,"./SwitchButton":232,"./TestPhoto":233,"./TextArea":234,"react":197,"reflux":214}],232:[function(require,module,exports){
-=======
-},{"../action/ApplicationAction":220,"../store/ApplicationStore":241,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"reflux":214}],234:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"../action/ApplicationAction":220,"../store/ApplicationStore":243,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":197,"reflux":216}],234:[function(require,module,exports){
 /**
  * Created by azibit on 9/17/15.
  */
@@ -27122,11 +26613,7 @@ var SwitchButton = React.createClass({displayName: "SwitchButton",
 
 module.exports = SwitchButton;
 
-<<<<<<< HEAD
-},{"react":197}],233:[function(require,module,exports){
-=======
-},{"react":195}],235:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],235:[function(require,module,exports){
 /**
  * Created by azibit on 9/23/15.
  */
@@ -27168,11 +26655,7 @@ var TestPhoto = React.createClass({displayName: "TestPhoto",
 
 module.exports = TestPhoto;
 
-<<<<<<< HEAD
-},{"react":197}],234:[function(require,module,exports){
-=======
-},{"react":195}],236:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],236:[function(require,module,exports){
 /**
  * Created by azibit on 9/17/15.
  */
@@ -27195,11 +26678,7 @@ var TextArea = React.createClass({displayName: "TextArea",
 
 module.exports = TextArea;
 
-<<<<<<< HEAD
-},{"react":197}],235:[function(require,module,exports){
-=======
-},{"react":195}],237:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],237:[function(require,module,exports){
 var React = require('react');
 var ReactRouter = require('react-router');
 var HomePage = require('./component/HomePageComponent');
@@ -27250,11 +26729,118 @@ ReactRouter.run(
         React.render(React.createElement(Handler, null), document.getElementById('noun-entry-point'));
     });
 
-<<<<<<< HEAD
-},{"./component/FooterComponent":223,"./component/HeaderComponent":224,"./component/HomePageComponent":225,"./component/Login.jsx":227,"./component/PageContainer":228,"./component/RegistrationComponent":229,"./component/ResourceComponent":230,"./component/ResourceUpload":231,"./utils/RouteHelpers":242,"./utils/auth":243,"react":197,"react-router":33}],236:[function(require,module,exports){
-=======
-},{"./component/FooterComponent":225,"./component/HeaderComponent":226,"./component/HomePageComponent":227,"./component/Login.jsx":229,"./component/PageContainer":230,"./component/RegistrationComponent":231,"./component/ResourceComponent":232,"./component/ResourceUpload":233,"./utils/RouteHelpers":244,"./utils/auth":245,"react":195,"react-router":32}],238:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"./component/FooterComponent":225,"./component/HeaderComponent":226,"./component/HomePageComponent":227,"./component/Login.jsx":229,"./component/PageContainer":230,"./component/RegistrationComponent":231,"./component/ResourceComponent":232,"./component/ResourceUpload":233,"./utils/RouteHelpers":246,"./utils/auth":247,"react":197,"react-router":33}],238:[function(require,module,exports){
+/**
+ * Created by azibit on 10/23/15.
+ */
+
+var React = require('react');
+
+var NewTableHeader = React.createClass({displayName: "NewTableHeader",
+    propsType: {
+        column_header_data: React.PropTypes.array.isRequired
+    },
+
+    render: function () {
+
+        var column_header_detail = this.props.column_header_data.map(function (item, key) {
+            return (React.createElement("th", null, item))
+        });
+        return (
+            React.createElement("thead", null, 
+            React.createElement("tr", null, 
+                column_header_detail
+            )
+            )
+
+        )
+    }
+});
+
+module.exports = NewTableHeader;
+
+},{"react":197}],239:[function(require,module,exports){
+/**
+ * Created by azibit on 10/23/15.
+ */
+
+/**
+ * Created by peter on 8/25/15.
+ * @code TableColumnDataComponent hold the
+ * data for each rows in the table
+ * requires an propstype of array to be passed
+ */
+
+var React = require('react');
+var ApplicationStore = require('../store/ApplicationStore');
+var ApplicationAction = require('../action/ApplicationAction');
+
+
+var NewTableRow = React.createClass({displayName: "NewTableRow",
+    propsType: {
+        column_data: React.PropTypes.array.isRequired
+    },
+
+
+    deleteClick: function (data, event) {
+        console.log("Edit Here" + data);
+        var newStateData = this.state.newData;
+        console.log("Oldee" + newStateData);
+        newStateData.splice(data, 1);
+        this.setState({newData: newStateData});
+
+    },
+
+    getInitialState: function () {
+        return {
+            newData: this.props.column_data,
+            value: 0
+        };
+    },
+
+
+    editClick: function (data, event) {
+        ApplicationAction.editDataArray(this.state.newData[data]);
+    },
+
+
+    render: function () {
+
+        var data;
+        var count = -1;
+        var table_row_data = this.state.newData.map(function (json_obj) {
+            count += 1;
+            data = Object.keys(json_obj).map(function (key) {
+                return React.createElement("td", {key: key}, json_obj[key]);
+
+            });
+            return (
+                React.createElement("tr", {className: "odd"}, 
+                    data, 
+
+                    React.createElement("td", null, 
+                        React.createElement("i", {className: "material-icons", onClick: this.deleteClick.bind(this, count)}, "delete")
+                    )
+
+
+                )
+            )
+        }.bind(this));
+
+        console.log("Table Row Count is  " + table_row_data);
+
+        return (React.createElement("tbody", null, 
+        table_row_data
+        )
+        )
+
+
+    }
+});
+
+module.exports = NewTableRow;
+
+},{"../action/ApplicationAction":220,"../store/ApplicationStore":243,"react":197}],240:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -27291,11 +26877,7 @@ var TableColumnData = React.createClass({displayName: "TableColumnData",
 
 module.exports = TableColumnData;
 
-<<<<<<< HEAD
-},{"react":197}],237:[function(require,module,exports){
-=======
-},{"react":195}],239:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],241:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -27336,11 +26918,7 @@ var TableComponent = React.createClass({displayName: "TableComponent",
 
 module.exports = TableComponent;
 
-<<<<<<< HEAD
-},{"./TableColumnData":236,"./TableHeaderComponent":238,"react":197}],238:[function(require,module,exports){
-=======
-},{"./TableColumnData":238,"./TableHeaderComponent":240,"react":195}],240:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"./TableColumnData":240,"./TableHeaderComponent":242,"react":197}],242:[function(require,module,exports){
 /**
  *
  * Created by azibit on 10/8/15.
@@ -27377,11 +26955,7 @@ var TableHeaderComponent = React.createClass({displayName: "TableHeaderComponent
 
 module.exports = TableHeaderComponent;
 
-<<<<<<< HEAD
-},{"react":197}],239:[function(require,module,exports){
-=======
-},{"react":195}],241:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"react":197}],243:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -27408,8 +26982,14 @@ var ApplicationStore = Reflux.createStore({
     getInitialState: function () {
         return {
             resourcesData: [],
-            isRegistered: false
+            isRegistered: false,
+            dataArray: []
         }
+    },
+
+    onEditDataArray: function (workExp) {
+        console.log("Calling from store");
+        this.setState({dataArray: workExp});
     },
 
 
@@ -27447,11 +27027,7 @@ var ApplicationStore = Reflux.createStore({
 
 module.exports = ApplicationStore;
 
-<<<<<<< HEAD
-},{"../action/ApplicationAction":218,"reflux":214,"superagent":217}],240:[function(require,module,exports){
-=======
-},{"../action/ApplicationAction":220,"reflux":214,"reflux-state-mixin":196,"superagent":217}],242:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"../action/ApplicationAction":220,"reflux":216,"reflux-state-mixin":211,"superagent":219}],244:[function(require,module,exports){
 var  Reflux = require('reflux');
 var  Actions = require('../action/AuthActions');
 
@@ -27537,11 +27113,7 @@ var AuthStore = Reflux.createStore({
 
 module.exports = AuthStore;
 
-<<<<<<< HEAD
-},{"../action/AuthActions":219,"./AuthStore.sampleData.json":241,"reflux":214}],241:[function(require,module,exports){
-=======
-},{"../action/AuthActions":221,"./AuthStore.sampleData.json":243,"reflux":214}],243:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"../action/AuthActions":221,"./AuthStore.sampleData.json":245,"reflux":216}],245:[function(require,module,exports){
 module.exports=module.exports = {
   "iwritecode@preact.com:wearehiring!": {
     "jwt": "DOESNTMATTER.eyJleHAiOi0xLCJpZCI6IjEiLCJuYW1lIjoiR29vbGV5IiwiZW1haWwiOiJnb29sZXlAcHJlYWN0LmNvbSJ9.DOESNTMATTER"
@@ -27550,7 +27122,7 @@ module.exports=module.exports = {
     "jwt": "DOESNTMATTER.eyJleHAiOi0xLCJpZCI6IjIiLCJuYW1lIjoiSGFybGFuIExld2lzIiwiZW1haWwiOiJoYXJsYW5AcHJlYWN0LmNvbSJ9.DOESNTMATTER"
   }
 }
-},{}],244:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 var React = require('react');
 var Router = require('react-router');
 
@@ -27575,11 +27147,7 @@ var LoginRequired = React.createClass({displayName: "LoginRequired",
 
 module.exports = LoginRequired;
 
-<<<<<<< HEAD
-},{"../store/AuthStore":240,"react":197,"react-router":33}],243:[function(require,module,exports){
-=======
-},{"../store/AuthStore":242,"react":195,"react-router":32}],245:[function(require,module,exports){
->>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
+},{"../store/AuthStore":244,"react":197,"react-router":33}],247:[function(require,module,exports){
 /**
  * Created by peter on 10/22/15.
  */
