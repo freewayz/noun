@@ -10,7 +10,6 @@ var SwitchButton = require('./SwitchButton');
 var FileUpload = require('./FileUpload');
 var TestPhoto = require('./TestPhoto');
 var Button = require('./ButtonComponent');
-var TabComponent = require('./TabComponent');
 var Reflux = require('reflux');
 var ApplicationStore = require('../store/ApplicationStore');
 var ApplicationAction = require('../action/ApplicationAction');

@@ -15,7 +15,7 @@ import java.util.Objects;
  *
  * @author azibit
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ResourceDto {
     @JsonIgnore
     private Integer id;

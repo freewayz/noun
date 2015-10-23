@@ -18,7 +18,6 @@ var SignUpComponent = React.createClass({
         return (
             <div>
                 <div className = "container">
-
                     <br/>
                     <div className = "row">
                         <div  className = "col s12 offset-s3 grid-example">

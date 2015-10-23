@@ -30,11 +30,9 @@ public interface UserResourceLocal {
     @Produces("application/json")
     ResourceDto addResource(ResourceDto resourceDto);
     
-    @Path(ResourcePath.UPDATE)
-    @PUT
-    @Consumes("application/json")
-    @Produces("application/json")
-    UserDto updateUser(@PathParam("") String employeeId , UserDto userDto);
+    @Path(ResourcePath.UPDATE + "{id}") @PUT
+    @Consumes("application/json") @Produces("application/json")
+    UserDto updateUser(@PathParam("id") String userId , UserDto userDto);
     
     @Path(ResourcePath.GET_ALL_USERS)
     @GET

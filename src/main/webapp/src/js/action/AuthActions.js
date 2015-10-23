@@ -1,6 +1,8 @@
-import Reflux from 'reflux';
+var  Reflux = require('reflux');
 
-export default Reflux.createActions({
+module.export =  Reflux.createActions({
   login: {children: ['completed', 'failed']},
   logout: {}
 });
+
+

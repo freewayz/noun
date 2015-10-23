@@ -17,6 +17,7 @@ var Button = require('./ButtonComponent');
 var TabComponent = require('./TabComponent');
 var History = require('react-router');
 var auth = require('../utils/auth');
+
 var LoginComponent = React.createClass({
 
     mixin: [History],

@@ -1,5 +1,5 @@
-import Reflux from 'reflux';
-import Actions from 'actions/AuthActions';
+var  Reflux = require('reflux');
+var  Actions = require('../action/AuthActions');
 
 var renderTimeout = 250; // set a timeout to simulate async response time
 

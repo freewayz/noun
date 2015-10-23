@@ -49,7 +49,7 @@ public class NounService {
         newResourceDto.setUrl(hrefTag);
         //create the date
         newResourceDto.setDateUploaded(new Date());
-        return EntityMapper.mapToResourceDto(crudServiceProviderLocal
+        return EntityMapper.mapToResourceDto(resourceLocal
                 .create(EntityMapper.mapToResource(newResourceDto)));
     }
     
@@ -72,7 +72,7 @@ public class NounService {
     }
     
     public List<ResourceDto> getAllResources(){
-        List<Resource> resources = crudServiceProviderLocal.findAll(Resource.class);
+        List<Resource> resources = resourceLocal.getAll();
         List<ResourceDto> resourcesDto = new ArrayList();
         
         if (resources != null || resources.size() > 0) {

@@ -31,8 +31,8 @@ public class UserResource implements UserResourceLocal {
     }
 
     @Override
-    public UserDto updateUser(String employeeId, UserDto userDto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public UserDto updateUser(String userId, UserDto userDto) {
+        return null;
     }
 
     @Override

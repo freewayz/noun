@@ -23,9 +23,9 @@ var TableHeaderComponent = React.createClass({
         });
         return (
             <thead>
-            <tr>
-                {th}
-            </tr>
+                <tr>
+                    {th}
+                </tr>
             </thead>
         )
 
