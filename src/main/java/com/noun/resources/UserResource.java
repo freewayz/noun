@@ -84,5 +84,27 @@ public class UserResource implements UserResourceLocal {
 
     }
 
+    @Override
+    public Response getResourceByDept(String deptId) {
+        List<ResourceDto> resourceDtos =  service.getByDept(deptId);
+        
+        if (resourceDtos.size() < 0) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } else {
+            return Response.status(Response.Status.OK).entity(resourceDtos).build();
+        }
+    }
+
+    @Override
+    public Response getResourceByFaculty(String faculty) {
+        List<ResourceDto> resourceDtos = service.getByFaculty(faculty);
+        
+        if (resourceDtos.size() < 0) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } else {
+            return Response.status(Response.Status.OK).entity(resourceDtos).build();
+        }
+    }
+
 
 }

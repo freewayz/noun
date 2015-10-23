@@ -7,11 +7,13 @@ package com.noun.mngr;
 
 import com.noun.entities.Role;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  *
  * @author azibit
  */
+@Local
 public interface RoleLocal {
     Role create(Role role);
     

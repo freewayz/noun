@@ -9,11 +9,13 @@ import com.noun.crud.CrudServiceProviderLocal;
 import com.noun.entities.Role;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author azibit
  */
+@Stateless
 public class RoleMngr implements RoleLocal{
     
     @EJB
