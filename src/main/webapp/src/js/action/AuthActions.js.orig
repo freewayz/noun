@@ -1,7 +1,12 @@
 var  Reflux = require('reflux');
 
+<<<<<<< HEAD
+module.export =  Reflux.createActions({
+  login: {},
+=======
 var Actions =  Reflux.createActions({
   login: {children: ['completed', 'failed']},
+>>>>>>> 3ee15051c3d57f25ea9e69ba389350614f455907
   logout: {}
 });
 

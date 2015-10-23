@@ -6,7 +6,7 @@
 var Reflux = require('reflux');
 var ApplicationAction = require('../action/ApplicationAction');
 var request = require('superagent');
-
+var StateMixin = require('reflux-state-mixin')(Reflux);
 var apiURL = {
     BASE_ROOT: 'http://localhost:8080/noun/api/noun/',
     CREATE_RESOURCE: 'resources/create',
@@ -14,7 +14,7 @@ var apiURL = {
     GET_RESOURCE_BASED_ON_DEPT_FACULTY: "resources/query/"
 };
 var ApplicationStore = Reflux.createStore({
-    listenables: [ApplicationAction],
+    listenables: [ApplicationAction], mixins :[StateMixin],
 
     init: function () {
 
@@ -24,7 +24,7 @@ var ApplicationStore = Reflux.createStore({
     getInitialState: function () {
         return {
             resourcesData: [],
-            isRegistered : false
+            isRegistered: false
         }
     },
 
@@ -33,22 +33,31 @@ var ApplicationStore = Reflux.createStore({
         console.log("stored called");
         var httpResponse = response.body;
         console.log(JSON.stringify(httpResponse));
-        if(httpResponse){
+        if (httpResponse) {
             this.state.isRegistered = false;
         }
+    },
+
+    onMakeRegistrationFailed: function (result) {
+        console.log(result)
     },
 
 
     onCreateResourceCompleted: function (response) {
         console.log("Creating new Resources with json data of" + response.body);
-        if(response.ok){
+        if (response.ok) {
 
         }
     },
 
     onGetAllResourcesCompleted: function (result) {
         console.log("inside store " + result.data);
-        this.state.resourceData = result.data;
+        this.setState({resourceData : result.data});
+        //this.state.resourceData = result.data;
+    },
+
+    onGetAllResourceFailed : function (result) {
+        console.log("Error Occurred " + result)
     }
 });
 

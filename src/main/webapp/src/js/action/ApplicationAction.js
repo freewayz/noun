@@ -56,13 +56,18 @@ var ApplicationAction = Reflux.createActions({
     'makeRegistration': {children: ['completed', 'failed']},
     'createResources': {children: ['completed', 'failed']},
     'getAllResources': {children: ['completed', 'failed']},
-    'getResourceByDeptFaculty': {children: ['completed', 'failed']}
+    'getResourceByDeptFaculty': {children: ['completed', 'failed']},
+    'resources':{}
 });
 
 
 ApplicationAction.makeRegistration.listen(function (resourceJson) {
-    Request.post(api.CREATE_RESOURCE, resourceJson, function (res, err) {
-    }).end().then(this.completed).catch(this.failed)
+    var registrationInfo = {
+        method: 'POST',
+        data: resourceJson,
+        url: api.BASE_ROOT + api.USER + api.REGISTRATION
+    };
+   sendAjaxRequest(registrationInfo).then(this.completed).catch(this.failed)
 });
 
 
