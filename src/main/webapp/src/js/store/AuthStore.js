@@ -39,7 +39,7 @@ var AuthStore = Reflux.createStore({
     this.trigger(this.getState());
   },
 
-  onLogin (email, password) {
+  login (email, password) {
     this.loading = true;
     this.changed();
 

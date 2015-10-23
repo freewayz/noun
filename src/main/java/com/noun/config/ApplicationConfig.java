@@ -8,6 +8,7 @@ package com.noun.config;
 import java.util.Collection;
 import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
@@ -21,6 +22,8 @@ public class ApplicationConfig extends ResourceConfig{
     public ApplicationConfig() {
         register(JacksonFeature.class);
         register(JacksonProvider.class);
+        register(MultiPartFeature.class);
+        register(CORSConfigurationFilter.class);
         packages("com.noun.resources");
         
     }

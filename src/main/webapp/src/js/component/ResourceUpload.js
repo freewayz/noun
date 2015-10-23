@@ -55,6 +55,7 @@ var ResourceUpload = React.createClass({
 
                         <br/>
 
+                        <form action="api/noun/upload" method="post" enctype="multipart/form-data">
                         <div className="row">
                             <div className="col s6 ">
                                 <div className="input-field col s12">
@@ -97,12 +98,10 @@ var ResourceUpload = React.createClass({
 
                         <div className="row">
                             <div>
-                                <button className="btn waves-effect waves-light"  onClick={this._onCreateNewResource}>
-                                    Save <i className="mdi-content-send-right"></i>
-                                </button>
+                                <input className="btn waves-effect waves-light" type = "Submit" value = "Save"/>
                             </div>
                         </div>
-
+</form>
                     </div>
                 </div>
             )

@@ -24,8 +24,14 @@ var ApplicationStore = Reflux.createStore({
     getInitialState: function () {
         return {
             resourcesData: [],
-            isRegistered: false
+            isRegistered: false,
+            dataArray: []
         }
+    },
+
+    onEditDataArray: function (workExp) {
+        console.log("Calling from store");
+        this.setState({dataArray: workExp});
     },
 
 
