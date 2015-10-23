@@ -6,7 +6,7 @@
 var Reflux = require('reflux');
 var ApplicationAction = require('../action/ApplicationAction');
 var request = require('superagent');
-
+var StateMixin = require('reflux-state-mixin')(Reflux);
 var apiURL = {
     BASE_ROOT: 'http://localhost:8080/noun/api/noun/',
     CREATE_RESOURCE: 'resources/create',
@@ -14,7 +14,7 @@ var apiURL = {
     GET_RESOURCE_BASED_ON_DEPT_FACULTY: "resources/query/"
 };
 var ApplicationStore = Reflux.createStore({
-    listenables: [ApplicationAction],
+    listenables: [ApplicationAction], mixins :[StateMixin],
 
     init: function () {
 
@@ -52,7 +52,12 @@ var ApplicationStore = Reflux.createStore({
 
     onGetAllResourcesCompleted: function (result) {
         console.log("inside store " + result.data);
-        this.state.resourceData = result.data;
+        this.setState({resourceData : result.data});
+        //this.state.resourceData = result.data;
+    },
+
+    onGetAllResourceFailed : function (result) {
+        console.log("Error Occurred " + result)
     }
 });
 

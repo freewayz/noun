@@ -22760,6 +22760,142 @@ module.exports = require('./lib/React');
 },{"./lib/React":68}],196:[function(require,module,exports){
 'use strict';
 
+var utils = require('./utils.js');
+
+/**
+ * Creates the mixin, ready for use in a store
+ *
+ * @param Reflux object An instance of Reflux
+ * @returns {{setState: Function, init: Function}}
+ */
+module.exports = function stateMixin(Reflux) {
+
+  if (typeof Reflux !== 'object' || typeof Reflux.createAction !== 'function') {
+    throw new Error('Must pass reflux instance to reflux-state-mixin');
+  }
+
+  function attachAction(options, actionName) {
+    if (this[actionName]) {
+      console.warn(
+          'Not attaching event ' + actionName + '; key already exists'
+      );
+      return;
+    }
+    this[actionName] = Reflux.createAction(options);
+  }
+
+  return {
+    setState: function (state) {
+      var changed = false;
+      var prevState = utils.extend({}, this.state);
+
+      for (var key in state) {
+        if (state.hasOwnProperty(key)) {
+          if (this.state[key] !== state[key]) {
+            this[key].trigger(state[key]);
+            changed = true;
+          }
+        }
+      }
+
+      if (changed) {
+        this.state = utils.extend(this.state, state);
+
+        if (utils.isFunction(this.storeDidUpdate)) {
+          this.storeDidUpdate(prevState);
+        }
+
+        this.trigger(this.state);
+      }
+
+    },
+
+    init: function () {
+      if (utils.isFunction(this.getInitialState)) {
+        this.state = this.getInitialState();
+        for (var key in this.state) {
+          if (this.state.hasOwnProperty(key)) {
+            attachAction.call(this, this.state[key], key);
+          }
+        }
+      }
+    },
+
+    connect: function (store, key) {
+      return {
+        getInitialState: function () {
+          if (!utils.isFunction(store.getInitialState)) {
+            return {};
+          } else if (key === undefined) {
+            return store.state;
+          } else {
+            return utils.object([key], [store.state[key]]);
+          }
+        },
+        componentDidMount: function () {
+          utils.extend(this, Reflux.ListenerMethods);
+          var noKey = key === undefined;
+          var me = this,
+              cb = (noKey ? this.setState : function (v) {
+                if (typeof me.isMounted === "undefined" || me.isMounted() === true) {
+                  me.setState(utils.object([key], [v]));
+                }
+              }),
+              listener = noKey ? store : store[key];
+          this.listenTo(listener, cb);
+        },
+        componentWillUnmount: Reflux.ListenerMixin.componentWillUnmount
+      }
+    }
+  }
+};
+
+
+
+},{"./utils.js":197}],197:[function(require,module,exports){
+var utils = {};
+
+utils.object = function (keys, vals) {
+    var o = {}, i = 0;
+    for (; i < keys.length; i++) {
+        o[keys[i]] = vals[i];
+    }
+    return o;
+};
+
+utils.isObject = function (obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+};
+
+utils.extend = function (obj) {
+    if (!utils.isObject(obj)) {
+        return obj;
+    }
+    var source, prop;
+    for (var i = 1, length = arguments.length; i < length; i++) {
+        source = arguments[i];
+        for (prop in source) {
+            if (Object.getOwnPropertyDescriptor && Object.defineProperty) {
+                var propertyDescriptor = Object.getOwnPropertyDescriptor(source, prop);
+                Object.defineProperty(obj, prop, propertyDescriptor);
+            } else {
+                obj[prop] = source[prop];
+            }
+        }
+    }
+    return obj;
+};
+
+utils.isFunction = function (value) {
+    return typeof value === 'function';
+};
+
+module.exports = utils;
+
+},{}],198:[function(require,module,exports){
+'use strict';
+
 //
 // We store our EE objects in a plain object whose properties are event names.
 // If `Object.create(null)` is not supported we prefix the event names with a
@@ -23021,7 +23157,7 @@ if ('undefined' !== typeof module) {
   module.exports = EventEmitter;
 }
 
-},{}],197:[function(require,module,exports){
+},{}],199:[function(require,module,exports){
 /**
  * A module of methods that you want to include in all actions.
  * This module is consumed by `createAction`.
@@ -23029,7 +23165,7 @@ if ('undefined' !== typeof module) {
 "use strict";
 
 module.exports = {};
-},{}],198:[function(require,module,exports){
+},{}],200:[function(require,module,exports){
 "use strict";
 
 exports.createdStores = [];
@@ -23044,7 +23180,7 @@ exports.reset = function () {
         exports.createdActions.pop();
     }
 };
-},{}],199:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 "use strict";
 
 var _ = require("./utils"),
@@ -23278,7 +23414,7 @@ module.exports = {
      */
     joinStrict: maker("strict")
 };
-},{"./joins":206,"./utils":208}],200:[function(require,module,exports){
+},{"./joins":208,"./utils":210}],202:[function(require,module,exports){
 "use strict";
 
 var _ = require("./utils");
@@ -23462,7 +23598,7 @@ module.exports = {
         return promise;
     }
 };
-},{"./utils":208}],201:[function(require,module,exports){
+},{"./utils":210}],203:[function(require,module,exports){
 /**
  * A module of methods that you want to include in all stores.
  * This module is consumed by `createStore`.
@@ -23470,7 +23606,7 @@ module.exports = {
 "use strict";
 
 module.exports = {};
-},{}],202:[function(require,module,exports){
+},{}],204:[function(require,module,exports){
 "use strict";
 
 module.exports = function (store, definition) {
@@ -23496,7 +23632,7 @@ module.exports = function (store, definition) {
 
     return store;
 };
-},{}],203:[function(require,module,exports){
+},{}],205:[function(require,module,exports){
 "use strict";
 
 var _ = require("./utils"),
@@ -23563,7 +23699,7 @@ var createAction = function createAction(definition) {
 };
 
 module.exports = createAction;
-},{"./ActionMethods":197,"./Keep":198,"./PublisherMethods":200,"./utils":208}],204:[function(require,module,exports){
+},{"./ActionMethods":199,"./Keep":200,"./PublisherMethods":202,"./utils":210}],206:[function(require,module,exports){
 "use strict";
 
 var _ = require("./utils"),
@@ -23628,7 +23764,7 @@ module.exports = function (definition) {
 
     return store;
 };
-},{"./Keep":198,"./ListenerMethods":199,"./PublisherMethods":200,"./StoreMethods":201,"./bindMethods":202,"./mixer":207,"./utils":208}],205:[function(require,module,exports){
+},{"./Keep":200,"./ListenerMethods":201,"./PublisherMethods":202,"./StoreMethods":203,"./bindMethods":204,"./mixer":209,"./utils":210}],207:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23748,7 +23884,7 @@ if (!Function.prototype.bind) {
 
 exports["default"] = Reflux;
 module.exports = exports["default"];
-},{"./ActionMethods":197,"./Keep":198,"./ListenerMethods":199,"./PublisherMethods":200,"./StoreMethods":201,"./createAction":203,"./createStore":204,"./joins":206,"./utils":208}],206:[function(require,module,exports){
+},{"./ActionMethods":199,"./Keep":200,"./ListenerMethods":201,"./PublisherMethods":202,"./StoreMethods":203,"./createAction":205,"./createStore":206,"./joins":208,"./utils":210}],208:[function(require,module,exports){
 /**
  * Internal module used to create static and instance join methods
  */
@@ -23865,7 +24001,7 @@ function emitIfAllListenablesEmitted(join) {
     join.callback.apply(join.listener, join.args);
     reset(join);
 }
-},{"./createStore":204,"./utils":208}],207:[function(require,module,exports){
+},{"./createStore":206,"./utils":210}],209:[function(require,module,exports){
 "use strict";
 
 var _ = require("./utils");
@@ -23925,7 +24061,7 @@ module.exports = function mix(def) {
 
     return updated;
 };
-},{"./utils":208}],208:[function(require,module,exports){
+},{"./utils":210}],210:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24041,7 +24177,7 @@ function throwIf(val, msg) {
         throw Error(msg || val);
     }
 }
-},{"eventemitter3":196}],209:[function(require,module,exports){
+},{"eventemitter3":198}],211:[function(require,module,exports){
 var _ = require('reflux-core/lib/utils'),
     ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
@@ -24060,7 +24196,7 @@ module.exports = _.extend({
 
 }, ListenerMethods);
 
-},{"reflux-core/lib/ListenerMethods":199,"reflux-core/lib/utils":208}],210:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],212:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods'),
     ListenerMixin = require('./ListenerMixin'),
     _ = require('reflux-core/lib/utils');
@@ -24089,7 +24225,7 @@ module.exports = function(listenable,key){
     };
 };
 
-},{"./ListenerMixin":209,"reflux-core/lib/ListenerMethods":199,"reflux-core/lib/utils":208}],211:[function(require,module,exports){
+},{"./ListenerMixin":211,"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],213:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods'),
     ListenerMixin = require('./ListenerMixin'),
     _ = require('reflux-core/lib/utils');
@@ -24131,7 +24267,7 @@ module.exports = function(listenable, key, filterFunc) {
 };
 
 
-},{"./ListenerMixin":209,"reflux-core/lib/ListenerMethods":199,"reflux-core/lib/utils":208}],212:[function(require,module,exports){
+},{"./ListenerMixin":211,"reflux-core/lib/ListenerMethods":201,"reflux-core/lib/utils":210}],214:[function(require,module,exports){
 var Reflux = require('reflux-core');
 
 Reflux.connect = require('./connect');
@@ -24146,7 +24282,7 @@ Reflux.listenToMany = require('./listenToMany');
 
 module.exports = Reflux;
 
-},{"./ListenerMixin":209,"./connect":210,"./connectFilter":211,"./listenTo":213,"./listenToMany":214,"reflux-core":205}],213:[function(require,module,exports){
+},{"./ListenerMixin":211,"./connect":212,"./connectFilter":213,"./listenTo":215,"./listenToMany":216,"reflux-core":207}],215:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
 /**
@@ -24183,7 +24319,7 @@ module.exports = function(listenable,callback,initial){
     };
 };
 
-},{"reflux-core/lib/ListenerMethods":199}],214:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":201}],216:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
 /**
@@ -24218,7 +24354,7 @@ module.exports = function(listenables){
     };
 };
 
-},{"reflux-core/lib/ListenerMethods":199}],215:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":201}],217:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -25358,7 +25494,7 @@ request.put = function(url, data, fn){
 
 module.exports = request;
 
-},{"emitter":216,"reduce":217}],216:[function(require,module,exports){
+},{"emitter":218,"reduce":219}],218:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -25524,7 +25660,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],217:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
 
 /**
  * Reduce `arr` with `fn`.
@@ -25549,7 +25685,7 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}],218:[function(require,module,exports){
+},{}],220:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -25608,7 +25744,8 @@ var ApplicationAction = Reflux.createActions({
     'makeRegistration': {children: ['completed', 'failed']},
     'createResources': {children: ['completed', 'failed']},
     'getAllResources': {children: ['completed', 'failed']},
-    'getResourceByDeptFaculty': {children: ['completed', 'failed']}
+    'getResourceByDeptFaculty': {children: ['completed', 'failed']},
+    'resources':{}
 });
 
 
@@ -25651,7 +25788,7 @@ ApplicationAction.createResources.listen(function (registrationJson) {
 
 module.exports = ApplicationAction;
 
-},{"reflux":212,"superagent":215}],219:[function(require,module,exports){
+},{"reflux":214,"superagent":217}],221:[function(require,module,exports){
 var  Reflux = require('reflux');
 
 var Actions =  Reflux.createActions({
@@ -25667,7 +25804,7 @@ Actions.login.listen(function (email, password) {
 });
 module.export = Actions;
 
-},{"../store/AuthStore.sampleData.json":241,"reflux":212}],220:[function(require,module,exports){
+},{"../store/AuthStore.sampleData.json":243,"reflux":214}],222:[function(require,module,exports){
 /**
  * Created by azibit on 10/7/15.
  */
@@ -25690,7 +25827,7 @@ var ButtonComponent = React.createClass({displayName: "ButtonComponent",
 
 module.exports = ButtonComponent;
 
-},{"react":195}],221:[function(require,module,exports){
+},{"react":195}],223:[function(require,module,exports){
 /**
  * Created by azibit on 9/11/15.
  */
@@ -25730,7 +25867,7 @@ var DropDown = React.createClass({displayName: "DropDown",
 
 module.exports = DropDown;
 
-},{"react":195}],222:[function(require,module,exports){
+},{"react":195}],224:[function(require,module,exports){
 /**
  * Created by azibit on 9/17/15.
  */
@@ -25754,7 +25891,7 @@ var FileUpload = React.createClass({displayName: "FileUpload",
 
 module.exports = FileUpload;
 
-},{"react":195}],223:[function(require,module,exports){
+},{"react":195}],225:[function(require,module,exports){
 /**
  * Created by peter on 8/6/15.
  */
@@ -25825,7 +25962,7 @@ var FooterComponent = React.createClass({displayName: "FooterComponent",
 
 module.exports = FooterComponent;
 
-},{"react":195}],224:[function(require,module,exports){
+},{"react":195}],226:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**Created by peter on 8/6/15.*/
@@ -25841,32 +25978,29 @@ var Header = React.createClass({displayName: "Header",
 
 
     render: function () {
-
         return (
             React.createElement("nav", {className: "light-blue lighten-1", role: "navigation"}, 
                 React.createElement("div", {className: "navbar-fixed"}, 
                     React.createElement("div", {className: "nav-wrapper container"}, 
-                        React.createElement("a", {id: "logo-container", href: "#", className: "brand-logo"}, "Noun Resources"), 
+                        React.createElement("a", {id: "logo-container", href: "#", className: "brand-logo"}, "NOUN.ng"), 
                         React.createElement("ul", {id: "nav-mobile", className: "right hide-on-med-and-down"}, 
                             React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "home"}, "Home")), 
-
-                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "login"}, "Login")), 
-
-                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Resource"))
+                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "All Resources")), 
+                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Faculty Resource")), 
+                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "resource"}, "Department Resource")), 
+                            React.createElement("li", null, React.createElement(ReactRouter.Link, {activeClassName: "selected", to: "login"}, "Login"))
                         ), 
-                        React.createElement("a", {"data-activates": "nav-mobile", className: "button-collapse"}, React.createElement("i", {
-                            className: "material-icons"}, "menu"))
+                        React.createElement("a", {"data-activates": "nav-mobile", className: "button-collapse"}, React.createElement("i", {className: "material-icons"}, "menu"))
                     )
                 )
             )
         )
-
     }
 });
 
 module.exports = Header;
 
-},{"react":195,"react-router":32,"reflux":212}],225:[function(require,module,exports){
+},{"react":195,"react-router":32,"reflux":214}],227:[function(require,module,exports){
 /**
  * Created by azibit on 9/11/15.
  */
@@ -25935,7 +26069,7 @@ var HomePage = React.createClass({displayName: "HomePage",
 
 module.exports = HomePage;
 
-},{"./ButtonComponent":220,"./DropDownComponent":221,"./FileUpload":222,"./InputFieldComponent":226,"./SwitchButton":232,"./TestPhoto":233,"./TextArea":234,"react":195,"react-router":32}],226:[function(require,module,exports){
+},{"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"react-router":32}],228:[function(require,module,exports){
 /**
  * Created by azibit on 9/11/15.
  */
@@ -25972,7 +26106,7 @@ var InputField = React.createClass({displayName: "InputField",
 
 module.exports = InputField;
 
-},{"react":195}],227:[function(require,module,exports){
+},{"react":195}],229:[function(require,module,exports){
 var React =  require('react');
 var Router = require('react-router');
 var Reflux =require('reflux');
@@ -26040,14 +26174,32 @@ var Login = React.createClass({displayName: "Login",
             )
           ), 
           React.createElement("div", {className: "row"}, 
-            React.createElement("div", {className: "col s12 offset-s3 grid-example"}, 
+            React.createElement("div", {className: "col s12 offset-s3 "}, 
               React.createElement(InputField, {icon: "vpn_key", ref: "password", type: "text", label: "Password", name: "password"})
             )
 
           ), 
           React.createElement("div", {className: "row"}, 
-            React.createElement("div", {className: "col s12 offset-s2 "}, 
-              React.createElement("button", {onClick:  this.handleLogout}, "Log In")
+            React.createElement("div", {className: "col s12 offset-s4"}, 
+              React.createElement("button", {className: "btn waves-effect waves-light", onClick:  this.handleLogout}, "Log In", 
+                React.createElement("i", {className: "material-icons right"}, "send")
+              ), 
+              "\u00a0", 
+              "\u00a0", 
+              "\u00a0", 
+              "\u00a0", 
+              "\u00a0", 
+              "\u00a0", 
+              "\u00a0", 
+              "\u00a0", 
+              "\u00a0", 
+              React.createElement("span", {className: "offset-s5"}), 
+              React.createElement(Router.Link, {activeClassName: "selected", to: "register"}, 
+                React.createElement("button", {className: "btn waves-effect waves-light"}, 
+                  "Register", 
+                  React.createElement("i", {className: "material-icons right"}, "send")
+                )
+              )
             )
           )
         )
@@ -26064,7 +26216,7 @@ var Login = React.createClass({displayName: "Login",
 
 module.exports = Login;
 
-},{"../action/AuthActions":219,"../store/AuthStore":240,"./InputFieldComponent":226,"react":195,"react-router":32,"reflux":212}],228:[function(require,module,exports){
+},{"../action/AuthActions":221,"../store/AuthStore":242,"./InputFieldComponent":228,"react":195,"react-router":32,"reflux":214}],230:[function(require,module,exports){
 /**
  * Created by peter on 8/10/15.
  */
@@ -26088,7 +26240,7 @@ var Container = React.createClass({displayName: "Container",
 
 module.exports = Container;
 
-},{"react":195,"react-router":32}],229:[function(require,module,exports){
+},{"react":195,"react-router":32}],231:[function(require,module,exports){
 /**
  *
  * Created by azibit on 10/7/15.
@@ -26207,7 +26359,7 @@ var RegistrationComponent = React.createClass({displayName: "RegistrationCompone
 
 module.exports = RegistrationComponent;
 
-},{"../action/ApplicationAction":218,"../store/ApplicationStore":239,"./ButtonComponent":220,"./DropDownComponent":221,"./FileUpload":222,"./InputFieldComponent":226,"./SwitchButton":232,"./TestPhoto":233,"./TextArea":234,"react":195,"react-router":32,"reflux":212}],230:[function(require,module,exports){
+},{"../action/ApplicationAction":220,"../store/ApplicationStore":241,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"react-router":32,"reflux":214}],232:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26267,8 +26419,8 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
     mixins: [Reflux.ListenerMixin],
 
-    setResources : function (rs) {
-        this.setState({resources: rs})
+    setResources : function (resources) {
+        this.setState({resources: resources})
     },
 
     componentDidMount(){
@@ -26282,11 +26434,12 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
     },
     getInitialState: function () {
         return {
-            resources: {data}
+            resources: ApplicationStore.state.resourceData
         }
     },
 
     render: function () {
+        console.log("Resource " + this.state.resources);
         return(
             React.createElement("div", null, 
                 React.createElement(TableComponent, {table_data: data, header_data: headerData})
@@ -26297,7 +26450,7 @@ var ResourceComponent = React.createClass({displayName: "ResourceComponent",
 
 module.exports = ResourceComponent;
 
-},{"../action/ApplicationAction":218,"../reuseable-ui/TableComponent":237,"../store/ApplicationStore":239,"react":195,"reflux":212}],231:[function(require,module,exports){
+},{"../action/ApplicationAction":220,"../reuseable-ui/TableComponent":239,"../store/ApplicationStore":241,"react":195,"reflux":214}],233:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26412,7 +26565,7 @@ var ResourceUpload = React.createClass({displayName: "ResourceUpload",
 
 module.exports = ResourceUpload;
 
-},{"../action/ApplicationAction":218,"../store/ApplicationStore":239,"./ButtonComponent":220,"./DropDownComponent":221,"./FileUpload":222,"./InputFieldComponent":226,"./SwitchButton":232,"./TestPhoto":233,"./TextArea":234,"react":195,"reflux":212}],232:[function(require,module,exports){
+},{"../action/ApplicationAction":220,"../store/ApplicationStore":241,"./ButtonComponent":222,"./DropDownComponent":223,"./FileUpload":224,"./InputFieldComponent":228,"./SwitchButton":234,"./TestPhoto":235,"./TextArea":236,"react":195,"reflux":214}],234:[function(require,module,exports){
 /**
  * Created by azibit on 9/17/15.
  */
@@ -26435,7 +26588,7 @@ var SwitchButton = React.createClass({displayName: "SwitchButton",
 
 module.exports = SwitchButton;
 
-},{"react":195}],233:[function(require,module,exports){
+},{"react":195}],235:[function(require,module,exports){
 /**
  * Created by azibit on 9/23/15.
  */
@@ -26477,7 +26630,7 @@ var TestPhoto = React.createClass({displayName: "TestPhoto",
 
 module.exports = TestPhoto;
 
-},{"react":195}],234:[function(require,module,exports){
+},{"react":195}],236:[function(require,module,exports){
 /**
  * Created by azibit on 9/17/15.
  */
@@ -26500,7 +26653,7 @@ var TextArea = React.createClass({displayName: "TextArea",
 
 module.exports = TextArea;
 
-},{"react":195}],235:[function(require,module,exports){
+},{"react":195}],237:[function(require,module,exports){
 var React = require('react');
 var ReactRouter = require('react-router');
 var HomePage = require('./component/HomePageComponent');
@@ -26534,13 +26687,11 @@ function requireAuth(nextState, replaceState) {
 }
 var Router = (
     React.createElement(ReactRouter.Route, null, 
-        React.createElement(ReactRouter.Route, {path: "/login", name: "login", handler: LoginComponent}), 
-        React.createElement(ReactRouter.Route, {handler: LoginRequired}, 
-            React.createElement(ReactRouter.Route, {handler: MainApp}, 
+        React.createElement(ReactRouter.Route, {handler: MainApp}, 
+            React.createElement(ReactRouter.Route, {path: "/login", name: "login", handler: LoginComponent}), 
                 React.createElement(ReactRouter.Route, {path: "/", name: "home", handler: HomePage}), 
                 React.createElement(ReactRouter.Route, {path: "/resource", name: "resource", handler: ResourceComponent}), 
                 React.createElement(ReactRouter.Route, {path: "/users", name: "users", handler: ResourceUpload})
-            )
         ), 
         React.createElement(ReactRouter.Route, {path: "/register", name: "register", handler: RegistrationComponent})
     )
@@ -26553,7 +26704,7 @@ ReactRouter.run(
         React.render(React.createElement(Handler, null), document.getElementById('noun-entry-point'));
     });
 
-},{"./component/FooterComponent":223,"./component/HeaderComponent":224,"./component/HomePageComponent":225,"./component/Login.jsx":227,"./component/PageContainer":228,"./component/RegistrationComponent":229,"./component/ResourceComponent":230,"./component/ResourceUpload":231,"./utils/RouteHelpers":242,"./utils/auth":243,"react":195,"react-router":32}],236:[function(require,module,exports){
+},{"./component/FooterComponent":225,"./component/HeaderComponent":226,"./component/HomePageComponent":227,"./component/Login.jsx":229,"./component/PageContainer":230,"./component/RegistrationComponent":231,"./component/ResourceComponent":232,"./component/ResourceUpload":233,"./utils/RouteHelpers":244,"./utils/auth":245,"react":195,"react-router":32}],238:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26590,7 +26741,7 @@ var TableColumnData = React.createClass({displayName: "TableColumnData",
 
 module.exports = TableColumnData;
 
-},{"react":195}],237:[function(require,module,exports){
+},{"react":195}],239:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26631,7 +26782,7 @@ var TableComponent = React.createClass({displayName: "TableComponent",
 
 module.exports = TableComponent;
 
-},{"./TableColumnData":236,"./TableHeaderComponent":238,"react":195}],238:[function(require,module,exports){
+},{"./TableColumnData":238,"./TableHeaderComponent":240,"react":195}],240:[function(require,module,exports){
 /**
  *
  * Created by azibit on 10/8/15.
@@ -26668,7 +26819,7 @@ var TableHeaderComponent = React.createClass({displayName: "TableHeaderComponent
 
 module.exports = TableHeaderComponent;
 
-},{"react":195}],239:[function(require,module,exports){
+},{"react":195}],241:[function(require,module,exports){
 /**
  * Created by azibit on 10/8/15.
  */
@@ -26677,7 +26828,7 @@ module.exports = TableHeaderComponent;
 var Reflux = require('reflux');
 var ApplicationAction = require('../action/ApplicationAction');
 var request = require('superagent');
-
+var StateMixin = require('reflux-state-mixin')(Reflux);
 var apiURL = {
     BASE_ROOT: 'http://localhost:8080/noun/api/noun/',
     CREATE_RESOURCE: 'resources/create',
@@ -26685,7 +26836,7 @@ var apiURL = {
     GET_RESOURCE_BASED_ON_DEPT_FACULTY: "resources/query/"
 };
 var ApplicationStore = Reflux.createStore({
-    listenables: [ApplicationAction],
+    listenables: [ApplicationAction], mixins :[StateMixin],
 
     init: function () {
 
@@ -26723,13 +26874,18 @@ var ApplicationStore = Reflux.createStore({
 
     onGetAllResourcesCompleted: function (result) {
         console.log("inside store " + result.data);
-        this.state.resourceData = result.data;
+        this.setState({resourceData : result.data});
+        //this.state.resourceData = result.data;
+    },
+
+    onGetAllResourceFailed : function (result) {
+        console.log("Error Occurred " + result)
     }
 });
 
 module.exports = ApplicationStore;
 
-},{"../action/ApplicationAction":218,"reflux":212,"superagent":215}],240:[function(require,module,exports){
+},{"../action/ApplicationAction":220,"reflux":214,"reflux-state-mixin":196,"superagent":217}],242:[function(require,module,exports){
 var  Reflux = require('reflux');
 var  Actions = require('../action/AuthActions');
 
@@ -26815,7 +26971,7 @@ var AuthStore = Reflux.createStore({
 
 module.exports = AuthStore;
 
-},{"../action/AuthActions":219,"./AuthStore.sampleData.json":241,"reflux":212}],241:[function(require,module,exports){
+},{"../action/AuthActions":221,"./AuthStore.sampleData.json":243,"reflux":214}],243:[function(require,module,exports){
 module.exports=module.exports = {
   "iwritecode@preact.com:wearehiring!": {
     "jwt": "DOESNTMATTER.eyJleHAiOi0xLCJpZCI6IjEiLCJuYW1lIjoiR29vbGV5IiwiZW1haWwiOiJnb29sZXlAcHJlYWN0LmNvbSJ9.DOESNTMATTER"
@@ -26824,7 +26980,7 @@ module.exports=module.exports = {
     "jwt": "DOESNTMATTER.eyJleHAiOi0xLCJpZCI6IjIiLCJuYW1lIjoiSGFybGFuIExld2lzIiwiZW1haWwiOiJoYXJsYW5AcHJlYWN0LmNvbSJ9.DOESNTMATTER"
   }
 }
-},{}],242:[function(require,module,exports){
+},{}],244:[function(require,module,exports){
 var React = require('react');
 var Router = require('react-router');
 
@@ -26849,7 +27005,7 @@ var LoginRequired = React.createClass({displayName: "LoginRequired",
 
 module.exports = LoginRequired;
 
-},{"../store/AuthStore":240,"react":195,"react-router":32}],243:[function(require,module,exports){
+},{"../store/AuthStore":242,"react":195,"react-router":32}],245:[function(require,module,exports){
 /**
  * Created by peter on 10/22/15.
  */
@@ -26904,4 +27060,4 @@ function pretendRequest(email, pass, cb) {
     }, 0)
 }
 
-},{}]},{},[235]);
+},{}]},{},[237]);

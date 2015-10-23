@@ -57,8 +57,8 @@ var ResourceComponent = React.createClass({
 
     mixins: [Reflux.ListenerMixin],
 
-    setResources : function (rs) {
-        this.setState({resources: rs})
+    setResources : function (resources) {
+        this.setState({resources: resources})
     },
 
     componentDidMount(){
@@ -72,11 +72,12 @@ var ResourceComponent = React.createClass({
     },
     getInitialState: function () {
         return {
-            resources: {data}
+            resources: ApplicationStore.state.resourceData
         }
     },
 
     render: function () {
+        console.log("Resource " + this.state.resources);
         return(
             <div>
                 <TableComponent table_data = {data} header_data = {headerData}/>

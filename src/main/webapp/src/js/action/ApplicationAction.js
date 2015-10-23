@@ -56,7 +56,8 @@ var ApplicationAction = Reflux.createActions({
     'makeRegistration': {children: ['completed', 'failed']},
     'createResources': {children: ['completed', 'failed']},
     'getAllResources': {children: ['completed', 'failed']},
-    'getResourceByDeptFaculty': {children: ['completed', 'failed']}
+    'getResourceByDeptFaculty': {children: ['completed', 'failed']},
+    'resources':{}
 });
 
 

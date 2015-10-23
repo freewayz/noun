@@ -13,26 +13,23 @@ var Header = React.createClass({
 
 
     render: function () {
-
         return (
             <nav className="light-blue lighten-1" role="navigation">
                 <div className="navbar-fixed">
                     <div className="nav-wrapper container">
-                        <a id="logo-container" href="#" className="brand-logo">Noun Resources</a>
+                        <a id="logo-container" href="#" className="brand-logo">NOUN.ng</a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li><ReactRouter.Link activeClassName="selected" to="home">Home</ReactRouter.Link></li>
-
+                            <li><ReactRouter.Link activeClassName="selected" to="resource">All Resources</ReactRouter.Link></li>
+                            <li><ReactRouter.Link activeClassName="selected" to="resource">Faculty Resource</ReactRouter.Link></li>
+                            <li><ReactRouter.Link activeClassName="selected" to="resource">Department Resource</ReactRouter.Link></li>
                             <li><ReactRouter.Link activeClassName="selected" to="login">Login</ReactRouter.Link></li>
-
-                            <li><ReactRouter.Link activeClassName="selected" to="resource">Resource</ReactRouter.Link></li>
                         </ul>
-                        <a data-activates="nav-mobile" className="button-collapse"><i
-                            className="material-icons">menu</i></a>
+                        <a data-activates="nav-mobile" className="button-collapse"><i className="material-icons">menu</i></a>
                     </div>
                 </div>
             </nav>
         )
-
     }
 });
 

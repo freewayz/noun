@@ -65,14 +65,32 @@ var Login = React.createClass({
             </div>
           </div>
           <div className="row">
-            <div className="col s12 offset-s3 grid-example">
+            <div className="col s12 offset-s3 ">
               <InputField icon="vpn_key" ref="password" type="text" label="Password" name="password"/>
             </div>
 
           </div>
           <div className="row">
-            <div className="col s12 offset-s2 ">
-              <button onClick={ this.handleLogout }>Log In</button>
+            <div className="col s12 offset-s4">
+              <button className="btn waves-effect waves-light" onClick={ this.handleLogout }>Log In
+                <i className="material-icons right">send</i>
+              </button>
+              {"\u00a0"}
+              {"\u00a0"}
+              {"\u00a0"}
+              {"\u00a0"}
+              {"\u00a0"}
+              {"\u00a0"}
+              {"\u00a0"}
+              {"\u00a0"}
+              {"\u00a0"}
+              <span className="offset-s5"/>
+              <Router.Link activeClassName="selected" to="register">
+                <button className="btn waves-effect waves-light">
+                  Register
+                  <i className="material-icons right">send</i>
+                </button>
+              </Router.Link>
             </div>
           </div>
         </div>

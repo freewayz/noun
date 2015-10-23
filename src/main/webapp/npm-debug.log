@@ -3,7 +3,7 @@
 1 verbose cli   '/usr/bin/npm',
 1 verbose cli   'install',
 1 verbose cli   '--save',
-1 verbose cli   'history' ]
+1 verbose cli   'reflux-state-mixin' ]
 2 info using npm@1.3.10
 3 info using node@v0.10.25
 4 warn package.json ONLINE_NOUN_UI@0.0.1 No repository field.
@@ -14,8 +14,8 @@
 9 warn package.json react-addons-update@0.14.0 No repository field.
 10 warn package.json browsify@0.0.4 No repository field.
 11 verbose readDependencies using package.json deps
-12 verbose cache add [ 'history', null ]
-13 verbose cache add name=undefined spec="history" args=["history",null]
+12 verbose cache add [ 'reflux-state-mixin', null ]
+13 verbose cache add name=undefined spec="reflux-state-mixin" args=["reflux-state-mixin",null]
 14 verbose parsed url { protocol: null,
 14 verbose parsed url   slashes: null,
 14 verbose parsed url   auth: null,
@@ -25,1211 +25,205 @@
 14 verbose parsed url   hash: null,
 14 verbose parsed url   search: null,
 14 verbose parsed url   query: null,
-14 verbose parsed url   pathname: 'history',
-14 verbose parsed url   path: 'history',
-14 verbose parsed url   href: 'history' }
-15 silly lockFile 66f79d8a-history history
-16 verbose lock history /home/peter/.npm/66f79d8a-history.lock
-17 silly lockFile 66f79d8a-history history
-18 silly lockFile 66f79d8a-history history
-19 verbose addNamed [ 'history', '' ]
+14 verbose parsed url   pathname: 'reflux-state-mixin',
+14 verbose parsed url   path: 'reflux-state-mixin',
+14 verbose parsed url   href: 'reflux-state-mixin' }
+15 silly lockFile 1b7ca1e5-reflux-state-mixin reflux-state-mixin
+16 verbose lock reflux-state-mixin /home/peter/.npm/1b7ca1e5-reflux-state-mixin.lock
+17 silly lockFile 1b7ca1e5-reflux-state-mixin reflux-state-mixin
+18 silly lockFile 1b7ca1e5-reflux-state-mixin reflux-state-mixin
+19 verbose addNamed [ 'reflux-state-mixin', '' ]
 20 verbose addNamed [ null, '*' ]
-21 silly lockFile 2c60d3c0-history history@
-22 verbose lock history@ /home/peter/.npm/2c60d3c0-history.lock
-23 silly addNameRange { name: 'history', range: '*', hasData: false }
-24 verbose url raw history
-25 verbose url resolving [ 'https://registry.npmjs.org/', './history' ]
-26 verbose url resolved https://registry.npmjs.org/history
-27 info trying registry request attempt 1 at 21:40:09
-28 verbose etag "CBW0YUZCI9RZ179I38VL4TRVD"
-29 http GET https://registry.npmjs.org/history
-30 http 304 https://registry.npmjs.org/history
-31 silly registry.get cb [ 304,
-31 silly registry.get   { date: 'Thu, 22 Oct 2015 20:40:10 GMT',
-31 silly registry.get     via: '1.1 varnish',
+21 silly lockFile 6c2a4c5d-reflux-state-mixin reflux-state-mixin@
+22 verbose lock reflux-state-mixin@ /home/peter/.npm/6c2a4c5d-reflux-state-mixin.lock
+23 silly addNameRange { name: 'reflux-state-mixin', range: '*', hasData: false }
+24 verbose url raw reflux-state-mixin
+25 verbose url resolving [ 'https://registry.npmjs.org/', './reflux-state-mixin' ]
+26 verbose url resolved https://registry.npmjs.org/reflux-state-mixin
+27 info trying registry request attempt 1 at 09:24:25
+28 verbose etag "9NE88QWK1FE5XMKW2EK6I3ALD"
+29 http GET https://registry.npmjs.org/reflux-state-mixin
+30 http 200 https://registry.npmjs.org/reflux-state-mixin
+31 silly registry.get cb [ 200,
+31 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+31 silly registry.get     etag: '"6WVTLD13EDJ81MO6I2OCV5FLH"',
+31 silly registry.get     'content-type': 'application/json',
 31 silly registry.get     'cache-control': 'max-age=60',
-31 silly registry.get     etag: '"CBW0YUZCI9RZ179I38VL4TRVD"',
+31 silly registry.get     'content-length': '18690',
+31 silly registry.get     'accept-ranges': 'bytes',
+31 silly registry.get     date: 'Fri, 23 Oct 2015 08:24:27 GMT',
+31 silly registry.get     via: '1.1 varnish',
 31 silly registry.get     age: '0',
 31 silly registry.get     connection: 'keep-alive',
-31 silly registry.get     'x-served-by': 'cache-lhr6325-LHR',
-31 silly registry.get     'x-cache': 'HIT',
-31 silly registry.get     'x-cache-hits': '1',
-31 silly registry.get     'x-timer': 'S1445546410.206215,VS0,VE89',
+31 silly registry.get     'x-served-by': 'cache-ams4126-AMS',
+31 silly registry.get     'x-cache': 'MISS',
+31 silly registry.get     'x-cache-hits': '0',
+31 silly registry.get     'x-timer': 'S1445588667.323434,VS0,VE347',
 31 silly registry.get     vary: 'Accept' } ]
-32 verbose etag history from cache
-33 silly addNameRange number 2 { name: 'history', range: '*', hasData: true }
-34 silly addNameRange versions [ 'history',
-34 silly addNameRange   [ '0.1.0',
-34 silly addNameRange     '1.0.0',
-34 silly addNameRange     '1.1.0',
-34 silly addNameRange     '1.2.0',
-34 silly addNameRange     '1.2.1',
-34 silly addNameRange     '1.2.2',
-34 silly addNameRange     '1.3.0',
-34 silly addNameRange     '1.3.1',
-34 silly addNameRange     '1.3.2',
-34 silly addNameRange     '1.3.3',
-34 silly addNameRange     '1.4.0',
-34 silly addNameRange     '1.4.1',
-34 silly addNameRange     '1.5.0',
-34 silly addNameRange     '1.6.0',
-34 silly addNameRange     '1.7.0',
-34 silly addNameRange     '1.8.0',
-34 silly addNameRange     '1.8.1',
-34 silly addNameRange     '1.8.2',
-34 silly addNameRange     '1.8.3',
-34 silly addNameRange     '1.8.4',
-34 silly addNameRange     '1.8.5',
-34 silly addNameRange     '1.9.0',
-34 silly addNameRange     '1.9.1',
-34 silly addNameRange     '1.10.0',
-34 silly addNameRange     '1.10.1',
-34 silly addNameRange     '1.10.2',
-34 silly addNameRange     '1.11.0',
-34 silly addNameRange     '1.11.1',
-34 silly addNameRange     '1.12.0',
-34 silly addNameRange     '1.12.1',
-34 silly addNameRange     '1.12.2',
-34 silly addNameRange     '1.12.3',
-34 silly addNameRange     '1.12.4',
-34 silly addNameRange     '1.12.5' ] ]
-35 verbose addNamed [ 'history', '1.12.5' ]
-36 verbose addNamed [ '1.12.5', '1.12.5' ]
-37 silly lockFile ebf5e6e5-history-1-12-5 history@1.12.5
-38 verbose lock history@1.12.5 /home/peter/.npm/ebf5e6e5-history-1-12-5.lock
-39 silly lockFile ebf5e6e5-history-1-12-5 history@1.12.5
-40 silly lockFile ebf5e6e5-history-1-12-5 history@1.12.5
-41 silly lockFile 2c60d3c0-history history@
-42 silly lockFile 2c60d3c0-history history@
-43 silly resolved [ { name: 'history',
-43 silly resolved     version: '1.12.5',
-43 silly resolved     description: 'A minimal, functional history implementation for JavaScript',
-43 silly resolved     main: 'lib/index',
-43 silly resolved     repository: { type: 'git', url: 'https://github.com/rackt/history.git' },
-43 silly resolved     bugs: { url: 'https://github.com/rackt/history/issues' },
-43 silly resolved     scripts:
-43 silly resolved      { build: 'babel ./modules --stage 0 --loose all -d lib --ignore \'__tests__\'',
-43 silly resolved        'build-umd': 'NODE_ENV=production webpack modules/index.js umd/History.js',
-43 silly resolved        'build-min': 'NODE_ENV=production webpack -p modules/index.js umd/History.min.js',
-43 silly resolved        lint: 'eslint modules',
-43 silly resolved        start: 'webpack-dev-server -d --content-base ./ --history-api-fallback --inline modules/index.js',
-43 silly resolved        test: 'npm run lint && karma start',
-43 silly resolved        postinstall: 'node npm-scripts/postinstall.js' },
-43 silly resolved     authors: [ 'Michael Jackson' ],
-43 silly resolved     license: 'MIT',
-43 silly resolved     dependencies:
-43 silly resolved      { 'deep-equal': '^1.0.0',
-43 silly resolved        invariant: '^2.0.0',
-43 silly resolved        qs: '^4.0.0',
-43 silly resolved        warning: '^2.0.0' },
-43 silly resolved     devDependencies:
-43 silly resolved      { assert: '1.3.0',
-43 silly resolved        babel: '^5.4.7',
-43 silly resolved        'babel-core': '^5.4.7',
-43 silly resolved        'babel-eslint': '^3.1.23',
-43 silly resolved        'babel-loader': '^5.0.0',
-43 silly resolved        eslint: '1.4.1',
-43 silly resolved        'eslint-plugin-react': '3.3.2',
-43 silly resolved        expect: '^1.12.0',
-43 silly resolved        'gzip-size': '^3.0.0',
-43 silly resolved        karma: '^0.13.3',
-43 silly resolved        'karma-browserstack-launcher': '^0.1.3',
-43 silly resolved        'karma-chrome-launcher': '^0.2.0',
-43 silly resolved        'karma-firefox-launcher': '^0.1.6',
-43 silly resolved        'karma-mocha': '^0.2.0',
-43 silly resolved        'karma-mocha-reporter': '^1.0.4',
-43 silly resolved        'karma-sourcemap-loader': '^0.3.5',
-43 silly resolved        'karma-webpack': '^1.7.0',
-43 silly resolved        mocha: '^2.0.1',
-43 silly resolved        'pretty-bytes': '^2.0.1',
-43 silly resolved        rimraf: '^2.4.2',
-43 silly resolved        webpack: '^1.4.13',
-43 silly resolved        'webpack-dev-server': '^1.10.1' },
-43 silly resolved     tags: [ 'history', 'location' ],
-43 silly resolved     keywords: [ 'history', 'location' ],
-43 silly resolved     readme: '# history\n\n[![build status](https://img.shields.io/travis/rackt/history/master.svg?style=flat-square)](https://travis-ci.org/rackt/history)\n[![npm package](https://img.shields.io/npm/v/history.svg?style=flat-square)](https://www.npmjs.org/package/history)\n[![react-router channel on slack](https://img.shields.io/badge/slack-react--router@reactiflux-61DAFB.svg?style=flat-square)](http://www.reactiflux.com)\n\n[`history`](https://www.npmjs.com/package/history) is a JavaScript library that lets you easily manage session history in browsers, testing environments, and (soon, via [React Native](https://facebook.github.io/react-native/)) native devices. `history` abstracts away the differences in these different platforms and provides a minimal API that lets you manage the history stack, navigate, confirm navigation, and persist state between sessions. `history` is library-agnostic and may easily be included in any JavaScript project.\n\n## Installation\n\nUsing [npm](https://www.npmjs.org/):\n\n    $ npm install history\n\nThen with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:\n\n```js\n// using an ES6 transpiler, like babel\nimport { createHistory } from \'history\'\n\n// not using an ES6 transpiler\nvar createHistory = require(\'history\').createHistory\n```\n\n## Basic Usage\n\nA "history" encapsulates navigation between different screens in your app, and notifies listeners when the current screen changes.\n\n```js\nimport { createHistory } from \'history\'\n\nlet history = createHistory()\n\n// Listen for changes to the current location. The\n// listener is called once immediately.\nlet unlisten = history.listen(location => {\n  console.log(location.pathname)\n})\n\nhistory.pushState({ the: \'state\' }, \'/the/path?a=query\')\n\n// When you\'re finished, stop the listener.\nunlisten()\n```\n\nYou can find many more examples [in the documentation](https://github.com/rackt/history/tree/master/docs)!\n\n## Thanks\n\nA big thank-you to [Dan Shaw](https://www.npmjs.com/~dshaw) for letting us use the `history` npm package name! Thanks Dan!\n\nAlso, thanks to [BrowserStack](https://www.browserstack.com/) for providing the infrastructure that allows us to run our build in real browsers.\n',
-43 silly resolved     readmeFilename: 'README.md',
-43 silly resolved     _id: 'history@1.12.5',
-43 silly resolved     _from: 'history@' } ]
-44 info install history@1.12.5 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp
-45 info installOne history@1.12.5
-46 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history unbuild
-47 verbose tar unpack /home/peter/.npm/history/1.12.5/package.tgz
-48 silly lockFile d360d6df-main-webapp-node-modules-history tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-49 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history /home/peter/.npm/d360d6df-main-webapp-node-modules-history.lock
-50 silly lockFile 08eb16a5-r-npm-history-1-12-5-package-tgz tar:///home/peter/.npm/history/1.12.5/package.tgz
-51 verbose lock tar:///home/peter/.npm/history/1.12.5/package.tgz /home/peter/.npm/08eb16a5-r-npm-history-1-12-5-package-tgz.lock
-52 silly gunzTarPerm modes [ '755', '644' ]
-53 silly gunzTarPerm extractEntry package.json
-54 silly gunzTarPerm extractEntry .npmignore
+32 silly addNameRange number 2 { name: 'reflux-state-mixin', range: '*', hasData: true }
+33 silly addNameRange versions [ 'reflux-state-mixin',
+33 silly addNameRange   [ '0.0.1',
+33 silly addNameRange     '0.1.0',
+33 silly addNameRange     '0.1.1',
+33 silly addNameRange     '0.2.0',
+33 silly addNameRange     '0.3.1',
+33 silly addNameRange     '0.3.2',
+33 silly addNameRange     '0.4.0',
+33 silly addNameRange     '0.4.1',
+33 silly addNameRange     '0.4.2',
+33 silly addNameRange     '0.4.3',
+33 silly addNameRange     '0.4.4',
+33 silly addNameRange     '0.4.5' ] ]
+34 verbose addNamed [ 'reflux-state-mixin', '0.4.5' ]
+35 verbose addNamed [ '0.4.5', '0.4.5' ]
+36 silly lockFile e571880e-reflux-state-mixin-0-4-5 reflux-state-mixin@0.4.5
+37 verbose lock reflux-state-mixin@0.4.5 /home/peter/.npm/e571880e-reflux-state-mixin-0-4-5.lock
+38 silly lockFile f507787b-xin-reflux-state-mixin-0-4-5-tgz https://registry.npmjs.org/reflux-state-mixin/-/reflux-state-mixin-0.4.5.tgz
+39 verbose lock https://registry.npmjs.org/reflux-state-mixin/-/reflux-state-mixin-0.4.5.tgz /home/peter/.npm/f507787b-xin-reflux-state-mixin-0-4-5-tgz.lock
+40 verbose addRemoteTarball [ 'https://registry.npmjs.org/reflux-state-mixin/-/reflux-state-mixin-0.4.5.tgz',
+40 verbose addRemoteTarball   '4d53be7a7e47de731944efc8b2e1783fee59365e' ]
+41 info retry fetch attempt 1 at 09:24:28
+42 verbose fetch to= /home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/tmp.tgz
+43 http GET https://registry.npmjs.org/reflux-state-mixin/-/reflux-state-mixin-0.4.5.tgz
+44 http 200 https://registry.npmjs.org/reflux-state-mixin/-/reflux-state-mixin-0.4.5.tgz
+45 verbose tar unpack /home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/tmp.tgz
+46 silly lockFile 8ea8c6a1-68509-0-8569323334377259-package tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package
+47 verbose lock tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package /home/peter/.npm/8ea8c6a1-68509-0-8569323334377259-package.lock
+48 silly lockFile 0bf50426-68509-0-8569323334377259-tmp-tgz tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/tmp.tgz
+49 verbose lock tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/tmp.tgz /home/peter/.npm/0bf50426-68509-0-8569323334377259-tmp-tgz.lock
+50 silly gunzTarPerm modes [ '755', '644' ]
+51 silly gunzTarPerm extractEntry package.json
+52 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+53 silly gunzTarPerm extractEntry .npmignore
+54 silly gunzTarPerm modified mode [ '.npmignore', 438, 420 ]
 55 silly gunzTarPerm extractEntry README.md
-56 silly gunzTarPerm extractEntry CHANGES.md
-57 silly gunzTarPerm extractEntry docs/README.md
-58 silly gunzTarPerm extractEntry docs/BasenameSupport.md
-59 silly gunzTarPerm extractEntry docs/ConfirmingNavigation.md
-60 silly gunzTarPerm extractEntry docs/GettingStarted.md
-61 silly gunzTarPerm extractEntry docs/HashHistoryCaveats.md
-62 silly gunzTarPerm extractEntry docs/Location.md
-63 silly gunzTarPerm extractEntry docs/QuerySupport.md
-64 silly gunzTarPerm extractEntry docs/Terms.md
-65 silly gunzTarPerm extractEntry lib/Actions.js
-66 silly gunzTarPerm extractEntry lib/createDOMHistory.js
-67 silly gunzTarPerm extractEntry lib/createHashHistory.js
-68 silly gunzTarPerm extractEntry lib/createHistory.js
-69 silly gunzTarPerm extractEntry lib/createLocation.js
-70 silly gunzTarPerm extractEntry lib/createBrowserHistory.js
-71 silly gunzTarPerm extractEntry lib/deprecate.js
-72 silly gunzTarPerm extractEntry lib/enableBeforeUnload.js
-73 silly gunzTarPerm extractEntry lib/enableQueries.js
-74 silly gunzTarPerm extractEntry lib/index.js
-75 silly gunzTarPerm extractEntry lib/parsePath.js
-76 silly gunzTarPerm extractEntry lib/ExecutionEnvironment.js
-77 silly gunzTarPerm extractEntry lib/runTransitionHook.js
-78 silly gunzTarPerm extractEntry lib/DOMUtils.js
-79 silly gunzTarPerm extractEntry lib/useBasename.js
-80 silly gunzTarPerm extractEntry lib/DOMStateStorage.js
-81 silly gunzTarPerm extractEntry lib/useBeforeUnload.js
-82 silly gunzTarPerm extractEntry lib/AsyncUtils.js
-83 silly gunzTarPerm extractEntry lib/useQueries.js
-84 silly gunzTarPerm extractEntry lib/createMemoryHistory.js
-85 silly gunzTarPerm extractEntry modules/Actions.js
-86 silly gunzTarPerm extractEntry modules/createDOMHistory.js
-87 silly gunzTarPerm extractEntry modules/createHashHistory.js
-88 silly gunzTarPerm extractEntry modules/createHistory.js
-89 silly gunzTarPerm extractEntry modules/createLocation.js
-90 silly gunzTarPerm extractEntry modules/createBrowserHistory.js
-91 silly gunzTarPerm extractEntry modules/deprecate.js
-92 silly gunzTarPerm extractEntry modules/enableBeforeUnload.js
-93 silly gunzTarPerm extractEntry modules/enableQueries.js
-94 silly gunzTarPerm extractEntry modules/index.js
-95 silly gunzTarPerm extractEntry modules/parsePath.js
-96 silly gunzTarPerm extractEntry modules/ExecutionEnvironment.js
-97 silly gunzTarPerm extractEntry modules/runTransitionHook.js
-98 silly gunzTarPerm extractEntry modules/DOMUtils.js
-99 silly gunzTarPerm extractEntry modules/useBasename.js
-100 silly gunzTarPerm extractEntry modules/DOMStateStorage.js
-101 silly gunzTarPerm extractEntry modules/useBeforeUnload.js
-102 silly gunzTarPerm extractEntry modules/AsyncUtils.js
-103 silly gunzTarPerm extractEntry modules/useQueries.js
-104 silly gunzTarPerm extractEntry modules/createMemoryHistory.js
-105 silly gunzTarPerm extractEntry npm-scripts/postinstall.js
-106 silly gunzTarPerm extractEntry umd/History.js
-107 silly gunzTarPerm extractEntry umd/History.min.js
-108 silly lockFile d360d6df-main-webapp-node-modules-history tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-109 silly lockFile d360d6df-main-webapp-node-modules-history tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-110 silly lockFile 08eb16a5-r-npm-history-1-12-5-package-tgz tar:///home/peter/.npm/history/1.12.5/package.tgz
-111 silly lockFile 08eb16a5-r-npm-history-1-12-5-package-tgz tar:///home/peter/.npm/history/1.12.5/package.tgz
-112 info preinstall history@1.12.5
-113 verbose readDependencies using package.json deps
-114 verbose readDependencies using package.json deps
-115 verbose cache add [ 'qs@^4.0.0', null ]
-116 verbose cache add name=undefined spec="qs@^4.0.0" args=["qs@^4.0.0",null]
-117 verbose parsed url { protocol: null,
-117 verbose parsed url   slashes: null,
-117 verbose parsed url   auth: null,
-117 verbose parsed url   host: null,
-117 verbose parsed url   port: null,
-117 verbose parsed url   hostname: null,
-117 verbose parsed url   hash: null,
-117 verbose parsed url   search: null,
-117 verbose parsed url   query: null,
-117 verbose parsed url   pathname: 'qs@^4.0.0',
-117 verbose parsed url   path: 'qs@^4.0.0',
-117 verbose parsed url   href: 'qs@^4.0.0' }
-118 verbose cache add name="qs" spec="^4.0.0" args=["qs","^4.0.0"]
-119 verbose parsed url { protocol: null,
-119 verbose parsed url   slashes: null,
-119 verbose parsed url   auth: null,
-119 verbose parsed url   host: null,
-119 verbose parsed url   port: null,
-119 verbose parsed url   hostname: null,
-119 verbose parsed url   hash: null,
-119 verbose parsed url   search: null,
-119 verbose parsed url   query: null,
-119 verbose parsed url   pathname: '^4.0.0',
-119 verbose parsed url   path: '^4.0.0',
-119 verbose parsed url   href: '^4.0.0' }
-120 verbose addNamed [ 'qs', '^4.0.0' ]
-121 verbose addNamed [ null, '>=4.0.0-0 <5.0.0-0' ]
-122 silly lockFile c3920404-qs-4-0-0 qs@^4.0.0
-123 verbose lock qs@^4.0.0 /home/peter/.npm/c3920404-qs-4-0-0.lock
-124 verbose cache add [ 'warning@^2.0.0', null ]
-125 verbose cache add name=undefined spec="warning@^2.0.0" args=["warning@^2.0.0",null]
-126 verbose parsed url { protocol: null,
-126 verbose parsed url   slashes: null,
-126 verbose parsed url   auth: null,
-126 verbose parsed url   host: null,
-126 verbose parsed url   port: null,
-126 verbose parsed url   hostname: null,
-126 verbose parsed url   hash: null,
-126 verbose parsed url   search: null,
-126 verbose parsed url   query: null,
-126 verbose parsed url   pathname: 'warning@^2.0.0',
-126 verbose parsed url   path: 'warning@^2.0.0',
-126 verbose parsed url   href: 'warning@^2.0.0' }
-127 verbose cache add name="warning" spec="^2.0.0" args=["warning","^2.0.0"]
-128 verbose parsed url { protocol: null,
-128 verbose parsed url   slashes: null,
-128 verbose parsed url   auth: null,
-128 verbose parsed url   host: null,
-128 verbose parsed url   port: null,
-128 verbose parsed url   hostname: null,
-128 verbose parsed url   hash: null,
-128 verbose parsed url   search: null,
-128 verbose parsed url   query: null,
-128 verbose parsed url   pathname: '^2.0.0',
-128 verbose parsed url   path: '^2.0.0',
-128 verbose parsed url   href: '^2.0.0' }
-129 verbose addNamed [ 'warning', '^2.0.0' ]
-130 verbose addNamed [ null, '>=2.0.0-0 <3.0.0-0' ]
-131 silly lockFile 9061709c-warning-2-0-0 warning@^2.0.0
-132 verbose lock warning@^2.0.0 /home/peter/.npm/9061709c-warning-2-0-0.lock
-133 verbose cache add [ 'deep-equal@^1.0.0', null ]
-134 verbose cache add name=undefined spec="deep-equal@^1.0.0" args=["deep-equal@^1.0.0",null]
-135 verbose parsed url { protocol: null,
-135 verbose parsed url   slashes: null,
-135 verbose parsed url   auth: null,
-135 verbose parsed url   host: null,
-135 verbose parsed url   port: null,
-135 verbose parsed url   hostname: null,
-135 verbose parsed url   hash: null,
-135 verbose parsed url   search: null,
-135 verbose parsed url   query: null,
-135 verbose parsed url   pathname: 'deep-equal@^1.0.0',
-135 verbose parsed url   path: 'deep-equal@^1.0.0',
-135 verbose parsed url   href: 'deep-equal@^1.0.0' }
-136 verbose cache add name="deep-equal" spec="^1.0.0" args=["deep-equal","^1.0.0"]
-137 verbose parsed url { protocol: null,
-137 verbose parsed url   slashes: null,
-137 verbose parsed url   auth: null,
-137 verbose parsed url   host: null,
-137 verbose parsed url   port: null,
-137 verbose parsed url   hostname: null,
-137 verbose parsed url   hash: null,
-137 verbose parsed url   search: null,
-137 verbose parsed url   query: null,
-137 verbose parsed url   pathname: '^1.0.0',
-137 verbose parsed url   path: '^1.0.0',
-137 verbose parsed url   href: '^1.0.0' }
-138 verbose addNamed [ 'deep-equal', '^1.0.0' ]
-139 verbose addNamed [ null, '>=1.0.0-0 <2.0.0-0' ]
-140 silly lockFile 8dc4a90b-deep-equal-1-0-0 deep-equal@^1.0.0
-141 verbose lock deep-equal@^1.0.0 /home/peter/.npm/8dc4a90b-deep-equal-1-0-0.lock
-142 verbose cache add [ 'invariant@^2.0.0', null ]
-143 verbose cache add name=undefined spec="invariant@^2.0.0" args=["invariant@^2.0.0",null]
-144 verbose parsed url { protocol: null,
-144 verbose parsed url   slashes: null,
-144 verbose parsed url   auth: null,
-144 verbose parsed url   host: null,
-144 verbose parsed url   port: null,
-144 verbose parsed url   hostname: null,
-144 verbose parsed url   hash: null,
-144 verbose parsed url   search: null,
-144 verbose parsed url   query: null,
-144 verbose parsed url   pathname: 'invariant@^2.0.0',
-144 verbose parsed url   path: 'invariant@^2.0.0',
-144 verbose parsed url   href: 'invariant@^2.0.0' }
-145 verbose cache add name="invariant" spec="^2.0.0" args=["invariant","^2.0.0"]
-146 verbose parsed url { protocol: null,
-146 verbose parsed url   slashes: null,
-146 verbose parsed url   auth: null,
-146 verbose parsed url   host: null,
-146 verbose parsed url   port: null,
-146 verbose parsed url   hostname: null,
-146 verbose parsed url   hash: null,
-146 verbose parsed url   search: null,
-146 verbose parsed url   query: null,
-146 verbose parsed url   pathname: '^2.0.0',
-146 verbose parsed url   path: '^2.0.0',
-146 verbose parsed url   href: '^2.0.0' }
-147 verbose addNamed [ 'invariant', '^2.0.0' ]
-148 verbose addNamed [ null, '>=2.0.0-0 <3.0.0-0' ]
-149 silly lockFile dc0bdd7a-invariant-2-0-0 invariant@^2.0.0
-150 verbose lock invariant@^2.0.0 /home/peter/.npm/dc0bdd7a-invariant-2-0-0.lock
-151 silly addNameRange { name: 'qs', range: '>=4.0.0-0 <5.0.0-0', hasData: false }
-152 silly addNameRange { name: 'warning', range: '>=2.0.0-0 <3.0.0-0', hasData: false }
-153 silly addNameRange { name: 'deep-equal',
-153 silly addNameRange   range: '>=1.0.0-0 <2.0.0-0',
-153 silly addNameRange   hasData: false }
-154 silly addNameRange { name: 'invariant',
-154 silly addNameRange   range: '>=2.0.0-0 <3.0.0-0',
-154 silly addNameRange   hasData: false }
-155 verbose url raw qs
-156 verbose url resolving [ 'https://registry.npmjs.org/', './qs' ]
-157 verbose url resolved https://registry.npmjs.org/qs
-158 info trying registry request attempt 1 at 21:40:10
-159 verbose etag "2VBKV72QJ69KKCJUZJF76EDQJ"
-160 http GET https://registry.npmjs.org/qs
-161 verbose url raw warning
-162 verbose url resolving [ 'https://registry.npmjs.org/', './warning' ]
-163 verbose url resolved https://registry.npmjs.org/warning
-164 info trying registry request attempt 1 at 21:40:10
-165 verbose etag "A5SV89XDCSL7PDKCUJ931BHQL"
-166 http GET https://registry.npmjs.org/warning
-167 verbose url raw deep-equal
-168 verbose url resolving [ 'https://registry.npmjs.org/', './deep-equal' ]
-169 verbose url resolved https://registry.npmjs.org/deep-equal
-170 info trying registry request attempt 1 at 21:40:10
-171 verbose etag "535HZ68NXUBD3VVN7LM1523SI"
-172 http GET https://registry.npmjs.org/deep-equal
-173 verbose url raw invariant
-174 verbose url resolving [ 'https://registry.npmjs.org/', './invariant' ]
-175 verbose url resolved https://registry.npmjs.org/invariant
-176 info trying registry request attempt 1 at 21:40:10
-177 verbose etag "620CU976GULJBHT3V30565O9B"
-178 http GET https://registry.npmjs.org/invariant
-179 http 304 https://registry.npmjs.org/qs
-180 silly registry.get cb [ 304,
-180 silly registry.get   { date: 'Thu, 22 Oct 2015 20:40:11 GMT',
-180 silly registry.get     via: '1.1 varnish',
-180 silly registry.get     'cache-control': 'max-age=60',
-180 silly registry.get     etag: '"2VBKV72QJ69KKCJUZJF76EDQJ"',
-180 silly registry.get     age: '20',
-180 silly registry.get     connection: 'keep-alive',
-180 silly registry.get     'x-served-by': 'cache-lhr6321-LHR',
-180 silly registry.get     'x-cache': 'HIT',
-180 silly registry.get     'x-cache-hits': '3',
-180 silly registry.get     'x-timer': 'S1445546411.089829,VS0,VE0',
-180 silly registry.get     vary: 'Accept' } ]
-181 verbose etag qs from cache
-182 http 304 https://registry.npmjs.org/deep-equal
-183 silly registry.get cb [ 304,
-183 silly registry.get   { date: 'Thu, 22 Oct 2015 20:40:11 GMT',
-183 silly registry.get     via: '1.1 varnish',
-183 silly registry.get     'cache-control': 'max-age=60',
-183 silly registry.get     etag: '"535HZ68NXUBD3VVN7LM1523SI"',
-183 silly registry.get     age: '59',
-183 silly registry.get     connection: 'keep-alive',
-183 silly registry.get     'x-served-by': 'cache-lhr6321-LHR',
-183 silly registry.get     'x-cache': 'HIT',
-183 silly registry.get     'x-cache-hits': '1',
-183 silly registry.get     'x-timer': 'S1445546411.092172,VS0,VE1',
-183 silly registry.get     vary: 'Accept' } ]
-184 verbose etag deep-equal from cache
-185 silly addNameRange number 2 { name: 'qs', range: '>=4.0.0-0 <5.0.0-0', hasData: true }
-186 silly addNameRange versions [ 'qs',
-186 silly addNameRange   [ '0.0.1',
-186 silly addNameRange     '0.0.2',
-186 silly addNameRange     '0.0.3',
-186 silly addNameRange     '0.0.4',
-186 silly addNameRange     '0.0.5',
-186 silly addNameRange     '0.0.6',
-186 silly addNameRange     '0.0.7',
-186 silly addNameRange     '0.1.0',
-186 silly addNameRange     '0.2.0',
-186 silly addNameRange     '0.3.0',
-186 silly addNameRange     '0.3.1',
-186 silly addNameRange     '0.3.2',
-186 silly addNameRange     '0.4.0',
-186 silly addNameRange     '0.4.1',
-186 silly addNameRange     '0.4.2',
-186 silly addNameRange     '0.5.0',
-186 silly addNameRange     '0.5.1',
-186 silly addNameRange     '0.5.2',
-186 silly addNameRange     '0.5.3',
-186 silly addNameRange     '0.5.4',
-186 silly addNameRange     '0.5.5',
-186 silly addNameRange     '0.5.6',
-186 silly addNameRange     '0.6.0',
-186 silly addNameRange     '0.6.1',
-186 silly addNameRange     '0.6.2',
-186 silly addNameRange     '0.6.3',
-186 silly addNameRange     '0.6.4',
-186 silly addNameRange     '0.6.5',
-186 silly addNameRange     '0.6.6',
-186 silly addNameRange     '1.0.0',
-186 silly addNameRange     '1.0.1',
-186 silly addNameRange     '1.0.2',
-186 silly addNameRange     '1.1.0',
-186 silly addNameRange     '1.2.0',
-186 silly addNameRange     '1.2.1',
-186 silly addNameRange     '1.2.2',
-186 silly addNameRange     '2.0.0',
-186 silly addNameRange     '2.1.0',
-186 silly addNameRange     '2.2.0',
-186 silly addNameRange     '2.2.1',
-186 silly addNameRange     '2.2.2',
-186 silly addNameRange     '2.2.3',
-186 silly addNameRange     '2.2.4',
-186 silly addNameRange     '2.2.5',
-186 silly addNameRange     '2.3.0',
-186 silly addNameRange     '2.3.1',
-186 silly addNameRange     '2.3.2',
-186 silly addNameRange     '2.3.3',
-186 silly addNameRange     '2.4.0',
-186 silly addNameRange     '2.4.1',
-186 silly addNameRange     '2.4.2',
-186 silly addNameRange     '3.0.0',
-186 silly addNameRange     '3.1.0',
-186 silly addNameRange     '4.0.0',
-186 silly addNameRange     '5.0.0',
-186 silly addNameRange     '5.1.0',
-186 silly addNameRange     '5.2.0' ] ]
-187 verbose addNamed [ 'qs', '4.0.0' ]
-188 verbose addNamed [ '4.0.0', '4.0.0' ]
-189 silly lockFile 4b52a1c4-qs-4-0-0 qs@4.0.0
-190 verbose lock qs@4.0.0 /home/peter/.npm/4b52a1c4-qs-4-0-0.lock
-191 silly addNameRange number 2 { name: 'deep-equal',
-191 silly addNameRange   range: '>=1.0.0-0 <2.0.0-0',
-191 silly addNameRange   hasData: true }
-192 silly addNameRange versions [ 'deep-equal',
-192 silly addNameRange   [ '0.0.0',
-192 silly addNameRange     '0.1.0',
-192 silly addNameRange     '0.1.1',
-192 silly addNameRange     '0.1.2',
-192 silly addNameRange     '0.2.0',
-192 silly addNameRange     '0.2.1',
-192 silly addNameRange     '0.2.2',
-192 silly addNameRange     '1.0.0',
-192 silly addNameRange     '1.0.1' ] ]
-193 verbose addNamed [ 'deep-equal', '1.0.1' ]
-194 verbose addNamed [ '1.0.1', '1.0.1' ]
-195 silly lockFile d1a4d4e0-deep-equal-1-0-1 deep-equal@1.0.1
-196 verbose lock deep-equal@1.0.1 /home/peter/.npm/d1a4d4e0-deep-equal-1-0-1.lock
-197 silly lockFile 4b52a1c4-qs-4-0-0 qs@4.0.0
-198 silly lockFile 4b52a1c4-qs-4-0-0 qs@4.0.0
-199 silly lockFile c3920404-qs-4-0-0 qs@^4.0.0
-200 silly lockFile c3920404-qs-4-0-0 qs@^4.0.0
-201 silly lockFile d1a4d4e0-deep-equal-1-0-1 deep-equal@1.0.1
-202 silly lockFile d1a4d4e0-deep-equal-1-0-1 deep-equal@1.0.1
-203 silly lockFile 8dc4a90b-deep-equal-1-0-0 deep-equal@^1.0.0
-204 silly lockFile 8dc4a90b-deep-equal-1-0-0 deep-equal@^1.0.0
-205 http 304 https://registry.npmjs.org/invariant
-206 silly registry.get cb [ 304,
-206 silly registry.get   { date: 'Thu, 22 Oct 2015 20:40:11 GMT',
-206 silly registry.get     via: '1.1 varnish',
-206 silly registry.get     'cache-control': 'max-age=60',
-206 silly registry.get     etag: '"620CU976GULJBHT3V30565O9B"',
-206 silly registry.get     age: '0',
-206 silly registry.get     connection: 'keep-alive',
-206 silly registry.get     'x-served-by': 'cache-lhr6327-LHR',
-206 silly registry.get     'x-cache': 'HIT',
-206 silly registry.get     'x-cache-hits': '1',
-206 silly registry.get     'x-timer': 'S1445546411.049914,VS0,VE156',
-206 silly registry.get     vary: 'Accept' } ]
-207 verbose etag invariant from cache
-208 http 304 https://registry.npmjs.org/warning
-209 silly registry.get cb [ 304,
-209 silly registry.get   { date: 'Thu, 22 Oct 2015 20:40:11 GMT',
-209 silly registry.get     via: '1.1 varnish',
-209 silly registry.get     'cache-control': 'max-age=60',
-209 silly registry.get     etag: '"A5SV89XDCSL7PDKCUJ931BHQL"',
-209 silly registry.get     age: '0',
-209 silly registry.get     connection: 'keep-alive',
-209 silly registry.get     'x-served-by': 'cache-lhr6320-LHR',
-209 silly registry.get     'x-cache': 'HIT',
-209 silly registry.get     'x-cache-hits': '1',
-209 silly registry.get     'x-timer': 'S1445546411.050194,VS0,VE162',
-209 silly registry.get     vary: 'Accept' } ]
-210 verbose etag warning from cache
-211 silly addNameRange number 2 { name: 'invariant', range: '>=2.0.0-0 <3.0.0-0', hasData: true }
-212 silly addNameRange versions [ 'invariant',
-212 silly addNameRange   [ '1.0.0', '1.0.1', '1.0.2', '2.0.0', '2.1.0', '2.1.1' ] ]
-213 verbose addNamed [ 'invariant', '2.1.1' ]
-214 verbose addNamed [ '2.1.1', '2.1.1' ]
-215 silly lockFile e0e51c26-invariant-2-1-1 invariant@2.1.1
-216 verbose lock invariant@2.1.1 /home/peter/.npm/e0e51c26-invariant-2-1-1.lock
-217 silly addNameRange number 2 { name: 'warning', range: '>=2.0.0-0 <3.0.0-0', hasData: true }
-218 silly addNameRange versions [ 'warning', [ '1.0.0', '1.0.1', '1.0.2', '2.0.0', '2.1.0' ] ]
-219 verbose addNamed [ 'warning', '2.1.0' ]
-220 verbose addNamed [ '2.1.0', '2.1.0' ]
-221 silly lockFile 44bb0ac9-warning-2-1-0 warning@2.1.0
-222 verbose lock warning@2.1.0 /home/peter/.npm/44bb0ac9-warning-2-1-0.lock
-223 silly lockFile e0e51c26-invariant-2-1-1 invariant@2.1.1
-224 silly lockFile e0e51c26-invariant-2-1-1 invariant@2.1.1
-225 silly lockFile dc0bdd7a-invariant-2-0-0 invariant@^2.0.0
-226 silly lockFile dc0bdd7a-invariant-2-0-0 invariant@^2.0.0
-227 silly lockFile 44bb0ac9-warning-2-1-0 warning@2.1.0
-228 silly lockFile 44bb0ac9-warning-2-1-0 warning@2.1.0
-229 silly lockFile 9061709c-warning-2-0-0 warning@^2.0.0
-230 silly lockFile 9061709c-warning-2-0-0 warning@^2.0.0
-231 silly resolved [ { name: 'qs',
-231 silly resolved     version: '4.0.0',
-231 silly resolved     description: 'A querystring parser that supports nesting and arrays, with a depth limit',
-231 silly resolved     homepage: 'https://github.com/hapijs/qs',
-231 silly resolved     main: 'lib/index.js',
-231 silly resolved     dependencies: {},
-231 silly resolved     devDependencies: { browserify: '^10.2.1', code: '1.x.x', lab: '5.x.x' },
-231 silly resolved     scripts:
-231 silly resolved      { test: 'lab -a code -t 100 -L',
-231 silly resolved        'test-cov-html': 'lab -a code -r html -o coverage.html',
-231 silly resolved        dist: 'browserify --standalone Qs lib/index.js > dist/qs.js' },
-231 silly resolved     repository: { type: 'git', url: 'https://github.com/hapijs/qs.git' },
-231 silly resolved     keywords: [ 'querystring', 'qs' ],
-231 silly resolved     license: 'BSD-3-Clause',
-231 silly resolved     readme: '# qs\n\nA querystring parsing and stringifying library with some added security.\n\n[![Build Status](https://secure.travis-ci.org/hapijs/qs.svg)](http://travis-ci.org/hapijs/qs)\n\nLead Maintainer: [Nathan LaFreniere](https://github.com/nlf)\n\nThe **qs** module was originally created and maintained by [TJ Holowaychuk](https://github.com/visionmedia/node-querystring).\n\n## Usage\n\n```javascript\nvar Qs = require(\'qs\');\n\nvar obj = Qs.parse(\'a=c\');    // { a: \'c\' }\nvar str = Qs.stringify(obj);  // \'a=c\'\n```\n\n### Parsing Objects\n\n```javascript\nQs.parse(string, [options]);\n```\n\n**qs** allows you to create nested objects within your query strings, by surrounding the name of sub-keys with square brackets `[]`, or prefixing the sub-key with a dot `.`.\nFor example, the string `\'foo[bar]=baz\'` converts to:\n\n```javascript\n{\n  foo: {\n    bar: \'baz\'\n  }\n}\n```\n\nWhen using the `plainObjects` option the parsed value is returned as a plain object, created via `Object.create(null)` and as such you should be aware that prototype methods will not exist on it and a user may set those names to whatever value they like:\n\n```javascript\nQs.parse(\'a.hasOwnProperty=b\', { plainObjects: true });\n// { a: { hasOwnProperty: \'b\' } }\n```\n\nBy default parameters that would overwrite properties on the object prototype are ignored, if you wish to keep the data from those fields either use `plainObjects` as mentioned above, or set `allowPrototypes` to `true` which will allow user input to overwrite those properties. *WARNING* It is generally a bad idea to enable this option as it can cause problems when attempting to use the properties that have been overwritten. Always be careful with this option.\n\n```javascript\nQs.parse(\'a.hasOwnProperty=b\', { allowPrototypes: true });\n// { a: { hasOwnProperty: \'b\' } }\n```\n\nURI encoded strings work too:\n\n```javascript\nQs.parse(\'a%5Bb%5D=c\');\n// { a: { b: \'c\' } }\n```\n\nYou can also nest your objects, like `\'foo[bar][baz]=foobarbaz\'`:\n\n```javascript\n{\n  foo: {\n    bar: {\n      baz: \'foobarbaz\'\n    }\n  }\n}\n```\n\nBy default, when nesting objects **qs** will only parse up to 5 children deep. This means if you attempt to parse a string like\n`\'a[b][c][d][e][f][g][h][i]=j\'` your resulting object will be:\n\n```javascript\n{\n  a: {\n    b: {\n      c: {\n        d: {\n          e: {\n            f: {\n              \'[g][h][i]\': \'j\'\n            }\n          }\n        }\n      }\n    }\n  }\n}\n```\n\nThis depth can be overridden by passing a `depth` option to `Qs.parse(string, [options])`:\n\n```javascript\nQs.parse(\'a[b][c][d][e][f][g][h][i]=j\', { depth: 1 });\n// { a: { b: { \'[c][d][e][f][g][h][i]\': \'j\' } } }\n```\n\nThe depth limit helps mitigate abuse when **qs** is used to parse user input, and it is recommended to keep it a reasonably small number.\n\nFor similar reasons, by default **qs** will only parse up to 1000 parameters. This can be overridden by passing a `parameterLimit` option:\n\n```javascript\nQs.parse(\'a=b&c=d\', { parameterLimit: 1 });\n// { a: \'b\' }\n```\n\nAn optional delimiter can also be passed:\n\n```javascript\nQs.parse(\'a=b;c=d\', { delimiter: \';\' });\n// { a: \'b\', c: \'d\' }\n```\n\nDelimiters can be a regular expression too:\n\n```javascript\nQs.parse(\'a=b;c=d,e=f\', { delimiter: /[;,]/ });\n// { a: \'b\', c: \'d\', e: \'f\' }\n```\n\nOption `allowDots` can be used to disable dot notation:\n\n```javascript\nQs.parse(\'a.b=c\', { allowDots: false });\n// { \'a.b\': \'c\' } }\n```\n\n### Parsing Arrays\n\n**qs** can also parse arrays using a similar `[]` notation:\n\n```javascript\nQs.parse(\'a[]=b&a[]=c\');\n// { a: [\'b\', \'c\'] }\n```\n\nYou may specify an index as well:\n\n```javascript\nQs.parse(\'a[1]=c&a[0]=b\');\n// { a: [\'b\', \'c\'] }\n```\n\nNote that the only difference between an index in an array and a key in an object is that the value between the brackets must be a number\nto create an array. When creating arrays with specific indices, **qs** will compact a sparse array to only the existing values preserving\ntheir order:\n\n```javascript\nQs.parse(\'a[1]=b&a[15]=c\');\n// { a: [\'b\', \'c\'] }\n```\n\nNote that an empty string is also a value, and will be preserved:\n\n```javascript\nQs.parse(\'a[]=&a[]=b\');\n// { a: [\'\', \'b\'] }\nQs.parse(\'a[0]=b&a[1]=&a[2]=c\');\n// { a: [\'b\', \'\', \'c\'] }\n```\n\n**qs** will also limit specifying indices in an array to a maximum index of `20`. Any array members with an index of greater than `20` will\ninstead be converted to an object with the index as the key:\n\n```javascript\nQs.parse(\'a[100]=b\');\n// { a: { \'100\': \'b\' } }\n```\n\nThis limit can be overridden by passing an `arrayLimit` option:\n\n```javascript\nQs.parse(\'a[1]=b\', { arrayLimit: 0 });\n// { a: { \'1\': \'b\' } }\n```\n\nTo disable array parsing entirely, set `parseArrays` to `false`.\n\n```javascript\nQs.parse(\'a[]=b\', { parseArrays: false });\n// { a: { \'0\': \'b\' } }\n```\n\nIf you mix notations, **qs** will merge the two items into an object:\n\n```javascript\nQs.parse(\'a[0]=b&a[b]=c\');\n// { a: { \'0\': \'b\', b: \'c\' } }\n```\n\nYou can also create arrays of objects:\n\n```javascript\nQs.parse(\'a[][b]=c\');\n// { a: [{ b: \'c\' }] }\n```\n\n### Stringifying\n\n```javascript\nQs.stringify(object, [options]);\n```\n\nWhen stringifying, **qs** always URI encodes output. Objects are stringified as you would expect:\n\n```javascript\nQs.stringify({ a: \'b\' });\n// \'a=b\'\nQs.stringify({ a: { b: \'c\' } });\n// \'a%5Bb%5D=c\'\n```\n\nExamples beyond this point will be shown as though the output is not URI encoded for clarity. Please note that the return values in these cases *will* be URI encoded during real usage.\n\nWhen arrays are stringified, by default they are given explicit indices:\n\n```javascript\nQs.stringify({ a: [\'b\', \'c\', \'d\'] });\n// \'a[0]=b&a[1]=c&a[2]=d\'\n```\n\nYou may override this by setting the `indices` option to `false`:\n\n```javascript\nQs.stringify({ a: [\'b\', \'c\', \'d\'] }, { indices: false });\n// \'a=b&a=c&a=d\'\n```\n\nYou may use the `arrayFormat` option to specify the format of the output array\n\n```javascript\nQs.stringify({ a: [\'b\', \'c\'] }, { arrayFormat: \'indices\' })\n// \'a[0]=b&a[1]=c\'\nQs.stringify({ a: [\'b\', \'c\'] }, { arrayFormat: \'brackets\' })\n// \'a[]=b&a[]=c\'\nQs.stringify({ a: [\'b\', \'c\'] }, { arrayFormat: \'repeat\' })\n// \'a=b&a=c\'\n```\n\nEmpty strings and null values will omit the value, but the equals sign (=) remains in place:\n\n```javascript\nQs.stringify({ a: \'\' });\n// \'a=\'\n```\n\nProperties that are set to `undefined` will be omitted entirely:\n\n```javascript\nQs.stringify({ a: null, b: undefined });\n// \'a=\'\n```\n\nThe delimiter may be overridden with stringify as well:\n\n```javascript\nQs.stringify({ a: \'b\', c: \'d\' }, { delimiter: \';\' });\n// \'a=b;c=d\'\n```\n\nFinally, you can use the `filter` option to restrict which keys will be included in the stringified output.\nIf you pass a function, it will be called for each key to obtain the replacement value. Otherwise, if you\npass an array, it will be used to select properties and array indices for stringification:\n\n```javascript\nfunction filterFunc(prefix, value) {\n  if (prefix == \'b\') {\n    // Return an `undefined` value to omit a property.\n    return;\n  }\n  if (prefix == \'e[f]\') {\n    return value.getTime();\n  }\n  if (prefix == \'e[g][0]\') {\n    return value * 2;\n  }\n  return value;\n}\nQs.stringify({ a: \'b\', c: \'d\', e: { f: new Date(123), g: [2] } }, { filter: filterFunc })\n// \'a=b&c=d&e[f]=123&e[g][0]=4\'\nQs.stringify({ a: \'b\', c: \'d\', e: \'f\' }, { filter: [\'a\', \'e\'] })\n// \'a=b&e=f\'\nQs.stringify({ a: [\'b\', \'c\', \'d\'], e: \'f\' }, { filter: [\'a\', 0, 2] })\n// \'a[0]=b&a[2]=d\'\n```\n\n### Handling of `null` values\n\nBy default, `null` values are treated like empty strings:\n\n```javascript\nQs.stringify({ a: null, b: \'\' });\n// \'a=&b=\'\n```\n\nParsing does not distinguish between parameters with and without equal signs. Both are converted to empty strings.\n\n```javascript\nQs.parse(\'a&b=\')\n// { a: \'\', b: \'\' }\n```\n\nTo distinguish between `null` values and empty strings use the `strictNullHandling` flag. In the result string the `null`\nvalues have no `=` sign:\n\n```javascript\nQs.stringify({ a: null, b: \'\' }, { strictNullHandling: true });\n// \'a&b=\'\n```\n\nTo parse values without `=` back to `null` use the `strictNullHandling` flag:\n\n```javascript\nQs.parse(\'a&b=\', { strictNullHandling: true });\n// { a: null, b: \'\' }\n\n```\n',
-231 silly resolved     readmeFilename: 'README.md',
-231 silly resolved     bugs: { url: 'https://github.com/hapijs/qs/issues' },
-231 silly resolved     _id: 'qs@4.0.0',
-231 silly resolved     _from: 'qs@^4.0.0' },
-231 silly resolved   { name: 'deep-equal',
-231 silly resolved     version: '1.0.1',
-231 silly resolved     description: 'node\'s assert.deepEqual algorithm',
-231 silly resolved     main: 'index.js',
-231 silly resolved     directories: { lib: '.', example: 'example', test: 'test' },
-231 silly resolved     scripts: { test: 'tape test/*.js' },
-231 silly resolved     devDependencies: { tape: '^3.5.0' },
-231 silly resolved     repository:
-231 silly resolved      { type: 'git',
-231 silly resolved        url: 'http://github.com/substack/node-deep-equal.git' },
-231 silly resolved     keywords: [ 'equality', 'equal', 'compare' ],
-231 silly resolved     author:
-231 silly resolved      { name: 'James Halliday',
-231 silly resolved        email: 'mail@substack.net',
-231 silly resolved        url: 'http://substack.net' },
-231 silly resolved     license: 'MIT',
-231 silly resolved     testling: { files: 'test/*.js', browsers: [Object] },
-231 silly resolved     readme: '# deep-equal\n\nNode\'s `assert.deepEqual() algorithm` as a standalone module.\n\nThis module is around [5 times faster](https://gist.github.com/2790507)\nthan wrapping `assert.deepEqual()` in a `try/catch`.\n\n[![browser support](https://ci.testling.com/substack/node-deep-equal.png)](https://ci.testling.com/substack/node-deep-equal)\n\n[![build status](https://secure.travis-ci.org/substack/node-deep-equal.png)](https://travis-ci.org/substack/node-deep-equal)\n\n# example\n\n``` js\nvar equal = require(\'deep-equal\');\nconsole.dir([\n    equal(\n        { a : [ 2, 3 ], b : [ 4 ] },\n        { a : [ 2, 3 ], b : [ 4 ] }\n    ),\n    equal(\n        { x : 5, y : [6] },\n        { x : 5, y : 6 }\n    )\n]);\n```\n\n# methods\n\n``` js\nvar deepEqual = require(\'deep-equal\')\n```\n\n## deepEqual(a, b, opts)\n\nCompare objects `a` and `b`, returning whether they are equal according to a\nrecursive equality algorithm.\n\nIf `opts.strict` is `true`, use strict equality (`===`) to compare leaf nodes.\nThe default is to use coercive equality (`==`) because that\'s how\n`assert.deepEqual()` works by default.\n\n# install\n\nWith [npm](http://npmjs.org) do:\n\n```\nnpm install deep-equal\n```\n\n# test\n\nWith [npm](http://npmjs.org) do:\n\n```\nnpm test\n```\n\n# license\n\nMIT. Derived largely from node\'s assert module.\n',
-231 silly resolved     readmeFilename: 'readme.markdown',
-231 silly resolved     bugs: { url: 'https://github.com/substack/node-deep-equal/issues' },
-231 silly resolved     _id: 'deep-equal@1.0.1',
-231 silly resolved     _from: 'deep-equal@^1.0.0' },
-231 silly resolved   { name: 'invariant',
-231 silly resolved     version: '2.1.1',
-231 silly resolved     description: 'invariant',
-231 silly resolved     keywords: [ 'test' ],
-231 silly resolved     license: 'BSD-4-Clause',
-231 silly resolved     author: { name: 'Andres Suarez', email: 'zertosh@gmail.com' },
-231 silly resolved     files: [ 'invariant.js', 'browser.js' ],
-231 silly resolved     repository: { type: 'git', url: 'git://github.com/zertosh/invariant' },
-231 silly resolved     scripts: { test: 'NODE_ENV=production tap test/*.js && NODE_ENV=development tap test/*.js' },
-231 silly resolved     dependencies: { 'loose-envify': '^1.0.0' },
-231 silly resolved     devDependencies: { browserify: '^11.0.1', tap: '^1.4.0' },
-231 silly resolved     main: 'invariant.js',
-231 silly resolved     browser: 'browser.js',
-231 silly resolved     browserify: { transform: [Object] },
-231 silly resolved     readme: '# invariant\n\n[![Build Status](https://travis-ci.org/zertosh/invariant.svg?branch=master)](https://travis-ci.org/zertosh/invariant)\n\nA mirror of Facebook\'s `invariant` (e.g. [React](https://github.com/facebook/react/blob/v0.13.3/src/vendor/core/invariant.js), [flux](https://github.com/facebook/flux/blob/2.0.2/src/invariant.js)).\n\n## Install\n\nWith [npm](http://npmjs.org) do:\n\n```sh\nnpm install invariant\n```\n\n## `invariant(condition, message)`\n\n```js\nvar invariant = require(\'invariant\');\n\ninvariant(someTruthyVal, \'This will not throw\');\n// No errors\n\ninvariant(someFalseyVal, \'This will throw an error with this message\');\n// Error: Invariant Violation: This will throw an error with this message\n```\n\n**Note:** When `process.env.NODE_ENV` is not `production`, the message is required. If omitted, `invariant` will throw regardless of the truthiness of the condition. When `process.env.NODE_ENV` is `production`, the message is optional – so they can be minified away.\n\n### Browser\n\nWhen used with [browserify](https://github.com/substack/node-browserify), it\'ll use `browser.js` (instead of `invariant.js`) and the [envify](https://github.com/hughsk/envify) transform will inline the value of `process.env.NODE_ENV`.\n\n### Node\n\nThe node version is optimized around the performance implications of accessing `process.env`. The value of `process.env.NODE_ENV` is cached, and repeatedly used instead of reading `proces.env`. See [Server rendering is slower with npm react #812](https://github.com/facebook/react/issues/812)\n',
-231 silly resolved     readmeFilename: 'README.md',
-231 silly resolved     bugs: { url: 'https://github.com/zertosh/invariant/issues' },
-231 silly resolved     _id: 'invariant@2.1.1',
-231 silly resolved     _from: 'invariant@^2.0.0' },
-231 silly resolved   { name: 'warning',
-231 silly resolved     version: '2.1.0',
-231 silly resolved     description: 'A mirror of Facebook\'s Warning',
-231 silly resolved     main: 'warning.js',
-231 silly resolved     browser: 'browser.js',
-231 silly resolved     browserify: { transform: [Object] },
-231 silly resolved     files: [ 'browser.js', 'warning.js' ],
-231 silly resolved     scripts: { test: 'NODE_ENV=production tap test/*.js && NODE_ENV=development tap test/*.js' },
-231 silly resolved     dependencies: { 'loose-envify': '^1.0.0' },
-231 silly resolved     devDependencies: { browserify: '^11.0.1', tap: '^1.4.0' },
-231 silly resolved     repository: { type: 'git', url: 'https://github.com/r3dm/warning.git' },
-231 silly resolved     keywords: [ 'warning', 'facebook', 'react', 'invariant' ],
-231 silly resolved     author:
-231 silly resolved      { name: 'Berkeley Martinez',
-231 silly resolved        email: 'berkeley@r3dm.com',
-231 silly resolved        url: 'http://r3dm.com' },
-231 silly resolved     license: 'BSD-2-Clause',
-231 silly resolved     bugs: { url: 'https://github.com/r3dm/warning/issues' },
-231 silly resolved     homepage: 'https://github.com/r3dm/warning',
-231 silly resolved     readme: '# Warning\nA mirror of Facebook\'s Warning\n\n[![NPM](https://nodei.co/npm/warning.png?downloads=true)](https://npmjs.org/package/warning)\n\n\n## Usage\n```\nnpm install warning\n```\n\n```\n// some script\nvar warning = require(\'warning\');\n\nvar ShouldBeTrue = false;\n\nwarning(ShouldBeTrue, \'This thing should be true but you set to false. No soup\nfor you!\');\n//  \'This thing should be true but you set to false. No soup for you!\'\n```\n\nSimilar to Facebook\'s invariant but only logs a warning if the condition is not met.\nThis can be used to log issues in development environments in critical\npaths. Removing the logging code for production environments will keep the\nsame logic and follow the same code paths.\n\n## Browserify\n\nWhen using [browserify](http://browserify.org/), the `browser.js` file will be imported instead of `invariant.js` and browserify will be told to transform the file with [envify](https://github.com/hughsk/envify). The only difference between `browser.js` and `invariant.js` is the `process.env.NODE_ENV` variable isn\'t cached. This, in combination with envify and (optionally) [uglifyjs](https://github.com/mishoo/UglifyJS), will result in a noop in production environments. Otherwise behavior is as expected. \n\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<small>Don\'t Forget To Be Awesome</small>\n',
-231 silly resolved     readmeFilename: 'README.md',
-231 silly resolved     _id: 'warning@2.1.0',
-231 silly resolved     _from: 'warning@^2.0.0' } ]
-232 info install qs@4.0.0 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-233 info install deep-equal@1.0.1 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-234 info install invariant@2.1.1 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-235 info install warning@2.1.0 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-236 info installOne qs@4.0.0
-237 info installOne deep-equal@1.0.1
-238 info installOne invariant@2.1.1
-239 info installOne warning@2.1.0
-240 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/qs unbuild
-241 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/deep-equal unbuild
-242 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant unbuild
-243 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning unbuild
-244 verbose tar unpack /home/peter/.npm/qs/4.0.0/package.tgz
-245 silly lockFile 82cbd41a--modules-history-node-modules-qs tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/qs
-246 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/qs /home/peter/.npm/82cbd41a--modules-history-node-modules-qs.lock
-247 silly lockFile 8a155ae2-e-peter-npm-qs-4-0-0-package-tgz tar:///home/peter/.npm/qs/4.0.0/package.tgz
-248 verbose lock tar:///home/peter/.npm/qs/4.0.0/package.tgz /home/peter/.npm/8a155ae2-e-peter-npm-qs-4-0-0-package-tgz.lock
-249 verbose tar unpack /home/peter/.npm/deep-equal/1.0.1/package.tgz
-250 silly lockFile c560d52d--history-node-modules-deep-equal tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/deep-equal
-251 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/deep-equal /home/peter/.npm/c560d52d--history-node-modules-deep-equal.lock
-252 silly lockFile c38a37b8-npm-deep-equal-1-0-1-package-tgz tar:///home/peter/.npm/deep-equal/1.0.1/package.tgz
-253 verbose lock tar:///home/peter/.npm/deep-equal/1.0.1/package.tgz /home/peter/.npm/c38a37b8-npm-deep-equal-1-0-1-package-tgz.lock
-254 verbose tar unpack /home/peter/.npm/invariant/2.1.1/package.tgz
-255 silly lockFile ecf8b410-s-history-node-modules-invariant tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant
-256 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant /home/peter/.npm/ecf8b410-s-history-node-modules-invariant.lock
-257 silly lockFile bdc104ea--npm-invariant-2-1-1-package-tgz tar:///home/peter/.npm/invariant/2.1.1/package.tgz
-258 verbose lock tar:///home/peter/.npm/invariant/2.1.1/package.tgz /home/peter/.npm/bdc104ea--npm-invariant-2-1-1-package-tgz.lock
-259 verbose tar unpack /home/peter/.npm/warning/2.1.0/package.tgz
-260 silly lockFile 67e8d01d-les-history-node-modules-warning tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning
-261 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning /home/peter/.npm/67e8d01d-les-history-node-modules-warning.lock
-262 silly lockFile 0e148b4c-er-npm-warning-2-1-0-package-tgz tar:///home/peter/.npm/warning/2.1.0/package.tgz
-263 verbose lock tar:///home/peter/.npm/warning/2.1.0/package.tgz /home/peter/.npm/0e148b4c-er-npm-warning-2-1-0-package-tgz.lock
-264 silly gunzTarPerm modes [ '755', '644' ]
-265 silly gunzTarPerm modes [ '755', '644' ]
-266 silly gunzTarPerm modes [ '755', '644' ]
-267 silly gunzTarPerm modes [ '755', '644' ]
-268 silly gunzTarPerm extractEntry package.json
-269 silly gunzTarPerm extractEntry package.json
-270 silly gunzTarPerm extractEntry package.json
-271 silly gunzTarPerm extractEntry package.json
-272 silly gunzTarPerm extractEntry .npmignore
-273 silly gunzTarPerm extractEntry README.md
-274 silly gunzTarPerm extractEntry LICENSE
-275 silly gunzTarPerm extractEntry index.js
-276 silly gunzTarPerm extractEntry README.md
-277 silly gunzTarPerm extractEntry browser.js
-278 silly gunzTarPerm extractEntry README.md
-279 silly gunzTarPerm extractEntry browser.js
-280 silly gunzTarPerm extractEntry LICENSE
-281 silly gunzTarPerm extractEntry CONTRIBUTING.md
-282 silly gunzTarPerm extractEntry invariant.js
-283 silly gunzTarPerm extractEntry .travis.yml
-284 silly gunzTarPerm extractEntry example/cmp.js
-285 silly gunzTarPerm extractEntry warning.js
-286 silly gunzTarPerm extractEntry .eslintignore
-287 silly gunzTarPerm extractEntry .travis.yml
-288 silly gunzTarPerm extractEntry lib/is_arguments.js
-289 silly gunzTarPerm extractEntry lib/keys.js
-290 silly gunzTarPerm extractEntry readme.markdown
-291 silly gunzTarPerm extractEntry test/cmp.js
-292 silly gunzTarPerm extractEntry bower.json
-293 silly lockFile ecf8b410-s-history-node-modules-invariant tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant
-294 silly lockFile ecf8b410-s-history-node-modules-invariant tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant
-295 silly lockFile 67e8d01d-les-history-node-modules-warning tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning
-296 silly lockFile 67e8d01d-les-history-node-modules-warning tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning
-297 silly lockFile bdc104ea--npm-invariant-2-1-1-package-tgz tar:///home/peter/.npm/invariant/2.1.1/package.tgz
-298 silly lockFile bdc104ea--npm-invariant-2-1-1-package-tgz tar:///home/peter/.npm/invariant/2.1.1/package.tgz
-299 silly gunzTarPerm extractEntry lib/index.js
-300 silly gunzTarPerm extractEntry lib/parse.js
-301 silly lockFile 0e148b4c-er-npm-warning-2-1-0-package-tgz tar:///home/peter/.npm/warning/2.1.0/package.tgz
-302 silly lockFile 0e148b4c-er-npm-warning-2-1-0-package-tgz tar:///home/peter/.npm/warning/2.1.0/package.tgz
-303 info preinstall invariant@2.1.1
-304 info preinstall warning@2.1.0
-305 verbose readDependencies using package.json deps
-306 verbose readDependencies using package.json deps
-307 silly gunzTarPerm extractEntry lib/stringify.js
-308 silly gunzTarPerm extractEntry lib/utils.js
-309 verbose readDependencies using package.json deps
-310 verbose readDependencies using package.json deps
-311 verbose cache add [ 'loose-envify@^1.0.0', null ]
-312 verbose cache add name=undefined spec="loose-envify@^1.0.0" args=["loose-envify@^1.0.0",null]
-313 verbose parsed url { protocol: null,
-313 verbose parsed url   slashes: null,
-313 verbose parsed url   auth: null,
-313 verbose parsed url   host: null,
-313 verbose parsed url   port: null,
-313 verbose parsed url   hostname: null,
-313 verbose parsed url   hash: null,
-313 verbose parsed url   search: null,
-313 verbose parsed url   query: null,
-313 verbose parsed url   pathname: 'loose-envify@^1.0.0',
-313 verbose parsed url   path: 'loose-envify@^1.0.0',
-313 verbose parsed url   href: 'loose-envify@^1.0.0' }
-314 verbose cache add name="loose-envify" spec="^1.0.0" args=["loose-envify","^1.0.0"]
-315 verbose parsed url { protocol: null,
-315 verbose parsed url   slashes: null,
-315 verbose parsed url   auth: null,
-315 verbose parsed url   host: null,
-315 verbose parsed url   port: null,
-315 verbose parsed url   hostname: null,
-315 verbose parsed url   hash: null,
-315 verbose parsed url   search: null,
-315 verbose parsed url   query: null,
-315 verbose parsed url   pathname: '^1.0.0',
-315 verbose parsed url   path: '^1.0.0',
-315 verbose parsed url   href: '^1.0.0' }
-316 verbose addNamed [ 'loose-envify', '^1.0.0' ]
-317 verbose addNamed [ null, '>=1.0.0-0 <2.0.0-0' ]
-318 silly lockFile 5e67fb47-loose-envify-1-0-0 loose-envify@^1.0.0
-319 verbose lock loose-envify@^1.0.0 /home/peter/.npm/5e67fb47-loose-envify-1-0-0.lock
-320 verbose cache add [ 'loose-envify@^1.0.0', null ]
-321 verbose cache add name=undefined spec="loose-envify@^1.0.0" args=["loose-envify@^1.0.0",null]
-322 verbose parsed url { protocol: null,
-322 verbose parsed url   slashes: null,
-322 verbose parsed url   auth: null,
-322 verbose parsed url   host: null,
-322 verbose parsed url   port: null,
-322 verbose parsed url   hostname: null,
-322 verbose parsed url   hash: null,
-322 verbose parsed url   search: null,
-322 verbose parsed url   query: null,
-322 verbose parsed url   pathname: 'loose-envify@^1.0.0',
-322 verbose parsed url   path: 'loose-envify@^1.0.0',
-322 verbose parsed url   href: 'loose-envify@^1.0.0' }
-323 verbose cache add name="loose-envify" spec="^1.0.0" args=["loose-envify","^1.0.0"]
-324 verbose parsed url { protocol: null,
-324 verbose parsed url   slashes: null,
-324 verbose parsed url   auth: null,
-324 verbose parsed url   host: null,
-324 verbose parsed url   port: null,
-324 verbose parsed url   hostname: null,
-324 verbose parsed url   hash: null,
-324 verbose parsed url   search: null,
-324 verbose parsed url   query: null,
-324 verbose parsed url   pathname: '^1.0.0',
-324 verbose parsed url   path: '^1.0.0',
-324 verbose parsed url   href: '^1.0.0' }
-325 verbose addNamed [ 'loose-envify', '^1.0.0' ]
-326 silly addNameRange { name: 'loose-envify',
-326 silly addNameRange   range: '>=1.0.0-0 <2.0.0-0',
-326 silly addNameRange   hasData: false }
-327 silly gunzTarPerm extractEntry CHANGELOG.md
-328 silly gunzTarPerm extractEntry test/parse.js
-329 verbose url raw loose-envify
-330 verbose url resolving [ 'https://registry.npmjs.org/', './loose-envify' ]
-331 verbose url resolved https://registry.npmjs.org/loose-envify
-332 info trying registry request attempt 1 at 21:40:11
-333 verbose etag "2L56VY41TJJXRF6O0PIETR3YS"
-334 http GET https://registry.npmjs.org/loose-envify
-335 silly gunzTarPerm extractEntry test/stringify.js
-336 silly gunzTarPerm extractEntry test/utils.js
-337 silly lockFile c560d52d--history-node-modules-deep-equal tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/deep-equal
-338 silly lockFile c560d52d--history-node-modules-deep-equal tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/deep-equal
-339 silly lockFile c38a37b8-npm-deep-equal-1-0-1-package-tgz tar:///home/peter/.npm/deep-equal/1.0.1/package.tgz
-340 silly lockFile c38a37b8-npm-deep-equal-1-0-1-package-tgz tar:///home/peter/.npm/deep-equal/1.0.1/package.tgz
-341 info preinstall deep-equal@1.0.1
-342 verbose readDependencies using package.json deps
-343 verbose readDependencies using package.json deps
-344 silly resolved []
-345 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/deep-equal
-346 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/deep-equal
-347 verbose linkStuff [ false,
-347 verbose linkStuff   false,
-347 verbose linkStuff   false,
-347 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules' ]
-348 info linkStuff deep-equal@1.0.1
-349 verbose linkBins deep-equal@1.0.1
-350 verbose linkMans deep-equal@1.0.1
-351 verbose rebuildBundles deep-equal@1.0.1
-352 info install deep-equal@1.0.1
-353 info postinstall deep-equal@1.0.1
-354 silly lockFile 82cbd41a--modules-history-node-modules-qs tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/qs
-355 silly lockFile 82cbd41a--modules-history-node-modules-qs tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/qs
-356 silly lockFile 8a155ae2-e-peter-npm-qs-4-0-0-package-tgz tar:///home/peter/.npm/qs/4.0.0/package.tgz
-357 silly lockFile 8a155ae2-e-peter-npm-qs-4-0-0-package-tgz tar:///home/peter/.npm/qs/4.0.0/package.tgz
-358 info preinstall qs@4.0.0
-359 verbose readDependencies using package.json deps
-360 verbose readDependencies using package.json deps
-361 silly resolved []
-362 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/qs
-363 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/qs
-364 verbose linkStuff [ false,
-364 verbose linkStuff   false,
-364 verbose linkStuff   false,
-364 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules' ]
-365 info linkStuff qs@4.0.0
-366 verbose linkBins qs@4.0.0
-367 verbose linkMans qs@4.0.0
-368 verbose rebuildBundles qs@4.0.0
-369 info install qs@4.0.0
-370 info postinstall qs@4.0.0
-371 http 304 https://registry.npmjs.org/loose-envify
-372 silly registry.get cb [ 304,
-372 silly registry.get   { date: 'Thu, 22 Oct 2015 20:40:11 GMT',
-372 silly registry.get     via: '1.1 varnish',
-372 silly registry.get     'cache-control': 'max-age=60',
-372 silly registry.get     etag: '"2L56VY41TJJXRF6O0PIETR3YS"',
-372 silly registry.get     age: '49',
-372 silly registry.get     connection: 'keep-alive',
-372 silly registry.get     'x-served-by': 'cache-lhr6324-LHR',
-372 silly registry.get     'x-cache': 'HIT',
-372 silly registry.get     'x-cache-hits': '1',
-372 silly registry.get     'x-timer': 'S1445546411.797145,VS0,VE3',
-372 silly registry.get     vary: 'Accept' } ]
-373 verbose etag loose-envify from cache
-374 silly addNameRange number 2 { name: 'loose-envify',
-374 silly addNameRange   range: '>=1.0.0-0 <2.0.0-0',
-374 silly addNameRange   hasData: true }
-375 silly addNameRange versions [ 'loose-envify', [ '1.0.0', '1.1.0' ] ]
-376 verbose addNamed [ 'loose-envify', '1.1.0' ]
-377 verbose addNamed [ '1.1.0', '1.1.0' ]
-378 silly lockFile 4683ad41-loose-envify-1-1-0 loose-envify@1.1.0
-379 verbose lock loose-envify@1.1.0 /home/peter/.npm/4683ad41-loose-envify-1-1-0.lock
-380 silly lockFile 4683ad41-loose-envify-1-1-0 loose-envify@1.1.0
-381 silly lockFile 4683ad41-loose-envify-1-1-0 loose-envify@1.1.0
-382 silly lockFile 5e67fb47-loose-envify-1-0-0 loose-envify@^1.0.0
-383 silly lockFile 5e67fb47-loose-envify-1-0-0 loose-envify@^1.0.0
-384 silly resolved [ { name: 'loose-envify',
-384 silly resolved     version: '1.1.0',
-384 silly resolved     description: 'Fast (and loose) selective `process.env` replacer using js-tokens instead of an AST',
-384 silly resolved     keywords:
-384 silly resolved      [ 'environment',
-384 silly resolved        'variables',
-384 silly resolved        'browserify',
-384 silly resolved        'browserify-transform',
-384 silly resolved        'transform',
-384 silly resolved        'source',
-384 silly resolved        'configuration' ],
-384 silly resolved     homepage: 'https://github.com/zertosh/loose-envify',
-384 silly resolved     license: 'MIT',
-384 silly resolved     author: { name: 'Andres Suarez', email: 'zertosh@gmail.com' },
-384 silly resolved     repository:
-384 silly resolved      { type: 'git',
-384 silly resolved        url: 'git://github.com/zertosh/loose-envify.git' },
-384 silly resolved     scripts: { test: 'tap test/*.js' },
-384 silly resolved     dependencies: { 'js-tokens': '^1.0.1' },
-384 silly resolved     devDependencies: { browserify: '^11.0.1', envify: '^3.4.0', tap: '^1.4.0' },
-384 silly resolved     readme: '# loose-envify\n\n[![Build Status](https://travis-ci.org/zertosh/loose-envify.svg?branch=master)](https://travis-ci.org/zertosh/loose-envify)\n\nFast (and loose) selective `process.env` replacer using [js-tokens](https://github.com/lydell/js-tokens) instead of an AST. Works just like [envify](https://github.com/hughsk/envify) but much faster.\n\n## Gotchas\n\n* Doesn\'t handle broken syntax.\n* Doesn\'t look inside embedded expressions in template strings.\n  - **this won\'t work:**\n  ```js\n  console.log(`the current env is ${process.env.NODE_ENV}`);\n  ```\n* Doesn\'t replace oddly-spaced or oddly-commented expressions.\n  - **this won\'t work:**\n  ```js\n  console.log(process./*won\'t*/env./*work*/NODE_ENV);\n  ```\n\n## Usage/Options\n\nloose-envify has the exact same interface as [envify](https://github.com/hughsk/envify).\n\n## Benchmark\n\n```\nenvify:\n\n  $ for i in {1..5}; do node bench/bench.js \'envify\'; done\n  708ms\n  727ms\n  791ms\n  719ms\n  720ms\n\nloose-envify:\n\n  $ for i in {1..5}; do node bench/bench.js \'../\'; done\n  51ms\n  52ms\n  52ms\n  52ms\n  52ms\n```\n',
-384 silly resolved     readmeFilename: 'README.md',
-384 silly resolved     bugs: { url: 'https://github.com/zertosh/loose-envify/issues' },
-384 silly resolved     _id: 'loose-envify@1.1.0',
-384 silly resolved     _from: 'loose-envify@^1.0.0' } ]
-385 info install loose-envify@1.1.0 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant
-386 info installOne loose-envify@1.1.0
-387 silly resolved [ { name: 'loose-envify',
-387 silly resolved     version: '1.1.0',
-387 silly resolved     description: 'Fast (and loose) selective `process.env` replacer using js-tokens instead of an AST',
-387 silly resolved     keywords:
-387 silly resolved      [ 'environment',
-387 silly resolved        'variables',
-387 silly resolved        'browserify',
-387 silly resolved        'browserify-transform',
-387 silly resolved        'transform',
-387 silly resolved        'source',
-387 silly resolved        'configuration' ],
-387 silly resolved     homepage: 'https://github.com/zertosh/loose-envify',
-387 silly resolved     license: 'MIT',
-387 silly resolved     author: { name: 'Andres Suarez', email: 'zertosh@gmail.com' },
-387 silly resolved     repository:
-387 silly resolved      { type: 'git',
-387 silly resolved        url: 'git://github.com/zertosh/loose-envify.git' },
-387 silly resolved     scripts: { test: 'tap test/*.js' },
-387 silly resolved     dependencies: { 'js-tokens': '^1.0.1' },
-387 silly resolved     devDependencies: { browserify: '^11.0.1', envify: '^3.4.0', tap: '^1.4.0' },
-387 silly resolved     readme: '# loose-envify\n\n[![Build Status](https://travis-ci.org/zertosh/loose-envify.svg?branch=master)](https://travis-ci.org/zertosh/loose-envify)\n\nFast (and loose) selective `process.env` replacer using [js-tokens](https://github.com/lydell/js-tokens) instead of an AST. Works just like [envify](https://github.com/hughsk/envify) but much faster.\n\n## Gotchas\n\n* Doesn\'t handle broken syntax.\n* Doesn\'t look inside embedded expressions in template strings.\n  - **this won\'t work:**\n  ```js\n  console.log(`the current env is ${process.env.NODE_ENV}`);\n  ```\n* Doesn\'t replace oddly-spaced or oddly-commented expressions.\n  - **this won\'t work:**\n  ```js\n  console.log(process./*won\'t*/env./*work*/NODE_ENV);\n  ```\n\n## Usage/Options\n\nloose-envify has the exact same interface as [envify](https://github.com/hughsk/envify).\n\n## Benchmark\n\n```\nenvify:\n\n  $ for i in {1..5}; do node bench/bench.js \'envify\'; done\n  708ms\n  727ms\n  791ms\n  719ms\n  720ms\n\nloose-envify:\n\n  $ for i in {1..5}; do node bench/bench.js \'../\'; done\n  51ms\n  52ms\n  52ms\n  52ms\n  52ms\n```\n',
-387 silly resolved     readmeFilename: 'README.md',
-387 silly resolved     bugs: { url: 'https://github.com/zertosh/loose-envify/issues' },
-387 silly resolved     _id: 'loose-envify@1.1.0',
-387 silly resolved     _from: 'loose-envify@^1.0.0' } ]
-388 info install loose-envify@1.1.0 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning
-389 info installOne loose-envify@1.1.0
-390 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify unbuild
-391 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify unbuild
-392 verbose tar unpack /home/peter/.npm/loose-envify/1.1.0/package.tgz
-393 silly lockFile 38140478-ariant-node-modules-loose-envify tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify
-394 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify /home/peter/.npm/38140478-ariant-node-modules-loose-envify.lock
-395 silly lockFile 929a3c70-m-loose-envify-1-1-0-package-tgz tar:///home/peter/.npm/loose-envify/1.1.0/package.tgz
-396 verbose lock tar:///home/peter/.npm/loose-envify/1.1.0/package.tgz /home/peter/.npm/929a3c70-m-loose-envify-1-1-0-package-tgz.lock
-397 verbose tar unpack /home/peter/.npm/loose-envify/1.1.0/package.tgz
-398 silly lockFile 7124334e-arning-node-modules-loose-envify tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify
-399 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify /home/peter/.npm/7124334e-arning-node-modules-loose-envify.lock
-400 silly lockFile 929a3c70-m-loose-envify-1-1-0-package-tgz tar:///home/peter/.npm/loose-envify/1.1.0/package.tgz
-401 verbose lock tar:///home/peter/.npm/loose-envify/1.1.0/package.tgz /home/peter/.npm/929a3c70-m-loose-envify-1-1-0-package-tgz.lock
-402 silly gunzTarPerm modes [ '755', '644' ]
-403 silly gunzTarPerm extractEntry package.json
-404 silly gunzTarPerm extractEntry .npmignore
-405 silly gunzTarPerm extractEntry README.md
-406 silly gunzTarPerm extractEntry custom.js
-407 silly gunzTarPerm extractEntry index.js
-408 silly gunzTarPerm extractEntry loose-envify.js
-409 silly gunzTarPerm extractEntry replace.js
-410 silly lockFile 38140478-ariant-node-modules-loose-envify tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify
-411 silly lockFile 38140478-ariant-node-modules-loose-envify tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify
-412 silly lockFile 929a3c70-m-loose-envify-1-1-0-package-tgz tar:///home/peter/.npm/loose-envify/1.1.0/package.tgz
-413 silly lockFile 929a3c70-m-loose-envify-1-1-0-package-tgz tar:///home/peter/.npm/loose-envify/1.1.0/package.tgz
-414 info preinstall loose-envify@1.1.0
-415 verbose readDependencies using package.json deps
-416 verbose readDependencies using package.json deps
-417 verbose cache add [ 'js-tokens@^1.0.1', null ]
-418 verbose cache add name=undefined spec="js-tokens@^1.0.1" args=["js-tokens@^1.0.1",null]
-419 verbose parsed url { protocol: null,
-419 verbose parsed url   slashes: null,
-419 verbose parsed url   auth: null,
-419 verbose parsed url   host: null,
-419 verbose parsed url   port: null,
-419 verbose parsed url   hostname: null,
-419 verbose parsed url   hash: null,
-419 verbose parsed url   search: null,
-419 verbose parsed url   query: null,
-419 verbose parsed url   pathname: 'js-tokens@^1.0.1',
-419 verbose parsed url   path: 'js-tokens@^1.0.1',
-419 verbose parsed url   href: 'js-tokens@^1.0.1' }
-420 verbose cache add name="js-tokens" spec="^1.0.1" args=["js-tokens","^1.0.1"]
-421 verbose parsed url { protocol: null,
-421 verbose parsed url   slashes: null,
-421 verbose parsed url   auth: null,
-421 verbose parsed url   host: null,
-421 verbose parsed url   port: null,
-421 verbose parsed url   hostname: null,
-421 verbose parsed url   hash: null,
-421 verbose parsed url   search: null,
-421 verbose parsed url   query: null,
-421 verbose parsed url   pathname: '^1.0.1',
-421 verbose parsed url   path: '^1.0.1',
-421 verbose parsed url   href: '^1.0.1' }
-422 verbose addNamed [ 'js-tokens', '^1.0.1' ]
-423 verbose addNamed [ null, '>=1.0.1-0 <2.0.0-0' ]
-424 silly lockFile ced96222-js-tokens-1-0-1 js-tokens@^1.0.1
-425 verbose lock js-tokens@^1.0.1 /home/peter/.npm/ced96222-js-tokens-1-0-1.lock
-426 silly addNameRange { name: 'js-tokens',
-426 silly addNameRange   range: '>=1.0.1-0 <2.0.0-0',
-426 silly addNameRange   hasData: false }
-427 verbose url raw js-tokens
-428 verbose url resolving [ 'https://registry.npmjs.org/', './js-tokens' ]
-429 verbose url resolved https://registry.npmjs.org/js-tokens
-430 info trying registry request attempt 1 at 21:40:11
-431 verbose etag "F4N7TBLBJ8Z40VG7DPO546R7U"
-432 http GET https://registry.npmjs.org/js-tokens
-433 silly gunzTarPerm modes [ '755', '644' ]
-434 silly gunzTarPerm extractEntry package.json
-435 silly gunzTarPerm extractEntry .npmignore
-436 silly gunzTarPerm extractEntry README.md
-437 silly gunzTarPerm extractEntry custom.js
-438 silly gunzTarPerm extractEntry index.js
-439 silly gunzTarPerm extractEntry loose-envify.js
-440 silly gunzTarPerm extractEntry replace.js
-441 silly lockFile 7124334e-arning-node-modules-loose-envify tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify
-442 silly lockFile 7124334e-arning-node-modules-loose-envify tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify
-443 silly lockFile 929a3c70-m-loose-envify-1-1-0-package-tgz tar:///home/peter/.npm/loose-envify/1.1.0/package.tgz
-444 silly lockFile 929a3c70-m-loose-envify-1-1-0-package-tgz tar:///home/peter/.npm/loose-envify/1.1.0/package.tgz
-445 info preinstall loose-envify@1.1.0
-446 verbose readDependencies using package.json deps
-447 verbose readDependencies using package.json deps
-448 verbose cache add [ 'js-tokens@^1.0.1', null ]
-449 verbose cache add name=undefined spec="js-tokens@^1.0.1" args=["js-tokens@^1.0.1",null]
-450 verbose parsed url { protocol: null,
-450 verbose parsed url   slashes: null,
-450 verbose parsed url   auth: null,
-450 verbose parsed url   host: null,
-450 verbose parsed url   port: null,
-450 verbose parsed url   hostname: null,
-450 verbose parsed url   hash: null,
-450 verbose parsed url   search: null,
-450 verbose parsed url   query: null,
-450 verbose parsed url   pathname: 'js-tokens@^1.0.1',
-450 verbose parsed url   path: 'js-tokens@^1.0.1',
-450 verbose parsed url   href: 'js-tokens@^1.0.1' }
-451 verbose cache add name="js-tokens" spec="^1.0.1" args=["js-tokens","^1.0.1"]
-452 verbose parsed url { protocol: null,
-452 verbose parsed url   slashes: null,
-452 verbose parsed url   auth: null,
-452 verbose parsed url   host: null,
-452 verbose parsed url   port: null,
-452 verbose parsed url   hostname: null,
-452 verbose parsed url   hash: null,
-452 verbose parsed url   search: null,
-452 verbose parsed url   query: null,
-452 verbose parsed url   pathname: '^1.0.1',
-452 verbose parsed url   path: '^1.0.1',
-452 verbose parsed url   href: '^1.0.1' }
-453 verbose addNamed [ 'js-tokens', '^1.0.1' ]
-454 http 304 https://registry.npmjs.org/js-tokens
-455 silly registry.get cb [ 304,
-455 silly registry.get   { date: 'Thu, 22 Oct 2015 20:40:12 GMT',
-455 silly registry.get     via: '1.1 varnish',
-455 silly registry.get     'cache-control': 'max-age=60',
-455 silly registry.get     etag: '"F4N7TBLBJ8Z40VG7DPO546R7U"',
-455 silly registry.get     age: '25',
-455 silly registry.get     connection: 'keep-alive',
-455 silly registry.get     'x-served-by': 'cache-lhr6330-LHR',
-455 silly registry.get     'x-cache': 'HIT',
-455 silly registry.get     'x-cache-hits': '1',
-455 silly registry.get     'x-timer': 'S1445546412.343735,VS0,VE0',
-455 silly registry.get     vary: 'Accept' } ]
-456 verbose etag js-tokens from cache
-457 silly addNameRange number 2 { name: 'js-tokens', range: '>=1.0.1-0 <2.0.0-0', hasData: true }
-458 silly addNameRange versions [ 'js-tokens',
-458 silly addNameRange   [ '0.1.0',
-458 silly addNameRange     '0.2.0',
-458 silly addNameRange     '0.3.0',
-458 silly addNameRange     '0.3.1',
-458 silly addNameRange     '0.4.0',
-458 silly addNameRange     '0.4.1',
-458 silly addNameRange     '1.0.0',
-458 silly addNameRange     '1.0.1',
-458 silly addNameRange     '1.0.2' ] ]
-459 verbose addNamed [ 'js-tokens', '1.0.2' ]
-460 verbose addNamed [ '1.0.2', '1.0.2' ]
-461 silly lockFile 7d5ea12a-js-tokens-1-0-2 js-tokens@1.0.2
-462 verbose lock js-tokens@1.0.2 /home/peter/.npm/7d5ea12a-js-tokens-1-0-2.lock
-463 silly lockFile 7d5ea12a-js-tokens-1-0-2 js-tokens@1.0.2
-464 silly lockFile 7d5ea12a-js-tokens-1-0-2 js-tokens@1.0.2
-465 silly lockFile ced96222-js-tokens-1-0-1 js-tokens@^1.0.1
-466 silly lockFile ced96222-js-tokens-1-0-1 js-tokens@^1.0.1
-467 silly resolved [ { name: 'js-tokens',
-467 silly resolved     version: '1.0.2',
-467 silly resolved     author: { name: 'Simon Lydell' },
-467 silly resolved     license: 'MIT',
-467 silly resolved     description: 'A regex that tokenizes JavaScript.',
-467 silly resolved     keywords: [ 'JavaScript', 'js', 'token', 'tokenize', 'regex' ],
-467 silly resolved     files: [ 'index.js' ],
-467 silly resolved     repository: { type: 'git', url: 'git://github.com/lydell/js-tokens' },
-467 silly resolved     scripts:
-467 silly resolved      { test: 'mocha --ui tdd',
-467 silly resolved        'esprima-compare': 'node esprima-compare ./index.js everything.js/es5.js',
-467 silly resolved        build: 'node generate-index.js',
-467 silly resolved        dev: 'npm run build && npm test' },
-467 silly resolved     devDependencies:
-467 silly resolved      { 'coffee-script': '~1.9.3',
-467 silly resolved        esprima: '^2.3.0',
-467 silly resolved        'everything.js': '^1.0.3',
-467 silly resolved        mocha: '^2.2.5' },
-467 silly resolved     readme: 'Overview [![Build Status](https://travis-ci.org/lydell/js-tokens.png?branch=master)](https://travis-ci.org/lydell/js-tokens)\n========\n\nA regex that tokenizes JavaScript.\n\n```js\nvar jsTokens = require("js-tokens")\n\nvar jsString = "var foo=opts.foo;\\n..."\n\njsString.match(jsTokens)\n// ["var", " ", "foo", "=", "opts", ".", "foo", ";", "\\n", ...]\n```\n\n\nInstallation\n============\n\n- `npm install js-tokens`\n\n```js\nvar jsTokens = require("js-tokens")\n```\n\n\nUsage\n=====\n\n### `jsTokens` ###\n\nA regex with the `g` flag that matches JavaScript tokens.\n\nThe regex _always_ matches, even invalid JavaScript and the empty string.\n\nThe next match is always directly after the previous.\n\n### `var token = jsTokens.matchToToken(match)` ###\n\nTakes a `match` returned by `jsTokens.exec(string)`, and returns a `{type:\nString, value: String}` object. The following types are available:\n\n- string\n- comment\n- regex\n- number\n- name\n- punctuator\n- whitespace\n- invalid\n\nMulti-line comments and strings also have a `closed` property indicating if the\ntoken was closed or not (see below).\n\nComments and strings both come in several flavors. To distinguish them, check if\nthe token starts with `//`, `/*`, `\'`, `"` or `` ` ``.\n\nNames are ECMAScript IdentifierNames, that is, including both identifiers and\nkeywords. You may use [is-keyword-js] to tell them apart.\n\nWhitespace includes both line terminators and other whitespace.\n\nFor example usage, please see this [gist].\n\n[is-keyword-js]: https://github.com/crissdev/is-keyword-js\n[gist]: https://gist.github.com/lydell/be49dbf80c382c473004\n\n\nInvalid code handling\n=====================\n\nUnterminated strings are still matched as strings. JavaScript strings cannot\ncontain (unescaped) newlines, so unterminated strings simply end at the end of\nthe line. Unterminated template strings can contain unescaped newlines, though,\nso they go on to the end of input.\n\nUnterminated multi-line comments are also still matched as comments. They\nsimply go on to the end of the input.\n\nUnterminated regex literals are likely matched as division and whatever is\ninside the regex.\n\nInvalid ASCII characters have their own capturing group.\n\nInvalid non-ASCII characters are treated as names, to simplify the matching of\nnames (except unicode spaces which are treated as whitespace).\n\nRegex literals may contain invalid regex syntax. They are still matched as\nregex literals. They may also contain repeated regex flags, to keep the regex\nsimple.\n\nStrings may contain invalid escape sequences.\n\n\nLimitations\n===========\n\nTokenizing JavaScript using regexes—in fact, _one single regex_—won’t be\nperfect. But that’s not the point either.\n\nYou may compare jsTokens with [esprima] by using `esprima-compare.js`.\nSee `npm run esprima-compare`!\n\n[esprima]: http://esprima.org/\n\n### Template string interpolation ###\n\nTemplate strings are matched as single tokens, from the starting `` ` `` to the\nending `` ` ``, including interpolations (whose tokens are not matched\nindividually).\n\nMatching template string interpolations requires recursive balancing of `{` and\n`}`—something that JavaScript regexes cannot do. Only one level of nesting is\nsupported.\n\n### Division and regex literals collision ###\n\nConsider this example:\n\n```js\nvar g = 9.82\nvar number = bar / 2/g\n\nvar regex = / 2/g\n```\n\nA human can easily understand that in the `number` line we’re dealing with\ndivision, and in the `regex` line we’re dealing with a regex literal. How come?\nBecause humans can look at the whole code to put the `/` characters in context.\nA JavaScript regex cannot. It only sees forwards.\n\nWhen the `jsTokens` regex scans throught the above, it will see the following\nat the end of both the `number` and `regex` rows:\n\n```js\n/ 2/g\n```\n\nIt is then impossible to know if that is a regex literal, or part of an\nexpression dealing with division.\n\nHere is a similar case:\n\n```js\nfoo /= 2/g\nfoo(/= 2/g)\n```\n\nThe first line divides the `foo` variable with `2/g`. The second line calls the\n`foo` function with the regex literal `/= 2/g`. Again, since `jsTokens` only\nsees forwards, it cannot tell the two cases apart.\n\nThere are some cases where we _can_ tell division and regex literals apart,\nthough.\n\nFirst off, we have the simple cases where there’s only one slash in the line:\n\n```js\nvar foo = 2/g\nfoo /= 2\n```\n\nRegex literals cannot contain newlines, so the above cases are correctly\nidentified as division. Things are only problematic when there are more than\none non-comment slash in a single line.\n\nSecondly, not every character is a valid regex flag.\n\n```js\nvar number = bar / 2/e\n```\n\nThe above example is also correctly identified as division, because `e` is not a\nvalid regex flag. I initially wanted to future-proof by allowing `[a-zA-Z]*`\n(any letter) as flags, but it is not worth it since it increases the amount of\nambigous cases. So only the standard `g`, `m`, `i`, `y` and `u` flags are\nallowed. This means that the above example will be identified as division as\nlong as you don’t rename the `e` variable to some permutation of `gmiyu` 1 to 5\ncharacters long.\n\nLastly, we can look _forward_ for information.\n\n- If the token following what looks like a regex literal is not valid after a\n  regex literal, but is valid in a division expression, then the regex literal\n  is treated as division instead. For example, a flagless regex cannot be\n  followed by a string, number or name, but all of those three can be the\n  denominator of a division.\n- Generally, if what looks like a regex literal is followed by an operator, the\n  regex literal is treated as division instead. This is because regexes are\n  seldomly used with operators (such as `+`, `*`, `&&` and `==`), but division\n  could likely be part of such an expression.\n\nPlease consult the regex source and the test cases for precise information on\nwhen regex or division is matched (should you need to know). In short, you\ncould sum it up as:\n\nIf the end of a statement looks like a regex literal (even if it isn’t), it\nwill be treated as one. Otherwise it should work as expected (if you write sane\ncode).\n\n\nLicense\n=======\n\n[The X11 (“MIT”) License](LICENSE).\n',
-467 silly resolved     readmeFilename: 'readme.md',
-467 silly resolved     bugs: { url: 'https://github.com/lydell/js-tokens/issues' },
-467 silly resolved     _id: 'js-tokens@1.0.2',
-467 silly resolved     _from: 'js-tokens@^1.0.1' } ]
-468 info install js-tokens@1.0.2 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify
-469 info installOne js-tokens@1.0.2
-470 silly resolved [ { name: 'js-tokens',
-470 silly resolved     version: '1.0.2',
-470 silly resolved     author: { name: 'Simon Lydell' },
-470 silly resolved     license: 'MIT',
-470 silly resolved     description: 'A regex that tokenizes JavaScript.',
-470 silly resolved     keywords: [ 'JavaScript', 'js', 'token', 'tokenize', 'regex' ],
-470 silly resolved     files: [ 'index.js' ],
-470 silly resolved     repository: { type: 'git', url: 'git://github.com/lydell/js-tokens' },
-470 silly resolved     scripts:
-470 silly resolved      { test: 'mocha --ui tdd',
-470 silly resolved        'esprima-compare': 'node esprima-compare ./index.js everything.js/es5.js',
-470 silly resolved        build: 'node generate-index.js',
-470 silly resolved        dev: 'npm run build && npm test' },
-470 silly resolved     devDependencies:
-470 silly resolved      { 'coffee-script': '~1.9.3',
-470 silly resolved        esprima: '^2.3.0',
-470 silly resolved        'everything.js': '^1.0.3',
-470 silly resolved        mocha: '^2.2.5' },
-470 silly resolved     readme: 'Overview [![Build Status](https://travis-ci.org/lydell/js-tokens.png?branch=master)](https://travis-ci.org/lydell/js-tokens)\n========\n\nA regex that tokenizes JavaScript.\n\n```js\nvar jsTokens = require("js-tokens")\n\nvar jsString = "var foo=opts.foo;\\n..."\n\njsString.match(jsTokens)\n// ["var", " ", "foo", "=", "opts", ".", "foo", ";", "\\n", ...]\n```\n\n\nInstallation\n============\n\n- `npm install js-tokens`\n\n```js\nvar jsTokens = require("js-tokens")\n```\n\n\nUsage\n=====\n\n### `jsTokens` ###\n\nA regex with the `g` flag that matches JavaScript tokens.\n\nThe regex _always_ matches, even invalid JavaScript and the empty string.\n\nThe next match is always directly after the previous.\n\n### `var token = jsTokens.matchToToken(match)` ###\n\nTakes a `match` returned by `jsTokens.exec(string)`, and returns a `{type:\nString, value: String}` object. The following types are available:\n\n- string\n- comment\n- regex\n- number\n- name\n- punctuator\n- whitespace\n- invalid\n\nMulti-line comments and strings also have a `closed` property indicating if the\ntoken was closed or not (see below).\n\nComments and strings both come in several flavors. To distinguish them, check if\nthe token starts with `//`, `/*`, `\'`, `"` or `` ` ``.\n\nNames are ECMAScript IdentifierNames, that is, including both identifiers and\nkeywords. You may use [is-keyword-js] to tell them apart.\n\nWhitespace includes both line terminators and other whitespace.\n\nFor example usage, please see this [gist].\n\n[is-keyword-js]: https://github.com/crissdev/is-keyword-js\n[gist]: https://gist.github.com/lydell/be49dbf80c382c473004\n\n\nInvalid code handling\n=====================\n\nUnterminated strings are still matched as strings. JavaScript strings cannot\ncontain (unescaped) newlines, so unterminated strings simply end at the end of\nthe line. Unterminated template strings can contain unescaped newlines, though,\nso they go on to the end of input.\n\nUnterminated multi-line comments are also still matched as comments. They\nsimply go on to the end of the input.\n\nUnterminated regex literals are likely matched as division and whatever is\ninside the regex.\n\nInvalid ASCII characters have their own capturing group.\n\nInvalid non-ASCII characters are treated as names, to simplify the matching of\nnames (except unicode spaces which are treated as whitespace).\n\nRegex literals may contain invalid regex syntax. They are still matched as\nregex literals. They may also contain repeated regex flags, to keep the regex\nsimple.\n\nStrings may contain invalid escape sequences.\n\n\nLimitations\n===========\n\nTokenizing JavaScript using regexes—in fact, _one single regex_—won’t be\nperfect. But that’s not the point either.\n\nYou may compare jsTokens with [esprima] by using `esprima-compare.js`.\nSee `npm run esprima-compare`!\n\n[esprima]: http://esprima.org/\n\n### Template string interpolation ###\n\nTemplate strings are matched as single tokens, from the starting `` ` `` to the\nending `` ` ``, including interpolations (whose tokens are not matched\nindividually).\n\nMatching template string interpolations requires recursive balancing of `{` and\n`}`—something that JavaScript regexes cannot do. Only one level of nesting is\nsupported.\n\n### Division and regex literals collision ###\n\nConsider this example:\n\n```js\nvar g = 9.82\nvar number = bar / 2/g\n\nvar regex = / 2/g\n```\n\nA human can easily understand that in the `number` line we’re dealing with\ndivision, and in the `regex` line we’re dealing with a regex literal. How come?\nBecause humans can look at the whole code to put the `/` characters in context.\nA JavaScript regex cannot. It only sees forwards.\n\nWhen the `jsTokens` regex scans throught the above, it will see the following\nat the end of both the `number` and `regex` rows:\n\n```js\n/ 2/g\n```\n\nIt is then impossible to know if that is a regex literal, or part of an\nexpression dealing with division.\n\nHere is a similar case:\n\n```js\nfoo /= 2/g\nfoo(/= 2/g)\n```\n\nThe first line divides the `foo` variable with `2/g`. The second line calls the\n`foo` function with the regex literal `/= 2/g`. Again, since `jsTokens` only\nsees forwards, it cannot tell the two cases apart.\n\nThere are some cases where we _can_ tell division and regex literals apart,\nthough.\n\nFirst off, we have the simple cases where there’s only one slash in the line:\n\n```js\nvar foo = 2/g\nfoo /= 2\n```\n\nRegex literals cannot contain newlines, so the above cases are correctly\nidentified as division. Things are only problematic when there are more than\none non-comment slash in a single line.\n\nSecondly, not every character is a valid regex flag.\n\n```js\nvar number = bar / 2/e\n```\n\nThe above example is also correctly identified as division, because `e` is not a\nvalid regex flag. I initially wanted to future-proof by allowing `[a-zA-Z]*`\n(any letter) as flags, but it is not worth it since it increases the amount of\nambigous cases. So only the standard `g`, `m`, `i`, `y` and `u` flags are\nallowed. This means that the above example will be identified as division as\nlong as you don’t rename the `e` variable to some permutation of `gmiyu` 1 to 5\ncharacters long.\n\nLastly, we can look _forward_ for information.\n\n- If the token following what looks like a regex literal is not valid after a\n  regex literal, but is valid in a division expression, then the regex literal\n  is treated as division instead. For example, a flagless regex cannot be\n  followed by a string, number or name, but all of those three can be the\n  denominator of a division.\n- Generally, if what looks like a regex literal is followed by an operator, the\n  regex literal is treated as division instead. This is because regexes are\n  seldomly used with operators (such as `+`, `*`, `&&` and `==`), but division\n  could likely be part of such an expression.\n\nPlease consult the regex source and the test cases for precise information on\nwhen regex or division is matched (should you need to know). In short, you\ncould sum it up as:\n\nIf the end of a statement looks like a regex literal (even if it isn’t), it\nwill be treated as one. Otherwise it should work as expected (if you write sane\ncode).\n\n\nLicense\n=======\n\n[The X11 (“MIT”) License](LICENSE).\n',
-470 silly resolved     readmeFilename: 'readme.md',
-470 silly resolved     bugs: { url: 'https://github.com/lydell/js-tokens/issues' },
-470 silly resolved     _id: 'js-tokens@1.0.2',
-470 silly resolved     _from: 'js-tokens@^1.0.1' } ]
-471 info install js-tokens@1.0.2 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify
-472 info installOne js-tokens@1.0.2
-473 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify/node_modules/js-tokens unbuild
-474 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify/node_modules/js-tokens unbuild
-475 verbose tar unpack /home/peter/.npm/js-tokens/1.0.2/package.tgz
-476 silly lockFile 5417ff73-se-envify-node-modules-js-tokens tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify/node_modules/js-tokens
-477 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify/node_modules/js-tokens /home/peter/.npm/5417ff73-se-envify-node-modules-js-tokens.lock
-478 silly lockFile 50283896--npm-js-tokens-1-0-2-package-tgz tar:///home/peter/.npm/js-tokens/1.0.2/package.tgz
-479 verbose lock tar:///home/peter/.npm/js-tokens/1.0.2/package.tgz /home/peter/.npm/50283896--npm-js-tokens-1-0-2-package-tgz.lock
-480 verbose tar unpack /home/peter/.npm/js-tokens/1.0.2/package.tgz
-481 silly lockFile 9491cc9f-se-envify-node-modules-js-tokens tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify/node_modules/js-tokens
-482 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify/node_modules/js-tokens /home/peter/.npm/9491cc9f-se-envify-node-modules-js-tokens.lock
-483 silly lockFile 50283896--npm-js-tokens-1-0-2-package-tgz tar:///home/peter/.npm/js-tokens/1.0.2/package.tgz
-484 verbose lock tar:///home/peter/.npm/js-tokens/1.0.2/package.tgz /home/peter/.npm/50283896--npm-js-tokens-1-0-2-package-tgz.lock
-485 silly gunzTarPerm modes [ '755', '644' ]
-486 silly gunzTarPerm extractEntry package.json
-487 silly gunzTarPerm extractEntry index.js
-488 silly gunzTarPerm extractEntry readme.md
-489 silly lockFile 5417ff73-se-envify-node-modules-js-tokens tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify/node_modules/js-tokens
-490 silly lockFile 5417ff73-se-envify-node-modules-js-tokens tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify/node_modules/js-tokens
-491 silly lockFile 50283896--npm-js-tokens-1-0-2-package-tgz tar:///home/peter/.npm/js-tokens/1.0.2/package.tgz
-492 silly lockFile 50283896--npm-js-tokens-1-0-2-package-tgz tar:///home/peter/.npm/js-tokens/1.0.2/package.tgz
-493 info preinstall js-tokens@1.0.2
-494 verbose readDependencies using package.json deps
-495 verbose readDependencies using package.json deps
-496 silly resolved []
-497 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify/node_modules/js-tokens
-498 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify/node_modules/js-tokens
-499 verbose linkStuff [ false,
-499 verbose linkStuff   false,
-499 verbose linkStuff   false,
-499 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify/node_modules' ]
-500 info linkStuff js-tokens@1.0.2
-501 verbose linkBins js-tokens@1.0.2
-502 verbose linkMans js-tokens@1.0.2
-503 verbose rebuildBundles js-tokens@1.0.2
-504 info install js-tokens@1.0.2
-505 info postinstall js-tokens@1.0.2
-506 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify
-507 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules/loose-envify
-508 verbose linkStuff [ false,
-508 verbose linkStuff   false,
-508 verbose linkStuff   false,
-508 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant/node_modules' ]
-509 info linkStuff loose-envify@1.1.0
-510 verbose linkBins loose-envify@1.1.0
-511 verbose linkMans loose-envify@1.1.0
-512 verbose rebuildBundles loose-envify@1.1.0
-513 verbose rebuildBundles [ 'js-tokens' ]
-514 info install loose-envify@1.1.0
-515 info postinstall loose-envify@1.1.0
-516 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant
-517 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/invariant
-518 verbose linkStuff [ false,
-518 verbose linkStuff   false,
-518 verbose linkStuff   false,
-518 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules' ]
-519 info linkStuff invariant@2.1.1
-520 verbose linkBins invariant@2.1.1
-521 verbose linkMans invariant@2.1.1
-522 verbose rebuildBundles invariant@2.1.1
-523 verbose rebuildBundles [ 'loose-envify' ]
-524 info install invariant@2.1.1
-525 info postinstall invariant@2.1.1
-526 silly gunzTarPerm modes [ '755', '644' ]
-527 silly gunzTarPerm extractEntry package.json
-528 silly gunzTarPerm extractEntry index.js
-529 silly gunzTarPerm extractEntry readme.md
-530 silly lockFile 9491cc9f-se-envify-node-modules-js-tokens tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify/node_modules/js-tokens
-531 silly lockFile 9491cc9f-se-envify-node-modules-js-tokens tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify/node_modules/js-tokens
-532 silly lockFile 50283896--npm-js-tokens-1-0-2-package-tgz tar:///home/peter/.npm/js-tokens/1.0.2/package.tgz
-533 silly lockFile 50283896--npm-js-tokens-1-0-2-package-tgz tar:///home/peter/.npm/js-tokens/1.0.2/package.tgz
-534 info preinstall js-tokens@1.0.2
-535 verbose readDependencies using package.json deps
-536 verbose readDependencies using package.json deps
-537 silly resolved []
-538 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify/node_modules/js-tokens
-539 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify/node_modules/js-tokens
-540 verbose linkStuff [ false,
-540 verbose linkStuff   false,
-540 verbose linkStuff   false,
-540 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify/node_modules' ]
-541 info linkStuff js-tokens@1.0.2
-542 verbose linkBins js-tokens@1.0.2
-543 verbose linkMans js-tokens@1.0.2
-544 verbose rebuildBundles js-tokens@1.0.2
-545 info install js-tokens@1.0.2
-546 info postinstall js-tokens@1.0.2
-547 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify
-548 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules/loose-envify
-549 verbose linkStuff [ false,
-549 verbose linkStuff   false,
-549 verbose linkStuff   false,
-549 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning/node_modules' ]
-550 info linkStuff loose-envify@1.1.0
-551 verbose linkBins loose-envify@1.1.0
-552 verbose linkMans loose-envify@1.1.0
-553 verbose rebuildBundles loose-envify@1.1.0
-554 verbose rebuildBundles [ 'js-tokens' ]
-555 info install loose-envify@1.1.0
-556 info postinstall loose-envify@1.1.0
-557 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning
-558 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules/warning
-559 verbose linkStuff [ false,
-559 verbose linkStuff   false,
-559 verbose linkStuff   false,
-559 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history/node_modules' ]
-560 info linkStuff warning@2.1.0
-561 verbose linkBins warning@2.1.0
-562 verbose linkMans warning@2.1.0
-563 verbose rebuildBundles warning@2.1.0
-564 verbose rebuildBundles [ 'loose-envify' ]
-565 info install warning@2.1.0
-566 info postinstall warning@2.1.0
-567 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-568 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/history
-569 verbose linkStuff [ false,
-569 verbose linkStuff   false,
-569 verbose linkStuff   false,
-569 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules' ]
-570 info linkStuff history@1.12.5
-571 verbose linkBins history@1.12.5
-572 verbose linkMans history@1.12.5
-573 verbose rebuildBundles history@1.12.5
-574 verbose rebuildBundles [ 'deep-equal', 'invariant', 'qs', 'warning' ]
-575 info install history@1.12.5
-576 info postinstall history@1.12.5
-577 verbose unsafe-perm in lifecycle true
-578 error peerinvalid The package react does not satisfy its siblings' peerDependencies requirements!
-578 error peerinvalid Peer react-router@0.13.4 wants react@0.13.x
-578 error peerinvalid Peer reflux@0.2.13 wants react@>=0.12.2 <0.15.0
-578 error peerinvalid Peer material-ui@0.13.0 wants react@^0.14.0
-578 error peerinvalid Peer react-addons-create-fragment@0.14.0 wants react@^0.14.0
-578 error peerinvalid Peer react-addons-pure-render-mixin@0.14.0 wants react@^0.14.0
-578 error peerinvalid Peer react-addons-transition-group@0.14.0 wants react@^0.14.0
-578 error peerinvalid Peer react-addons-update@0.14.0 wants react@^0.14.0
-578 error peerinvalid Peer react-tap-event-plugin@0.2.1 wants react@^0.14.0
-578 error peerinvalid Peer react-bootstrap@0.27.1 wants react@>=0.14.0
-579 error System Linux 3.13.0-63-generic
-580 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "--save" "history"
-581 error cwd /home/peter/Documents/playground/OnlineNounResources/src/main/webapp
-582 error node -v v0.10.25
-583 error npm -v 1.3.10
-584 error code EPEERINVALID
-585 verbose exit [ 1, true ]
+56 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+57 silly gunzTarPerm extractEntry index.js
+58 silly gunzTarPerm modified mode [ 'index.js', 438, 420 ]
+59 silly gunzTarPerm extractEntry utils.js
+60 silly gunzTarPerm modified mode [ 'utils.js', 438, 420 ]
+61 silly lockFile 8ea8c6a1-68509-0-8569323334377259-package tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package
+62 silly lockFile 8ea8c6a1-68509-0-8569323334377259-package tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package
+63 silly lockFile 0bf50426-68509-0-8569323334377259-tmp-tgz tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/tmp.tgz
+64 silly lockFile 0bf50426-68509-0-8569323334377259-tmp-tgz tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/tmp.tgz
+65 verbose tar pack [ '/home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz',
+65 verbose tar pack   '/home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package' ]
+66 verbose tarball /home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+67 verbose folder /home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package
+68 silly lockFile 8ea8c6a1-68509-0-8569323334377259-package tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package
+69 verbose lock tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package /home/peter/.npm/8ea8c6a1-68509-0-8569323334377259-package.lock
+70 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+71 verbose lock tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz /home/peter/.npm/04fd549f-ux-state-mixin-0-4-5-package-tgz.lock
+72 silly lockFile 8ea8c6a1-68509-0-8569323334377259-package tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package
+73 silly lockFile 8ea8c6a1-68509-0-8569323334377259-package tar:///home/peter/tmp/npm-8123-eZqt8KQX/1445588668509-0.8569323334377259/package
+74 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+75 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+76 silly lockFile 0df9741e-reflux-state-mixin-0-4-5-package /home/peter/.npm/reflux-state-mixin/0.4.5/package
+77 verbose lock /home/peter/.npm/reflux-state-mixin/0.4.5/package /home/peter/.npm/0df9741e-reflux-state-mixin-0-4-5-package.lock
+78 silly lockFile 0df9741e-reflux-state-mixin-0-4-5-package /home/peter/.npm/reflux-state-mixin/0.4.5/package
+79 silly lockFile 0df9741e-reflux-state-mixin-0-4-5-package /home/peter/.npm/reflux-state-mixin/0.4.5/package
+80 verbose tar unpack /home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+81 silly lockFile 1f60eb48-reflux-state-mixin-0-4-5-package tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package
+82 verbose lock tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package /home/peter/.npm/1f60eb48-reflux-state-mixin-0-4-5-package.lock
+83 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+84 verbose lock tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz /home/peter/.npm/04fd549f-ux-state-mixin-0-4-5-package-tgz.lock
+85 silly gunzTarPerm modes [ '755', '644' ]
+86 silly gunzTarPerm extractEntry package.json
+87 silly gunzTarPerm extractEntry .npmignore
+88 silly gunzTarPerm extractEntry README.md
+89 silly gunzTarPerm extractEntry index.js
+90 silly gunzTarPerm extractEntry utils.js
+91 silly lockFile 1f60eb48-reflux-state-mixin-0-4-5-package tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package
+92 silly lockFile 1f60eb48-reflux-state-mixin-0-4-5-package tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package
+93 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+94 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+95 verbose chmod /home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz 644
+96 verbose chown /home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz [ 1000, 1000 ]
+97 silly lockFile f507787b-xin-reflux-state-mixin-0-4-5-tgz https://registry.npmjs.org/reflux-state-mixin/-/reflux-state-mixin-0.4.5.tgz
+98 silly lockFile f507787b-xin-reflux-state-mixin-0-4-5-tgz https://registry.npmjs.org/reflux-state-mixin/-/reflux-state-mixin-0.4.5.tgz
+99 silly lockFile e571880e-reflux-state-mixin-0-4-5 reflux-state-mixin@0.4.5
+100 silly lockFile e571880e-reflux-state-mixin-0-4-5 reflux-state-mixin@0.4.5
+101 silly lockFile 6c2a4c5d-reflux-state-mixin reflux-state-mixin@
+102 silly lockFile 6c2a4c5d-reflux-state-mixin reflux-state-mixin@
+103 silly resolved [ { name: 'reflux-state-mixin',
+103 silly resolved     version: '0.4.5',
+103 silly resolved     description: 'Reflux stores mixin adding \'state\' syntax similar to React components.',
+103 silly resolved     main: 'index.js',
+103 silly resolved     repository:
+103 silly resolved      { type: 'git',
+103 silly resolved        url: 'git+https://github.com/yonatanmn/reflux-state-mixin.git' },
+103 silly resolved     keywords:
+103 silly resolved      [ 'reflux',
+103 silly resolved        'mixin',
+103 silly resolved        'model',
+103 silly resolved        'mvc',
+103 silly resolved        'state',
+103 silly resolved        'store',
+103 silly resolved        'event',
+103 silly resolved        'events' ],
+103 silly resolved     author: { name: 'Yonatan Schreiber', email: 'yonatnamn@gmail.com' },
+103 silly resolved     license: 'ISC',
+103 silly resolved     dependencies: {},
+103 silly resolved     peerDependencies: { reflux: '>=0.2.5 <0.4.0' },
+103 silly resolved     homepage: 'https://github.com/yonatanmn/reflux-state-mixin',
+103 silly resolved     readme: '# reflux-state-mixin\r\n\r\nMixin for [reflux](https://www.npmjs.com/packages/reflux) stores to enable them to have `state`, `setState()`, and `getInitialState()`, similar to React components. \r\n\r\n\r\n## Usage\r\n\r\n```javascript\r\n\r\n// myStore.js\r\nvar Reflux = require(\'reflux\');\r\nvar StateMixin = require(\'reflux-state-mixin\')(Reflux); //call this mixin like that\r\nvar Actions = require(\'./../actions/AnimalsActions\'); \r\n\r\nvar AnimalStore = module.exports = Reflux.createStore({\r\n  mixins: [StateMixin],\r\n  listenables: Actions, //or any other way of listening... \r\n\r\n  getInitialState(){      \r\n    return{\r\n      dogs:5,\r\n      cats:3\r\n    }\r\n  },\r\n\r\n  onNewDogBorn: function() {\r\n        this.setState({dogs:this.state.dogs+1})  \r\n        //just like in a Component.\r\n        //this will `trigger()` this state, similar to `render()` in a Component \r\n  }\r\n\r\n});\r\n```\r\n### in component:\r\n#### 1:\r\n```javascript\r\n\r\nvar AnimalStore = require(\'./AnimalStore.js\');\r\n\r\nvar DogsComponent = React.createClass({\r\n    mixins:[Reflux.ListenerMixin],\r\n    getInitialState: function (){\r\n      return({\r\n          dogs:AnimalStore.state.dogs \r\n          //Treat store.state as immutable data - same as you treat component.state - \r\n          //you could use it inside a component, but never change it\'s value - only with setState()    \r\n      })\r\n    },\r\n    componentDidMount: function(){\r\n        this.listenTo(AnimalStore.dogs,this.updateDogs); \r\n        //this Component has no internest in `cats` or any other animal, so it listents to `dogs` changes only\r\n    },\r\n    updateDogs: function(dogs){\r\n        this.setState({dogs:dogs});\r\n        //now we have auto-synchronization with `dogs`, with no need for specific logic for that\r\n    },\r\n    render: function () {\r\n        return (<div><p>We have {this.state.dogs} dogs</p></div>);\r\n    }\r\n});\r\n\r\n```\r\n#### 2. listen to an entire store:\r\n\r\n```javascript\r\nvar AnimalStore = require(\'./AnimalStore.js\');\r\n\r\nvar PetsComponent = React.createClass({\r\n    mixins:[Reflux.ListenerMixin],\r\n    getInitialState: function (){\r\n      return({\r\n          dogs: AnimalStore.state.dogs,\r\n          cats: AnimalStore.state.cats\r\n      })\r\n    },\r\n    componentDidMount: function(){\r\n         this.listenTo(\r\n            AnimalStore,\r\n            (state)=>{\r\n                this.setState({\r\n                    dogs:state.dogs,\r\n                    cats:state.cats\r\n                })\r\n            });\r\n         //this way the component can easily decide what parts of the store-state are interesting\r\n    },\r\n\r\n    render: function () {\r\n        return (<div><p>We have {this.state.dogs + this.state.cats} pets</p></div>);\r\n    }\r\n})\r\n```\r\n#### 3. connect:\r\n\r\n```javascript\r\nvar AnimalStore = require(\'./AnimalStore.js\');\r\nvar StateMixin = require(\'reflux-state-mixin\')(Reflux);\r\n\r\nvar PetsComponent = React.createClass({\r\n    mixins:[\r\n        StateMixin.connect(AnimalStore, \'dogs\')\r\n        //OR\r\n        StateMixin.connect(AnimalStore) //now PetsComponent.state === AnimalStore.state\r\n        ],\r\n\r\n    render: function () {\r\n        return (<div><p>We have {this.state.dogs} dogs</p></div>);\r\n    }\r\n})\r\n```\r\n## Installation\r\n\r\n```bash\r\n$ npm install reflux-state-mixin --save\r\n```\r\n\r\n## some details\r\n`GetInitialState()` in store should have all of the states from the beginning.  \r\n`setState()` is checking to see if there is a difference between new `state.key` from current `state.key`. If not, this specific `state.key` it\'s not triggering.\r\nFor any `setState()` the entire store is triggering (regardless of changes), allowing any Component or other Store to listen to the entire Store\'s state.\r\n\r\n## acknowledgments\r\nThis mixin is combination of two other mixins - \r\n[triggerables-mixin](https://github.com/jesstelford/reflux-triggerable-mixin), a really useful mixin for controlling the trigger of the stores. Also see [this](https://github.com/spoike/refluxjs/issues/158) for details. \r\nAnd [state-mixin](https://github.com/spoike/refluxjs/issues/290) \r\n\r\nI thank @jehoshua02 and @jesstelford for their valuable code. \r\n',
+103 silly resolved     readmeFilename: 'README.md',
+103 silly resolved     gitHead: 'ae16010877075dd1815af3ca88fe5c2e0b5efc58',
+103 silly resolved     bugs: { url: 'https://github.com/yonatanmn/reflux-state-mixin/issues' },
+103 silly resolved     _id: 'reflux-state-mixin@0.4.5',
+103 silly resolved     scripts: {},
+103 silly resolved     _shasum: '8236c872e993009e6d9c201bcb7f71646cabdf36',
+103 silly resolved     _from: 'reflux-state-mixin@',
+103 silly resolved     dist: { shasum: '798a849797443e9f6906905253a9b3f0c6ab9e1c' },
+103 silly resolved     _resolved: 'https://registry.npmjs.org/reflux-state-mixin/-/reflux-state-mixin-0.4.5.tgz' } ]
+104 info install reflux-state-mixin@0.4.5 into /home/peter/Documents/playground/OnlineNounResources/src/main/webapp
+105 info installOne reflux-state-mixin@0.4.5
+106 info /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/reflux-state-mixin unbuild
+107 verbose tar unpack /home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+108 silly lockFile 6ef2bf94--node-modules-reflux-state-mixin tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/reflux-state-mixin
+109 verbose lock tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/reflux-state-mixin /home/peter/.npm/6ef2bf94--node-modules-reflux-state-mixin.lock
+110 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+111 verbose lock tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz /home/peter/.npm/04fd549f-ux-state-mixin-0-4-5-package-tgz.lock
+112 silly gunzTarPerm modes [ '755', '644' ]
+113 silly gunzTarPerm extractEntry package.json
+114 silly gunzTarPerm extractEntry .npmignore
+115 silly gunzTarPerm extractEntry README.md
+116 silly gunzTarPerm extractEntry index.js
+117 silly gunzTarPerm extractEntry utils.js
+118 silly lockFile 6ef2bf94--node-modules-reflux-state-mixin tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/reflux-state-mixin
+119 silly lockFile 6ef2bf94--node-modules-reflux-state-mixin tar:///home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/reflux-state-mixin
+120 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+121 silly lockFile 04fd549f-ux-state-mixin-0-4-5-package-tgz tar:///home/peter/.npm/reflux-state-mixin/0.4.5/package.tgz
+122 info preinstall reflux-state-mixin@0.4.5
+123 verbose readDependencies using package.json deps
+124 verbose readDependencies using package.json deps
+125 silly resolved []
+126 verbose about to build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/reflux-state-mixin
+127 info build /home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules/reflux-state-mixin
+128 verbose linkStuff [ false,
+128 verbose linkStuff   false,
+128 verbose linkStuff   false,
+128 verbose linkStuff   '/home/peter/Documents/playground/OnlineNounResources/src/main/webapp/node_modules' ]
+129 info linkStuff reflux-state-mixin@0.4.5
+130 verbose linkBins reflux-state-mixin@0.4.5
+131 verbose linkMans reflux-state-mixin@0.4.5
+132 verbose rebuildBundles reflux-state-mixin@0.4.5
+133 info install reflux-state-mixin@0.4.5
+134 info postinstall reflux-state-mixin@0.4.5
+135 error peerinvalid The package react does not satisfy its siblings' peerDependencies requirements!
+135 error peerinvalid Peer react-router@0.13.4 wants react@0.13.x
+135 error peerinvalid Peer reflux@0.2.13 wants react@>=0.12.2 <0.15.0
+135 error peerinvalid Peer material-ui@0.13.0 wants react@^0.14.0
+135 error peerinvalid Peer react-addons-create-fragment@0.14.0 wants react@^0.14.0
+135 error peerinvalid Peer react-addons-pure-render-mixin@0.14.0 wants react@^0.14.0
+135 error peerinvalid Peer react-addons-transition-group@0.14.0 wants react@^0.14.0
+135 error peerinvalid Peer react-addons-update@0.14.0 wants react@^0.14.0
+135 error peerinvalid Peer react-tap-event-plugin@0.2.1 wants react@^0.14.0
+135 error peerinvalid Peer react-bootstrap@0.27.1 wants react@>=0.14.0
+136 error System Linux 3.13.0-63-generic
+137 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "--save" "reflux-state-mixin"
+138 error cwd /home/peter/Documents/playground/OnlineNounResources/src/main/webapp
+139 error node -v v0.10.25
+140 error npm -v 1.3.10
+141 error code EPEERINVALID
+142 verbose exit [ 1, true ]
