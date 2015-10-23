@@ -5,17 +5,11 @@
  */
 package com.noun.dto;
 
-<<<<<<< HEAD
-/**
- *
- * @author peter
-=======
 import java.util.Objects;
 
 /**
  *
  * @author azibit
->>>>>>> a22cdad014d3639cef43215092a8b87d93ae1836
  */
 public class RoleDto {
     private String roleId;
@@ -29,10 +23,6 @@ public class RoleDto {
         this.description = description;
     }
 
-<<<<<<< HEAD
-    
-    
-=======
     public String getRoleId() {
         return roleId;
     }
@@ -79,8 +69,7 @@ public class RoleDto {
         }
         return true;
     }
->>>>>>> a22cdad014d3639cef43215092a8b87d93ae1836
-    
+
     
     
 }
