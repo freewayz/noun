@@ -32,6 +32,11 @@ public interface ResourcePath {
     String GET_ALL_USERS = "users/all";
     
     String GET_ALL_RESOURCES = "resources/all";
-    String GET_ALL_RESOURCES_BY_DEP_FACULTY = "resources/query";
+    
+    String GET_ALL_RESOURCES_BY_DEP_FACULTY = "resources";
+    
+    String GET_ALL_RESOURCES_BY_DEPT = "resources/dept";
+    
+    String GET_ALL_RESOURCES_BY_FACULTY = "resources/faculty";
 
 }

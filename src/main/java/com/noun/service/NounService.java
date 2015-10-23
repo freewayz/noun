@@ -12,6 +12,8 @@ import com.noun.dto.UserDto;
 import com.noun.entities.Resource;
 import com.noun.entities.User;
 import com.noun.mngr.ResourceMngrLocal;
+import com.noun.mngr.RoleLocal;
+import com.noun.mngr.RoleMngr;
 import com.noun.mngr.UserMngrLocal;
 
 import javax.ejb.EJB;
@@ -36,12 +38,23 @@ public class NounService {
     @EJB
     ResourceMngrLocal resourceLocal;
     
+    @EJB
+    RoleLocal roleLocal;
+    
 
     public UserDto saveUser(UserDto newUserDto) {
+        
+        User user = crudServiceProviderLocal
+                .create(EntityMapper.mapToUser(newUserDto));
 
         //TODO get the
-        return EntityMapper.mapToUserDto(crudServiceProviderLocal
-                .create(EntityMapper.mapToUser(newUserDto)));
+        if(newUserDto.getUserId().charAt(0) == 'L'){
+            user.setRoleId(roleLocal.get("LECTURER"));
+        }
+        else{
+            user.setRoleId(roleLocal.get("STUDENT"));
+        }
+        return EntityMapper.mapToUserDto(user);
     }
     
     public ResourceDto saveResource(ResourceDto newResourceDto) {
@@ -88,6 +101,36 @@ public class NounService {
     public List<ResourceDto> getByDeptAndFaculty(String deptId, String faculty){
         List<Resource> resources = 
                 resourceLocal.getByDeptAndFaculty(deptId, faculty);
+        List<ResourceDto> resourcesDto = new ArrayList();
+        
+        if (resources != null || resources.size() > 0) {
+            for (Resource resource : resources) {
+                resourcesDto.add(EntityMapper.mapToResourceDto(resource));
+            }
+            return resourcesDto;
+        } else {
+            return resourcesDto;
+        }
+    }
+    
+     public List<ResourceDto> getByDept(String deptId){
+        List<Resource> resources = 
+                resourceLocal.getByDept(deptId);
+        List<ResourceDto> resourcesDto = new ArrayList();
+        
+        if (resources != null || resources.size() > 0) {
+            for (Resource resource : resources) {
+                resourcesDto.add(EntityMapper.mapToResourceDto(resource));
+            }
+            return resourcesDto;
+        } else {
+            return resourcesDto;
+        }
+    }
+     
+     public List<ResourceDto> getByFaculty(String faculty){
+        List<Resource> resources = 
+                resourceLocal.getByFacluty(faculty);
         List<ResourceDto> resourcesDto = new ArrayList();
         
         if (resources != null || resources.size() > 0) {

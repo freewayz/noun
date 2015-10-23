@@ -19,44 +19,60 @@ import java.util.List;
  *
  * @author azibit
  */
-
 @Local
 @Path(ResourcePath.PATH)
 public interface UserResourceLocal {
-    
+
     @Path(ResourcePath.CREATE_RESOURSE)
     @POST
     @Consumes("application/json")
     @Produces("application/json")
     ResourceDto addResource(ResourceDto resourceDto);
-    
-    @Path(ResourcePath.UPDATE + "{id}") @PUT
-    @Consumes("application/json") @Produces("application/json")
-    UserDto updateUser(@PathParam("id") String userId , UserDto userDto);
-    
+
+    @Path(ResourcePath.UPDATE + "{id}")
+    @PUT
+    @Consumes("application/json")
+    @Produces("application/json")
+    UserDto updateUser(@PathParam("id") String userId, UserDto userDto);
+
     @Path(ResourcePath.GET_ALL_USERS)
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     Response getAllUsers();
-    
-    @Path(ResourcePath.GET_ALL_RESOURCES) 
+
+    @Path(ResourcePath.GET_ALL_RESOURCES)
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-     Response getAllResources();
-    
-    @Path(ResourcePath.USER_PATH) 
+    Response getAllResources();
+
+    @Path(ResourcePath.USER_PATH)
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     UserDto getUser(@PathParam("userId") String userId);
-    
-    @Path(ResourcePath.GET_ALL_RESOURCES_BY_DEP_FACULTY+"/{deptId}/{faculty}")
+
+    @Path(ResourcePath.GET_ALL_RESOURCES_BY_DEP_FACULTY + "/{deptId}/{faculty}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     List<ResourceDto>
-        getResourceByDeptAndFaculty(@PathParam("deptId") String deptId,
-                @PathParam("faculty") String faculty);
+            getResourceByDeptAndFaculty(@PathParam("deptId") String deptId,
+                    @PathParam("faculty") String faculty);
 
-    @Path(ResourcePath.REGISTRATION_PATH) @POST @Consumes("application/json") @Produces("application/json")
+    @Path(ResourcePath.REGISTRATION_PATH)
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
     Response registration(UserDto userDto);
+
+    @Path(ResourcePath.GET_ALL_RESOURCES_BY_DEPT + "/{deptId}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    Response
+            getResourceByDept(@PathParam("deptId") String deptId);
+
+    @Path(ResourcePath.GET_ALL_RESOURCES_BY_FACULTY + "/{faculty}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    Response
+            getResourceByFaculty(@PathParam("faculty") String faculty);
 
 }
